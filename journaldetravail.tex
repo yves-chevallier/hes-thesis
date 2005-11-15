@@ -1,0 +1,330 @@
+%----------------------------------+-------------------------------------------%
+%                 _                |  Document: Livre Forum HES-SO             %
+%  _   _         |_|               |  Authors: Y.Chevallier                    %
+% | |/ / __  _    _  _____  ____   |  Release: alpha                           %
+% |  _/ /  \| |  | |/  _  \| ___)  |  FileType: ASCII/LaTeX2e                  %
+% | | \| /\ | |__| || |_| ||___ |  |  Created: 200511050318                    %
+% |_|\_\_||_|____)_|\_____/(____|  |  Modified: go to SVN Server               %
+%              Quality above all   |  SVN: http://193.134.216.186/svn/         %
+%----------------------------------+-------------------------------------------%
+% Title:  Rapport FORUMHES-SO                                                  %
+%------------------------------------------------------------------------------%
+% $Id$
+%------------------------------------------------------------------------------%
+\documentclass{kbook} 
+
+%------------------------------------------------------------------------------%
+% Définition des variables du document                                         %
+%------------------------------------------------------------------------------%
+\def\kTitle							{Travail de diplôme}
+\def\kAuthors						{Yves Chevallier}
+\def\ksubTitle						{Gestion du bâtiment par pages web}
+\def\keditorAddress				{Yves Chevallier\\10 ch des Fleurettes\\1400 Yverdon-les-Bains}
+\def\keditorEmail					{yves.chevallier@kalios.ch}
+\def\keditorUrl					{http://www.kalios.ch}
+\def\kcouverture              {Yves Chevallier}
+\def\krelecture               {-}
+\def\kimprimerie              {-}
+\def\kcopyrightYear				{2005}      
+\def\kliminairetext				{-} 
+
+\def\TP                       {\textbf{TP}~} 
+\def\SE                       {\textbf{SERVEUR}~}
+\def\LonTouch                 {\includegraphics[height=0.8em]{figures/ltch.eps}~}
+
+%------------------------------------------------------------------------------%
+% Début du contenu                                                             %
+%------------------------------------------------------------------------------%
+\begin{document}
+\maketitle\newpage
+\firstPage
+\frontmatter   
+\tableofcontents
+\chapter*{Avant propos}
+
+\mainmatter
+\chapter{Présentation du projet}
+
+\chapter{Fonctionnalités}
+
+\chapter{LonTouch Protocol --- Protocole de communication}
+Pour permettre la communication entre les différents composants du système, il a fallu établir un protocole intervenant aux couches 4 ou 5 du modèle OSI. L'établissement d'un tel protocole n'est pas aisé les questions qu'il est nécessaire de se poser sont multiples et pour chacune d'entres-elle il n'existe pas de solution absolue. L'entier de ce chapitre est consacré aux démarches entreprises pour aboutir à un protocole de communication indépendant du média utilisé. 
+
+\section{Cahier des charges initial}
+\clearpage
+\section{Description du protocol LonTouch}
+
+\fig{datagramme}{Aperçu du datagramme LonTouch}
+
+Type de données à transmettre:\\
+\begin{center}
+\begin{tabular}{|c|l|p{10cm}|}
+	\hline
+	0 &IDENTIFY& Paquet d'identification permettant aux \TP de s'annoncer auprès du \SE.\\
+	\hline	
+	1 &PING& Il peut arriver qu'une machine cherche à connaître le temps d'une communication, les paquets de type PING permettent de calculer ce temps. \\
+	\hline	
+	2 &CONFIG& L'échange de données concernant la configuration de l'installation véhiculent par ces paquets\\
+	\hline	
+	3 &SVNT& Il s'agit du paquet qui sera le plus utilisé. Il permet de mettre à jour, de demander une valeur de variable réseau\\
+	\hline	
+	4 &FTP& Le téléchargement des interfaces du \SE aux \TP passent par ce type de paquets \\
+	\hline	
+	5 &RSA& Un méchanisme de chiffrage pourra être utilisé. Bien que LonTalk dispose d'une telle fonctionnalité, cette dernière n'est pas utilisable sur un réseau Ethernet. \\
+	\hline	
+	6 &ACK& Les accusés de réceptiosn véhicules par l'intermédiaire de ces paquets\\
+	\hline	
+\end{tabular}
+\end{center}
+
+Les flags:
+\begin{center}
+\begin{tabular}{|c|l|p{10cm}|}
+	\hline
+	0 & ACK & Demande d'accusé\\
+	\hline      	
+	1 & ECD & Paquet chiffré\\
+	\hline      	
+	2 & PR & Priorité. Lorsque ce bit est activé le paquet sera placé en tête de la file d'attente. Lorsque il est inhibé, il sera placé en queue. \\
+	\hline      	
+	3 & NA & Non attribué.\\
+	\hline      	
+	4-7 & PATTERN & Ce motif permet d'accroitre la reconnaissance d'un datagramme \LonTouch. 	\\
+	\hline	
+\end{tabular}
+\end{center} 
+
+\fig{ack}{Fonctionnement du mode accusé}
+\appendix
+\addtocontents{toc}{\protect\switchapp} 
+
+\chapter{Installation du serveur Linux}
+\section{Debian}
+\section{Serveur web --- Lighttpd}
+\section{PHP}
+\section{Démon}
+
+\chapter{Librairies Loytec}
+\section{OrionAPI}
+\section{Ossi}
+\chapter{Journal de travail} 
+\section*{3 octobre 2005}
+Documentation web
+\section*{4 octobre 2005}
+Documentation web
+\section*{5 octobre 2005}
+Documentation web
+\section*{6 octobre 2005}
+Débriefing forum HES-SO 
+
+\section*{7 octobre 2005}
+Documentation web
+
+\section*{10 octobre 2005}
+Etablissement du concept de fonctionnement papier 
+
+\section*{11 octobre 2005}
+Installation de mon PC à l'école
+
+\section*{12 octobre 2005}
+Discussion avec NITRO 
+
+\section*{13 octobre 2005}
+Modification du concept 
+Analyse Internet
+Renseignement XUL, XML-RPC, XULRUNNER, XPCOM 
+
+\section*{14 octobre 2005}
+- 
+
+\section*{17 octobre 2005}
+- 
+
+\section*{18 octobre 2005}
+- 
+
+\section*{19 octobre 2005}
+Aujourd'hui, départ pour Thun. 
+
+\section*{20 octobre 2005}
+- 
+
+\section*{21 octobre 2005}
+Discussion avec ZIMBA
+
+\section*{24 octobre 2005}
+Obtention d'un PIII 866 [Mhz] auprès de M.bovet
+Essai installation de Linux Debian
+
+\section*{25 octobre 2005}
+Installation serveur web Lighttpd
+Installation php tests
+
+\section*{26 octobre 2005}
+Début de codage sous linux 
+Makefiles 
+Socket
+
+\section*{27 octobre 2005}
+Socket à fond 
+
+\section*{28 octobre 2005}
+Disque dur laché, réinstallation 
+
+\section*{31 octobre 2005}
+Préparation de la présentation pour le \textsc{JT'06} 
+
+\section*{1 novembre 2005}
+Essai de faire fonctionner drivers linux NIC-PCI  
+
+\section*{2 novembre 2005}
+Essai de faire fonctionner drivers linux NIC-PCI 
+
+\section*{3 novembre 2005}
+Fonctionnement enfin des drivers Linux
+J'ai établi le fonctionnement FTP 
+
+\section*{4 novembre 2005}
+Ayant établi le concept logiciel de réception de messages du démon serveur. Je m'attaque au code. Dans un premier temps, je souhaite réaliser un programme de test client/serveur ayant les fonctionnalité suivantes:
+\begin{itemize}
+	\item Envoi d'un message avec accusé de réception
+	\item Réception continue 
+\end{itemize}
+
+Pour rendre le développement du démon plus aisée je souhaite constituer une librairie de gestion de message (envoi et réception) et de distribution entre les différents threads. Le nom choisi parait evident: \emph{PostOffice}. Il se compose des fonctionnalités suivantes: 
+
+\begin{itemize}
+	\item PostOfficeSuscribe(typeService, addr, *event)
+	\item PostOfficeUnsuscribe(event)
+	\item PostOfficeWait(timeOut, event)
+	\item PostOfficeRead(event, *msg)
+	\item PostOfficeAcknowledgment(*msg)
+	\item PostOfficeStatus()
+	\item PostOfficeSend(typeService, addr, *msg, ack)
+\end{itemize}
+
+\section*{7 novembre 2005}
+La présidence du \textsc{FORUM'05 HES-SO} me monopolise une fois de plus. Aujourd'hui je contraint de participer à la conférence des directeurs des 5 écoles d'Ingénieurs de suisse romande pour discuter de l'avenir du \textsc{FORUM'06 HES-SO}. Je n'ai malheureusement pas pu entreprendre quoi que ce soit ayant rapport avec mon travail de diplôme. 
+
+\section*{8 novembre 2005}
+- Préparation séance avec Philippe Rochat. 
+- Etablissement canevas ``mémoire de diplome''
+- Codage de PostOffice
+- Evoquation du problème BigEndian, LittleEndian
+- Travail avec HTTP au lieu du démon et tout le merdier = Plus lourd mais plus facile à développer
+
+- Ecriture d'un programme exemple tout con balançant un message\ldots
+
+- Debuggage PostOFFICE:
+  -PostOfficeSuscribe [OK]
+  -PostOfficeUnsuscribe [OK]
+  -Réception et mise en file d'attente [OK]
+  -Lancement de l'event [FAILED]
+  -Revoir le fonctionnement de la table d'event event<->data
+  
+  Erreurs étaient pour la plupart confusions pointeur et données
+  
+\section*{9 novembre 2005} 
+A FAIRE: 
+	-Laisser tomber PostOffice pour l'instant et s'occupe d'échange comme ca
+	-Découvert que l'on peut reprendre l'adresse IP du datagramme. Donc pas besoin de faire passer l'adresse dans LonTouch Protocol
+ 
+\section*{10 novembre 2005} 
+A FAIRE:
+	- Codage d'une librairie DataBox pour les listes chainées fifo et lifo 
+	- Implanter commande SNVT et thread SNVT
+
+\section*{11 novembre 2005} 
+
+\section*{14 novembre 2005} 
+A FAIRE: 
+	- Implanter FTP
+\section*{15 novembre 2005} 
+A FAIRE: 
+	- Implanter FTP
+\section*{16 novembre 2005} 
+A FAIRE: 
+	- Test FTP
+\section*{17 novembre 2005} 
+A FAIRE: 
+	- Test FTP
+\section*{18 novembre 2005} 
+
+\section*{21 novembre 2005} 
+\section*{22 novembre 2005} 
+\section*{23 novembre 2005} 
+\section*{24 novembre 2005} 
+\section*{25 novembre 2005} 
+
+\section*{28 novembre 2005} 
+\section*{29 novembre 2005} 
+\section*{30 novembre 2005} 
+\section*{1 décembre 2005} 
+\section*{2 décembre 2005} 
+
+\section*{5 décembre 2005} 
+A FAIRE: Ecriture du mémoire de diplome
+\section*{6 décembre 2005} 
+A FAIRE: Ecriture du mémoire de diplome
+\section*{7 décembre 2005} 
+A FAIRE: Ecriture du mémoire de diplome
+\section*{8 décembre 2005} 
+A FAIRE: Ecriture du mémoire de diplome
+\section*{9 décembre 2005} 
+A FAIRE: Ecriture du mémoire de diplome
+% Rédaction du mémoire de diplome 
+
+\section*{12 décembre 2005} 
+A FAIRE: Ecriture du mémoire de diplome
+\section*{13 décembre 2005} 
+A FAIRE: Ecriture du mémoire de diplome
+\section*{14 décembre 2005} 
+A FAIRE: Ecriture du mémoire de diplome
+\section*{15 décembre 2005} 
+A FAIRE: Ecriture du mémoire de diplome
+\section*{16 décembre 2005} 
+A FAIRE: Ecriture du mémoire de diplome
+
+\section*{19 décembre 2005} 
+A FAIRE: Relecture du mémoire de diplome
+\section*{20 décembre 2005} 
+A FAIRE: Impression du mémoire de diplome 
+\section*{21 décembre 2005} 
+libre
+\section*{22 décembre 2005} 
+libre
+\section*{23 décembre 2005} 
+
+% Rendu du mémoire de diplome
+
+
+\backmatter
+\begin{thebibliography}{8}
+	\bibitem{progr:lala} Christophe \textsc{BLAESS} --- \emph{Programmation système en C sous Linux}\\ Eyrolles, 2000\\ISBN: 2-212-09136-2
+	\bibitem{cassagne:1998} Bernard \textsc{Cassagne} --- \emph{Introduction au langage C} \\ ftp://ftp.imag.fr/pub/DOC.UNIX/C/Introduction\_ANSI\_C.ps
+	\bibitem{delannoy:2000} Claude \textsc{Delannoy} --- \emph{Programmer en langage C} \\
+		Eyrolles, 2000\\ISBN: 2-212-08985-6 	
+	\bibitem{loy:2001} Dietmar \textsc{Loy}, Dietmar \textsc{Dietrich}, Hans-Joerg \textsc{Schweinzer} --- Open control networks: LonWorks/EIA709 technology\\
+		Boston, Kulwer Academic Publishers, 2001\\
+		ISBN: 0-7923-7406-1
+	\bibitem{javascript:2002} David \textsc{Flanagan} --- \emph{JavaScript, La référence}\\
+		\textsc{O'Reilly}, 2002\\
+		ISBN: 2-84177-212-8
+	\bibitem{texbook:2003} Donald \textsc{E.Knuth} --- \emph{Le \TeX book}\\
+		Vuibert, 2002\\
+		ISBN: 2-7117-4819-7
+	\bibitem{TCPIP:2003} Karanjit \textsc{S.Siyan} --- \emph{TCP/IP}\\
+		CampusPress, 2003\\
+		ISBN: 2-7440-1653-5
+	\bibitem{latex:2003} Bernard \textsc{Desgraupes} --- \emph{\LaTeX}\\
+		Vuibert, 2002\\
+		ISBN: 2-7117-4809-X
+	\bibitem{adminlinux:2004} Rob \textsc{Flickenger} --- \emph{Administration LINUX à 200\%}\\
+		\textsc{O'Reilly}, 2004\\
+		ISBN: 2-84177-295-0
+	\bibitem{mysql:2003} George \textsc{Reese} --- \emph{Mysql précis \& concis}\\
+		\textsc{O'Reilly}, 2003\\
+		ISBN: 2-84177-261-6
+\end{thebibliography}   
+
+\end{document}
