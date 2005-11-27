@@ -1,0 +1,201 @@
+%-------------------------------------------------+----------------------------%
+%  _   _        _                            _    |       (Prof: B.Schneider)  %
+% | | | |      |_|                          | |   |                            %
+% | |_| |_____  _ _____           _    _  __| |   |                            %
+% | |_  | ___ || |  _  \  _____  \ \  / // _  |   | Author:   Y.Chevallier     %
+% | | | | ____|| | |_| | (_____)  \ \/ /( (_| |   |                            %
+% |_| |_|_____)|_|___  |           \__/  \____|   |                            %
+%                  __| | Haute Ecole d'Ingenieurs |                            %
+%                 |___/  et de Gestion - Vaud     | FileType: ASCII/LaTeX2e    %
+%------------------------------------------------------------------------------%
+% Title: TRAVAIL DE DIPLOME                                                    %
+%------------------------------------------------------------------------------%
+% $Id: journal.tex 20 2005-11-15 23:00:29Z Canard $                            %
+%------------------------------------------------------------------------------%
+\chapter{Journal de travail} 
+\section*{3 octobre 2005}
+Documentation web
+\section*{4 octobre 2005}
+Documentation web
+\section*{5 octobre 2005}
+Documentation web
+\section*{6 octobre 2005}
+Débriefing forum HES-SO 
+
+\section*{7 octobre 2005}
+Documentation web
+
+\section*{10 octobre 2005}
+Etablissement du concept de fonctionnement papier 
+
+\section*{11 octobre 2005}
+Installation de mon PC à l'école
+
+\section*{12 octobre 2005}
+Discussion avec NITRO 
+
+\section*{13 octobre 2005}
+Modification du concept 
+Analyse Internet
+Renseignement XUL, XML-RPC, XULRUNNER, XPCOM 
+
+\section*{14 octobre 2005}
+- 
+
+\section*{17 octobre 2005}
+- 
+
+\section*{18 octobre 2005}
+- 
+
+\section*{19 octobre 2005}
+Aujourd'hui, départ pour Thun. 
+
+\section*{20 octobre 2005}
+- 
+
+\section*{21 octobre 2005}
+Discussion avec ZIMBA
+
+\section*{24 octobre 2005}
+Obtention d'un PIII 866 [Mhz] auprès de M.bovet
+Essai installation de Linux Debian
+
+\section*{25 octobre 2005}
+Installation serveur web Lighttpd
+Installation php tests
+
+\section*{26 octobre 2005}
+Début de codage sous linux 
+Makefiles 
+Socket
+
+\section*{27 octobre 2005}
+Socket à fond 
+
+\section*{28 octobre 2005}
+Disque dur laché, réinstallation 
+
+\section*{31 octobre 2005}
+Préparation de la présentation pour le \textsc{JT'06} 
+
+\section*{1 novembre 2005}
+Essai de faire fonctionner drivers linux NIC-PCI  
+
+\section*{2 novembre 2005}
+Essai de faire fonctionner drivers linux NIC-PCI 
+
+\section*{3 novembre 2005}
+Fonctionnement enfin des drivers Linux
+J'ai établi le fonctionnement FTP 
+
+\section*{4 novembre 2005}
+Ayant établi le concept logiciel de réception de messages du démon serveur. Je m'attaque au code. Dans un premier temps, je souhaite réaliser un programme de test client/serveur ayant les fonctionnalité suivantes:
+\begin{itemize}
+	\item Envoi d'un message avec accusé de réception
+	\item Réception continue 
+\end{itemize}
+
+Pour rendre le développement du démon plus aisée je souhaite constituer une librairie de gestion de message (envoi et réception) et de distribution entre les différents threads. Le nom choisi parait evident: \emph{PostOffice}. Il se compose des fonctionnalités suivantes: 
+
+\begin{itemize}
+	\item PostOfficeSuscribe(typeService, addr, *event)
+	\item PostOfficeUnsuscribe(event)
+	\item PostOfficeWait(timeOut, event)
+	\item PostOfficeRead(event, *msg)
+	\item PostOfficeAcknowledgment(*msg)
+	\item PostOfficeStatus()
+	\item PostOfficeSend(typeService, addr, *msg, ack)
+\end{itemize}
+
+\section*{7 novembre 2005}
+La présidence du \textsc{FORUM'05 HES-SO} me monopolise une fois de plus. Aujourd'hui je contraint de participer à la conférence des directeurs des 5 écoles d'Ingénieurs de suisse romande pour discuter de l'avenir du \textsc{FORUM'06 HES-SO}. Je n'ai malheureusement pas pu entreprendre quoi que ce soit ayant rapport avec mon travail de diplôme. 
+
+\section*{8 novembre 2005}
+- Préparation séance avec Philippe Rochat. 
+- Etablissement canevas ``mémoire de diplome''
+- Codage de PostOffice
+- Evoquation du problème BigEndian, LittleEndian
+- Travail avec HTTP au lieu du démon et tout le merdier = Plus lourd mais plus facile à développer
+
+- Ecriture d'un programme exemple tout con balançant un message\ldots
+
+- Debuggage PostOFFICE:
+  -PostOfficeSuscribe [OK]
+  -PostOfficeUnsuscribe [OK]
+  -Réception et mise en file d'attente [OK]
+  -Lancement de l'event [FAILED]
+  -Revoir le fonctionnement de la table d'event event<->data
+  
+  Erreurs étaient pour la plupart confusions pointeur et données
+  
+\section*{9 novembre 2005} 
+A FAIRE: 
+	-Laisser tomber PostOffice pour l'instant et s'occupe d'échange comme ca
+	-Découvert que l'on peut reprendre l'adresse IP du datagramme. Donc pas besoin de faire passer l'adresse dans LonTouch Protocol
+ 
+\section*{10 novembre 2005} 
+A FAIRE:
+	- Codage d'une librairie DataBox pour les listes chainées fifo et lifo 
+	- Implanter commande SNVT et thread SNVT
+
+\section*{11 novembre 2005} 
+
+\section*{14 novembre 2005} 
+A FAIRE: 
+	- Implanter FTP
+\section*{15 novembre 2005} 
+A FAIRE: 
+	- Implanter FTP
+\section*{16 novembre 2005} 
+A FAIRE: 
+	- Test FTP
+\section*{17 novembre 2005} 
+A FAIRE: 
+	- Test FTP
+\section*{18 novembre 2005} 
+
+\section*{21 novembre 2005} 
+\section*{22 novembre 2005} 
+\section*{23 novembre 2005} 
+\section*{24 novembre 2005} 
+\section*{25 novembre 2005} 
+
+\section*{28 novembre 2005} 
+\section*{29 novembre 2005} 
+\section*{30 novembre 2005} 
+\section*{1 décembre 2005} 
+\section*{2 décembre 2005} 
+
+\section*{5 décembre 2005} 
+A FAIRE: Ecriture du mémoire de diplome
+\section*{6 décembre 2005} 
+A FAIRE: Ecriture du mémoire de diplome
+\section*{7 décembre 2005} 
+A FAIRE: Ecriture du mémoire de diplome
+\section*{8 décembre 2005} 
+A FAIRE: Ecriture du mémoire de diplome
+\section*{9 décembre 2005} 
+A FAIRE: Ecriture du mémoire de diplome
+% Rédaction du mémoire de diplome 
+
+\section*{12 décembre 2005} 
+A FAIRE: Ecriture du mémoire de diplome
+\section*{13 décembre 2005} 
+A FAIRE: Ecriture du mémoire de diplome
+\section*{14 décembre 2005} 
+A FAIRE: Ecriture du mémoire de diplome
+\section*{15 décembre 2005} 
+A FAIRE: Ecriture du mémoire de diplome
+\section*{16 décembre 2005} 
+A FAIRE: Ecriture du mémoire de diplome
+
+\section*{19 décembre 2005} 
+A FAIRE: Relecture du mémoire de diplome
+\section*{20 décembre 2005} 
+A FAIRE: Impression du mémoire de diplome 
+\section*{21 décembre 2005} 
+libre
+\section*{22 décembre 2005} 
+libre
+\section*{23 décembre 2005} 

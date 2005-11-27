@@ -1,0 +1,61 @@
+%-------------------------------------------------+----------------------------%
+%  _   _        _                            _    |       (Prof: B.Schneider)  %
+% | | | |      |_|                          | |   |                            %
+% | |_| |_____  _ _____           _    _  __| |   |                            %
+% | |_  | ___ || |  _  \  _____  \ \  / // _  |   | Author:   Y.Chevallier     %
+% | | | | ____|| | |_| | (_____)  \ \/ /( (_| |   |                            %
+% |_| |_|_____)|_|___  |           \__/  \____|   |                            %
+%                  __| | Haute Ecole d'Ingenieurs |                            %
+%                 |___/  et de Gestion - Vaud     | FileType: ASCII/LaTeX2e    %
+%------------------------------------------------------------------------------%
+% Title: TRAVAIL DE DIPLOME                                                    %
+%------------------------------------------------------------------------------%
+% $Id: journal.tex 20 2005-11-15 23:00:29Z Canard $                            %
+%------------------------------------------------------------------------------%
+\chapter{LonTouch Protocol --- Protocole de communication}
+Pour permettre la communication entre les différents composants du système, il a fallu établir un protocole intervenant aux couches 4 ou 5 du modèle OSI. L'établissement d'un tel protocole n'est pas aisé les questions qu'il est nécessaire de se poser sont multiples et pour chacune d'entres-elle il n'existe pas de solution absolue. L'entier de ce chapitre est consacré aux démarches entreprises pour aboutir à un protocole de communication indépendant du média utilisé. 
+
+\section{Cahier des charges initial}
+\clearpage
+\section{Description du protocol LonTouch}
+
+\fig{datagramme}{Aperçu du datagramme LonTouch}
+
+Type de données à transmettre:\\
+\begin{center}
+\begin{tabular}{|c|l|p{10cm}|}
+	\hline
+	0 &IDENTIFY& Paquet d'identification permettant aux \TP de s'annoncer auprès du \SE.\\
+	\hline	
+	1 &PING& Il peut arriver qu'une machine cherche à connaître le temps d'une communication, les paquets de type PING permettent de calculer ce temps. \\
+	\hline	
+	2 &CONFIG& L'échange de données concernant la configuration de l'installation véhiculent par ces paquets\\
+	\hline	
+	3 &SVNT& Il s'agit du paquet qui sera le plus utilisé. Il permet de mettre à jour, de demander une valeur de variable réseau\\
+	\hline	
+	4 &FTP& Le téléchargement des interfaces du \SE aux \TP passent par ce type de paquets \\
+	\hline	
+	5 &RSA& Un méchanisme de chiffrage pourra être utilisé. Bien que LonTalk dispose d'une telle fonctionnalité, cette dernière n'est pas utilisable sur un réseau Ethernet. \\
+	\hline	
+	6 &ACK& Les accusés de réceptiosn véhicules par l'intermédiaire de ces paquets\\
+	\hline	
+\end{tabular}
+\end{center}
+
+Les flags:
+\begin{center}
+\begin{tabular}{|c|l|p{10cm}|}
+	\hline
+	0 & ACK & Demande d'accusé\\
+	\hline      	
+	1 & ECD & Paquet chiffré\\
+	\hline      	
+	2 & PR & Priorité. Lorsque ce bit est activé le paquet sera placé en tête de la file d'attente. Lorsque il est inhibé, il sera placé en queue. \\
+	\hline      	
+	3 & NA & Non attribué.\\
+	\hline      	
+	4-7 & PATTERN & Ce motif permet d'accroitre la reconnaissance d'un datagramme \LonTouch. 	\\
+	\hline	
+\end{tabular}
+\end{center}                                    
+\fig{ack}{Fonctionnement du mode accusé}

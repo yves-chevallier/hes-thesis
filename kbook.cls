@@ -2,7 +2,7 @@
 \ProvidesClass{rapport}[2004/11/10 Extension pour RAPPORT EIVD]   
 
 % Chargement de la classe du document
-\LoadClass[11pt,a4paper, twoside, final]{book}
+\LoadClass[11pt,a4paper, oneside,final]{book}
 
 % Packages utiles
 \usepackage[latin1]{inputenc}     		% Format d'encodage
@@ -15,8 +15,11 @@
 \usepackage{fancyhdr}						% En-tête et pied de pages
 \usepackage{lastpage} 						% Permet de connaître le numéro de la dernière page
 \usepackage{fix-cm} 
-\usepackage{palatino} 						% Groupes de fontes Palatino
 \usepackage{titletoc}
+\usepackage{utopia}
+\usepackage{helvet}
+%\usepackage{palatino} 						% Groupes de fontes Palatino
+
 
 % Mise à jour des longueurs
 \setlength\parindent				{0pt}
@@ -116,11 +119,32 @@
       \fi
     \fi
     \interlinepenalty\@M
-	 \Huge\bfseries\emph{#1}\par\nobreak
+		{\itshape\Huge\textbf{#1}}\par\nobreak
     \vskip 40\p@
   }}
 
-
+% Redéfinition des sections et sous sections 
+\renewcommand\section{\@startsection {section}{1}{\z@}%
+                                   {-3.5ex \@plus -1ex \@minus -.2ex}%
+                                   {2.3ex \@plus.2ex}%
+                                   {\normalfont\Large\bfseries\itshape}}
+\renewcommand\subsection{\@startsection{subsection}{2}{\z@}%
+                                     {-3.25ex\@plus -1ex \@minus -.2ex}%
+                                     {1.5ex \@plus .2ex}%
+                                     {\normalfont\large\bfseries\itshape}}
+\renewcommand\subsubsection{\@startsection{subsubsection}{3}{\z@}%
+                                     {-3.25ex\@plus -1ex \@minus -.2ex}%
+                                     {1.5ex \@plus .2ex}%
+                                     {\normalfont\normalsize\bfseries\itshape}}
+\renewcommand\paragraph{\@startsection{paragraph}{4}{\z@}%
+                                    {3.25ex \@plus1ex \@minus.2ex}%
+                                    {-1em}%
+                                    {\normalfont\normalsize\bfseries\itshape}}
+\renewcommand\subparagraph{\@startsection{subparagraph}{5}{\parindent}%
+                                       {3.25ex \@plus1ex \@minus .2ex}%
+                                       {-1em}%
+                                      {\normalfont\normalsize\bfseries\itshape}}
+												  
 % Redéfinition de Tables des matières & Liste des figures ...
 \renewcommand{\@makeschapterhead}[1]{%
   \thispagestyle{empty}
@@ -129,7 +153,7 @@
     \normalfont
     \interlinepenalty\@M
 	 \begin{center}
-	 \Huge\emph{#1}\par\nobreak
+	 \Huge\textit{#1}\par\nobreak
 	 \end{center}
     \vskip 40\p@
   }}   
