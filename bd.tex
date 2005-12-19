@@ -1,0 +1,48 @@
+%///////////////////////////////////////////////////////////////////////////////
+%//  _   _        _                            _                                
+%// | | | |      |_|                          | |                               
+%// | |_| |_____  _ _____           _     _ __| |                               
+%// | |_  | ___ || |  _  \  _____  \ \  / // _  |                               
+%// | | | | ____|| | |_| | (_____)  \ \/ /( (_| |                               
+%// |_| |_|_____)|_|___  |           \__/  \____|                               
+%//                  __| | Haute Ecole d'Ingenieurs                             
+%//                 |___/  et de Gestion - Vaud                                 
+%//                                                                             
+%// @title    Mémoire de diplôme: Base de donnée                                
+%// @context  Travail de diplôme                                                
+%// @author   Y. Chevallier <nowox@kalios.ch>                                   
+%// @file     bd.tex                                                            
+%// @language ASCII/C                                                           
+%// @svn      $Id: bd.tex 82 2005-12-14 05:41:51Z Canard $                      
+%///////////////////////////////////////////////////////////////////////////////
+\chapter{Base de donnée}
+La quantité de données gérées par le SERVEUR ne nécessite pas l'usage d'une base de données. Une gestion de données peut être envisagée à l'aide de FICHIERS BINAIRES ou de FICHIERS ASCII. Toutefois, l'installation et l'utilisation d'un serveur de données est aujourd'hui si simple qu'il à été jugé préférable de procéder ainsi. 
+
+\section{Descriptifs des tables}
+Les possibilités offertes par le système LonTouch nécessite l'usage de différentes tables de données dont voici leur description :
+
+\subsection{Table users (Utilisateurs)}
+La liste des utilisateurs ayant accès aux GI en tant que CLIENTS sont régis par cette table. Une relation n:m lie cette table à la liste des interfaces graphiques. Un utilisateur peut avoir accès à une ou plusieurs interfaces. Les autorisations d'accès sont définies à l'aide du WEBGUI. 
+
+\subsection{Table tp (Ecrans tactiles)}
+Cette table contient la liste des TouchPanels de l'installation LonTouch. Elle renseigne la taille de l'écran du TP, son adresse réseau, son type de connexion (Ethernet ou LonWorks) ainsi que l'interface graphique active. Une relation de type n:m avec la table des interfaces graphiques définit quelles interfaces on été téléchargée dans le TP.
+
+\subsection{Table gi (Interfaces graphiques)}
+Les Interfaces graphiques installées dans le système sont listées dans cette table. Elles fournissent des renseignements quant à la taille d'écran minimum le nom de l'interface, pour faire tourner l'interface graphique, le nom de l'interface, une brève description ainsi que la version du GI. Une relation de type 1:n est liée à la table gi avec la table  gi\_var définissant les variables réseau de l'interface en question. 
+
+\subsection{Table nv (Variables réseau)}
+Cette table liste toutes les variables réseau dynamiques définies à l'aide de l'outil de configuration du réseau LonWorks. La table contient l'ensemble des paramètres de configuration décrivant une variable réseau LON. Cette table fait l'objet d'une relation de type n:m avec la table gi\_var qui défini les variables propre à une interface graphique. 
+
+\subsection{Table gi\_var (Variables d'interface)}
+Cette table définit les variables d'une interface graphique. Les informations contenues dans le fichier de description d'interface touch.desc à propos des variables d'interface sont contenues dans cette table. Cette dernière fait l'objet d'une relation 1:1 avec la table gi  et d'une relation n:m avec la table nv.
+
+\section{Modèle graphique de la base de donnée}
+La figure [reffigure] illustre les différentes tables constituant la base de données de LonTouch avec différentes relations. 
+
+\section{Logiciel de modélisation}
+La modélisation de la base de données à été effectuée à l'aide de l'outil logiciel DBDesigner 4 de fabFORGE. Il s'agit d'un logiciel open-source très intuitif. La figure [reffigure] montre une capture d'écran de ce logiciel. 
+
+\section{Choix du serveur de données }
+Le serveur de donnée choisi est MySql Server 4.0. La gratuité, la facilité d'installation et de configuration on été les principaux critères de décision en faveur de MySql. D'autre part, la documentation sur Internet est abondante facilitant considérablement la mise en place de la base de données et son interconnexion avec les langages de programmation C et PHP. 
+
+

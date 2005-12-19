@@ -1,0 +1,75 @@
+%///////////////////////////////////////////////////////////////////////////////
+%//  _   _        _                            _                                
+%// | | | |      |_|                          | |                               
+%// | |_| |_____  _ _____           _     _ __| |                               
+%// | |_  | ___ || |  _  \  _____  \ \  / // _  |                               
+%// | | | | ____|| | |_| | (_____)  \ \/ /( (_| |                               
+%// |_| |_|_____)|_|___  |           \__/  \____|                               
+%//                  __| | Haute Ecole d'Ingenieurs                             
+%//                 |___/  et de Gestion - Vaud                                 
+%//                                                                             
+%// @title    Mémoire de diplôme: fichier principal                             
+%// @context  Travail de diplôme                                                
+%// @author   Y. Chevallier <nowox@kalios.ch>                                   
+%// @file     memoire.tex                                                       
+%// @language ASCII/C                                                           
+%// @svn      $Id: memoire.tex 12 2005-12-14 05:41:51Z Canard $                 
+%///////////////////////////////////////////////////////////////////////////////
+\documentclass{kbook} 
+
+%///////////////////////////////////////////////////////////////////////////////
+% Définition des variables du document                                          
+%///////////////////////////////////////////////////////////////////////////////
+\def\kTitle							{Travail de diplôme}
+\def\kAuthors						{Yves Chevallier}
+\def\ksubTitle						{Gestion du bâtiment par pages web}
+\def\keditorAddress				{Yves Chevallier\\10 ch des Fleurettes\\1400 Yverdon-les-Bains}
+\def\keditorEmail					{yves.chevallier@kalios.ch}
+\def\keditorUrl					{http://www.kalios.ch}
+\def\kcouverture              {Yves Chevallier}
+\def\krelecture               {-}
+\def\kimprimerie              {-}
+\def\kcopyrightYear				{2005}      
+\def\kliminairetext				{-} 
+
+\def\TP                       {\textbf{TP}~} 
+\def\SE                       {\textbf{SERVEUR}~}
+\def\LonTouch                 {\includegraphics[height=0.8em]{figures/ltch.eps}~}
+
+%///////////////////////////////////////////////////////////////////////////////
+% Début du contenu                                                              
+%///////////////////////////////////////////////////////////////////////////////
+\begin{document}
+
+% Pages de garde et titre
+\maketitle\newpage
+	\firstPage
+
+% Table des matières
+\frontmatter   
+	\tableofcontents
+	\input{avantpropos}
+
+% Corps du document
+\mainmatter
+	\input{introduction} % Chapitre 1
+	\input{lonworks}		% Chapitre 2
+	\input{nom}          % Chapitre 3
+	\input{javascript}   % Chapitre 4
+   \input{gi}           % Chapitre 5
+	\input{ltp}          % Chapitre 6
+	\input{bd}           % Chapitre 7
+
+% Annexes
+\appendix
+	\addtocontents{toc}{\protect\switchapp} 
+
+% Bibliographie etc...
+\backmatter
+	%\input{bibliography}   
+	\input{software}
+	\input{cdrom} 
+	\input{glossaire}
+	\input{thanknuth}
+	
+\end{document}

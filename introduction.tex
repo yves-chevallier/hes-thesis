@@ -1,0 +1,300 @@
+%///////////////////////////////////////////////////////////////////////////////
+%//  _   _        _                            _                                
+%// | | | |      |_|                          | |                               
+%// | |_| |_____  _ _____           _     _ __| |                               
+%// | |_  | ___ || |  _  \  _____  \ \  / // _  |                               
+%// | | | | ____|| | |_| | (_____)  \ \/ /( (_| |                               
+%// |_| |_|_____)|_|___  |           \__/  \____|                               
+%//                  __| | Haute Ecole d'Ingenieurs                             
+%//                 |___/  et de Gestion - Vaud                                 
+%//                                                                             
+%// @title    Mémoire de diplôme: Avant propos                                  
+%// @context  Travail de diplôme                                                
+%// @author   Y. Chevallier <nowox@kalios.ch>                                   
+%// @file     introduction.tex                                                  
+%// @language ASCII/C                                                           
+%// @svn      $Id: introduction.tex 82 2005-12-14 05:41:51Z Canard $            
+%///////////////////////////////////////////////////////////////////////////////
+\chapter{Introduction}
+\maraja{Le bus de terrain prend l'avantage}
+Les installations électriques traditionnelles, câblées, ont été abandonnées depuis bon nombre d'années dans pratiquement tous les bâtiments industriels et commerciaux au profit des bus de terrains. Ces derniers ont l'avantage de permettre un contrôle centralisé de toute l'infrastructure du bâtiment. Cependant les technologies utilisées faisant référence à des concepts électronique et informatique lourds, nécessitent de confier les tâches de maintenance à des opérateurs spécialisés. L'utilisateur, n'a jusqu'alors pas conscience de toute la puissance de l'installation qui se cache derrière un interrupteur. 
+
+\maraja{Grande souplesse d'utilisation}
+Dans une installation traditionnelle, un actuateur mécanique ou électronique  ne permet qu'une seule fonctionnalité immuable. Cette dernière étant spécifiée par le câblage de l'installation. En revanche dans le cas d'un système à bus de terrain, il est possible, après quelques opérations spécifiques, de modifier le comportement de l'interrupteur pour l'assigner à une toute autre fonctionnalité. Ces possibilités sont une fois de plus réservées au personnel 
+
+\maraja{L'accès à l'utilisateur ``lambda''}
+Compte tenu des fonctionnalités gigantesques offertes par ces nouvelles générations d'installations électriques, il pourrait être avantageux d'offrir à l'utilisateur quelques unes de ces fonctionnalités jusqu'ici réservées aux spécialistes. Ceci peut être rendu possible en intégrant en lieu et place des interrupteurs traditionnels, des interfaces graphiques sur écran tactiles. Cependant, l'idée nécessite un travail de conception informatique et électronique important. Ainsi proposé, le concept réjouira l'utilisateur mais pas le financier et il restera dans l'oubli.
+
+\maraja{La force du web}
+L'impératif étant de trouver un système permettant la conception d'interfaces graphiques ne nécessitant pas de connaissances pointue dans le domaine informatique ou électronique. Une question toute simple est alors mise en avant: Existe-t-il un moyen de réaliser facilement des interfaces graphiques munies de boutons, de commandes et de dynamismes ? La réponse est le « web. » La réalisation de sites Internet est si simple que de plus en plus d'internautes réalisent leurs propre sites Internet. S'ils sont en mesure de telles prouesses sans bagage technique, un technicien en informatique peut réaliser avec une aisance remarquable une interface permettant de piloter des organes électrique d'un bâtiment dans un temps record. 
+
+\maraja{Un ``hardware'' sur mesure}
+\label{pcembarque}
+Malheureusement, cette technologie web nécessite l'emploi d'un navigateur web requérant un micro-ordinateur. Il est pour l'heure difficile d'imaginer d'implanter des machines de ce type dans les murs d'un bâtiment pour remplacer des actuateurs mécaniques primitifs. D'une part les coûts seraient multipliés par un facteur non négligeable et d'autre part, la consommation électrique de ces appareils serait en totale opposition avec la politique actuelle de préservation de l'énergie. En outre, les prouesses technologiques de ces dernières années permettent aujourd'hui de réaliser, à des coûts très modiques, des dispositifs électroniques munis d'écrans tactiles et suffisamment puissants pour faire fonctionner un navigateur web. 
+
+\section{Conventions de lecture}
+\subsection{Termes techniques}
+Dans le but de simplifier votre lecture et de ne pas charger le texte inutilement, un glossaire placé en fin de document reprend l'ensemble des termes techniques et des acronymes utilisés.  Chacun d'eux fait référence à une petite explication suivie d'un lien Internet vers une description détaillée. 
+
+\subsection{Conventions typographiques}
+Toujours dans l'objectif d'être le plus clair possible, les conventions typographiques suivantes ont été adoptées:
+
+\begin{description}
+	\item[police1] Texte général	
+	\item[police2] Commandes, données et exemples de programme.	
+	\item[police3] Textes dans les illustrations techniques	
+	\item[police4] Noms de programmes et noms de fichiers
+\end{description}
+
+\section{Cahier des charges initial}
+Le cahier des charges de ce travail de diplôme consiste en la réalisation d'un prototype de démonstration qui sera présenté durant la journée technique du 20 janvier 2006. Il devra permettre la commande de quelques éclairages au moyen d'une interface LonWorks/Dali fournie par le partenaire industriel IBT. Un ou plusieurs écrans tactiles permettront de télécommander les éclairages , voir de visualiser des images issues de webcams Ethernet. 
+
+Les objectifs qui devront être impérativement atteints sont:
+\begin{itemize}
+\item	Installation du matériel et des logiciels
+\item	développement de l'interface de gestion du bus Lon sur le serveur;
+\item	développement de l'interface logicielle entre le bus LonWorks et Ethernet;
+\item	développement d'une ébauche de la console d'administration web; 
+\item	Réalisation d'une interface de démonstration;
+\item	réalisation et mise au point du prototype; 
+\item	rédaction du mémoire de diplôme		
+\end{itemize}
+
+Des objectifs secondaires seront abordé dans la mesure du temps disponible et en accord avec le professeur responsable:
+
+\begin{itemize}
+\item	Implémentation du logiciel client;
+\item	implémentation du protocole de communication basé sur UDP sur le client; 
+\item	développement du démon UDP sur le serveur;
+\item	perfectionnement de l'interface web d'administration; 
+\end{itemize}
+
+\section{Etablissement des besoins généraux}
+\maraja{Système constitué de trois organes}
+Conformément à l'étude effectuée lors du travail de semestre, le système est basé sur trois organes principaux. D'une part les différents écrans tactiles implantés de part et d'autre du bâtiment. D'une autre les utilisateurs qui souhaiteraient accéder aux interfaces tactiles depuis leurs micro-ordinateur personnel et enfin, d'un serveur central qui aurait la charge de dialoguer avec les dispositifs du bâtiment : éclairage,  ventilation , etc\ldots
+
+\subsection{Serveur}
+\maraja{Organe mère}
+Le serveur est l'organe mère du système, il comprend un accès web permettant la configuration, l'installation des interfaces graphiques, la configuration de l'interaction des interfaces avec le réseau LonWorks et l'éventuelle possibilité protéger certaines interfaces par mot de passe moyennant un compte utilisateur. 
+
+\maraja{Base PC}
+Il s'agit également d'un micro-ordinateur sur lequel tourne linux. L'argumentaire en faveur se ce système d'exploitation est clairement explicité dans le travail de semestre intitulé "Interface LonWorks, Panneaux de commande tactile" \cite{ych:2005}
+
+\subsection{Ecrans tactiles}
+\maraja{Ecran de chez B\&R}
+Les écrans tactiles seront, dans le cas de ce projet, représenté par un PC industriel de la firme B\&R. Il s'agit d'un ordinateur de $1[GHz]$ muni de $256[Mo]$ de RAM. Il est composé d'un écran de $17$ pouces de diagonale et  d'un capteur de touché résistif. 
+
+\maraja{Un ARM dans une solution sur mesure}
+Comme stipulé en page \ref{pcembarque}, l'utilisation d'un pc comme interface tactile dans le cas d'une une application commerciale n'est pas viable. Ultérieurement un dispositif électronique construit sur mesure devra être réalisé. Il est tout à fait pensable qu'une solution basée sur un microprocesseur ARM sera adopté, d'autant plus que l'on peut se procurer facilement les sources  linux  pour cette architecture de processeur. 
+
+\subsection{Clients}
+Les clients peuvent être n'importe quel utilisateur possédant un micro-ordinateur muni d'un navigateur web et relié au réseau local. 
+
+\maraja{Indépendance du navigateur}
+Il est important de préciser que l'interface graphique affichée devra se comporter de manière totalement indépendante du type de navigateur web. Il à été contenu de réaliser pour ce travail des interfaces graphiques répondant au standard du w3c. 
+
+\subsection{Architecture des différentes parties}
+Chacun des organes cités précédemment sont constitués de divers composants logiciels spécifiques. Cette section aborde une description sommaire de chacun de ces composants. 
+
+\maraja{Economie de ressources}
+Il faut considérer que chaque bloc logiciel consomme des ressources système. Aussi, dans le cas des écrans tactiles, il faut veiller à économiser un maximum sur les ressources mémoire et processeur. En revanche, dans le cas du serveur aucune restriction n'est nécessaire. 
+
+\subsubsection{Le serveur}
+
+\paragraph{Serveur web}
+\maraja{Le serveur et l'interpréteur}
+Ce composant logiciel est en réalité constitué de deux parties. La première est le serveur à proprement parlé et la seconde est l'interpréteur qui va traiter les demandes utilisateur. 
+
+Le serveur web se chargera d'héberger et de diffuser les interfaces graphiques accessibles par les clients et de mettre à disposition de l'administrateur une console d'administration permettant la configuration pleine et entière du système.
+
+\paragraph{Démon}
+\maraja{Organe principal}
+Il s'agit là du composant le plus important. Le démon \footnote{Un démon est le nom donné à un programme qui tourne en tâche de fond. L'utilisation de ce terme ainsi que sa traduction anglaise daemon est courante dans le monde linux}. Il a la charge de traiter avec le bus de terrain LonWorks, ainsi qu'avec les écrans tactiles. 
+
+\paragraph{Base de données}
+
+\maraja{Un confort plus qu'une nécessité}
+Bien qu'elle ne paraisse pas indispensable du point de vue de la quantité d'information à traiter. Elle constitue une solution confortable pour stocker et rechercher les données relatives à la configuration du système. D'autre part, nous verrons plus tard que son utilisation simplifie grandement le développement de la console d'administration. 
+
+\subsubsection{Ecrans tactiles}
+
+\paragraph{Navigateur web}
+Ce composant est l'un des grands dilemmes de tout le système. Pour être capable d'interpréter une page web, il faut parcourir des dizaines de milliers de lignes de programme. La complexité et les normes en vigueur concernant les standards web imposent l'utilisation d'un navigateur respectant ces standards et sans faille dans son fonctionnement. Les protagonistes en matière de navigateurs web se comptent sur les doigts d'une main. 
+
+\maraja{Microsoft Internet Explorer}
+En tête de liste, on trouve Microsoft Internet Explorer qui à l'inconvénient,,de ne pas respecter le standard du w3c. De plus, ne tournant que sur les systèmes d'exploitation Windows, et, n'étant pas libre de sources, il est impossible de l'utiliser pour notre application. 
+
+\maraja{Gecko, de mozilla}
+Arrive au second rang, le navigateur Firefox de la fondation mozilla. Firefox en plus d'être « open source », est basé sur un moteur de rendu appelé Gecko. C'est ce moteur logiciel qui s'occupe de tout le travail d'analyse sur les pages web. Etant portable, il est possible d'intégrer Gecko à une interface utilisateur simpliste permettant alors de s'affranchir de toutes les possibilités offertes par Firefox. Or, si Gecko est très puissant et open-source, il est aussi très difficile à maîtriser. Les connaissances en informatique nécessaire à la réalisation d'un navigateur web allégé basé sur Gecko dépassent de beaucoup celles qu'il est possible d'acquérir sur un projet de douze  semaines. 
+
+En conséquence, dans notre réalisation, on se contentera d'utiliser Mozilla Firefox sans simplification aucunes. Bien entendu, cette solution n'est pas optimale puisqu'elle nécessite des ressources processeur plus grandes que nécessaire. 
+
+\paragraph{Démon}
+Le navigateur web dialoguera avec un petit « démon » qui aura la charge de communiquer directement avec le serveur et de répondre aux messages de configurations reçues. 
+
+\subsubsection{Clients}
+\paragraph{Navigateurs web}
+
+\maraja{Le w3c n'est pas respecté}
+Comme il n'est pas possible d'imposer à quiconque l'utilisation d'un navigateur web spécifique, il faudra assurer une compatibilité maximale entre les différents logiciels de navigations. Etant donné que chaque navigateur à ses propres spécificités et qu'aucun ne respecte fidèlement les normes émises par le w3c, il sera impossible d'obtenir une compatibilité absolue. 
+
+
+
+
+\section{Interfaces graphiques}
+\maraja{Les Interfaces graphiques sont des GI}
+Les Interfaces graphiques abrégées dans la suite du document GI pour (Graphic Interface), sont un des points les plus important du projet bien que ce ne soit pas la partie la plus complexe techniquement. Lorsque le système sera mis en place, se sont les "designer" qui auront la tâche de réaliser les différentes GI. Aussi, il est important de détailler le mieux possible cette partie.  Le chapitre [refchapter] est consacré à la réalisation complète d'une interface de démonstration , la suite de cette section d'introduction tente d'introduire les bases de la programmation web. 
+
+\maraja{Le w3c}
+L'organisation w3c ou World Wide Web Consortium est responsable de normaliser les technologies intervenant, notamment, dans la réalisation de site Internet. Le w3c recommande fermement, l'utilisation du langage HTML pour décrire la structure d'un document et le langage CSS pour tous les aspects de mise en page tel que la taille ou la couleur des paragraphes, des titres ou encore des hyperliens. 
+
+Dans le but de se familiariser avec ces deux langages, quelques exemples seront donnés dans les paragraphes suivants.
+
+\subsection{Le HTML}
+Le langage HTML ou Hypertext Markup Language est utilisé dans toutes les pages web. Lorsque vous vous rendez sur une adresse web. Le résultat visuel que vous obtenez, résulte d'une interprétation d'un fichier source, écrit en HTML, par votre navigateur. Il s'agit d'un langage relativement facile à apprendre. Il se compose de marqueurs plus généralement appelés "balises" utilisés pour structurer un document. Au travers du mot structure, il faut comprendre les mots : titres, paragraphes, listes à puces, mise en évidence de texte ou encore alignement. Par exemple pour mettre un texte en gras, embrasser le texte par des balises \emph{strong}. L'une est dite ouvrante, l'autre fermante. 
+
+\begin{center}
+	\texttt{<strong>texte en gras</strong>}
+\end{center}
+
+Le HTML a connu plusieurs évolutions. Débutant par HTML 1.0 pour aboutir à XHTML 1.0 STRICT. Cette dernière évolution présentant l'avantage d'être compatible avec la norme XML est largement recommandée par le w3c couplée au langage CSS.
+
+\emph{\small XHTML 1.0 Strict - Use this when you want really clean structural mark-up, free of any markup associated with layout. Use this together with W3C's Cascading Style Sheet language (CSS) to get the font, color, and layout effects you want --- http://www.w3.org/MarkUp/\#recommendations}
+
+\subsection{Le CSS}
+Le CSS étant l'acronyme de Cascading Style Sheet est, utilisé pour mettre en page un document HTML. C'est un langage de description puissant qui peut aller jusqu'à définir l'emplacement et la taille d'un bloc de texte sur une page web. Le CSS est actuellement utilisé dans sa seconde version. Bien qu'il existe une troisième version, celle-ci n'est pas encore implémentée dans les navigateurs web. 
+
+Supposons que nous souhaitons appliquer à notre \texttt{<strong>texte en gras</strong>} une taille de caractère de $15[pt]$. (15 POINT), une couleur bleue et l'utilisation d'une forme de caractère sans empattement, nous procéderions ainsi: 
+
+\begin{leftbar}\begin{verbatim}
+strong 
+{ 
+   font-size:   15pt;
+   font-family: Helvetica, Arial, sans-serif;
+   text-weight: bold;
+   color:       blue; 
+}
+\end{verbatim}
+\end{leftbar}
+
+La structure est simple. On débute par le nom de la balise HTML concernée, puis, entres accolades, viennent les différents paramètres que l'on veut définir pour le bloc. A noter que les deux points séparant le nom du paramètre de sa valeur et le point virgule sont en fin de commande. 
+
+\subsection{Du dynamisme dans les pages}
+Nous sommes maintenant  à même de décrire une page web , voire un site tout entier. Cependant, il manque à cela un point indispensable dans l'utilisation d'interfaces graphiques web pour contrôler un bâtiment : l'interactivité.
+
+Lorsqu'un utilisateur clique  sur un élément de la page considéré comme un bouton, l'interface doit réagir d'une part en envoyant un message au serveur, et d'autre part en mettant à jour l'apparence de certains composants de la page. 
+
+Prenons l'exemple d'un bouton de forme carrée et d'une taille de cinquante pixels d'arrête Par l'intermédiaire de ce contrôle, nous souhaitons commander un luminaire. Il est intéressant pour l'utilisateur d'avoir un retour visuel de son action. Nous pourrions entres autres, changer la couleur du bouton en fonction de l'état der la lampe. Rouge lorsque le luminaire est éteint et Vert lorsqu'il est allumé.  Bien malencontreusement , ceci est impossible. Du moins en HTML ou en CSS. Il faut faire appel à une technologie additionnelle symbolisée par la lettre D en préfixe de l' abréviation  HTML. Nous parlerons alors de DHTML, \emph{Dynamic Hyper Text Markup Language}. Pour introduire cette interactivité le langage JavaScript sera utilisé notamment dans l' AJAX,  récente venue dans le monde du web.  
+
+JavaScript est un langage très controversé par les puristes de la programmation. Toutefois, bien utilisé, il peut permettre des résultats surprenants. Il s'agit d'un langage pseudo objet permettant d'interagir avec des éléments du code HTML. Ces éléments sont pour la majorité décrit dans le DOM \emph{Document Object Model}. 
+
+Reprenons notre exemple du bouton de cinquante pixels d'arrête, nous pouvons obtenir le résultat souhaité avec le code JavaScript suivant: 
+
+\begin{leftbar}\begin{verbatim}
+var state = "off"
+document.getElementById(elem).onclick = function() 
+{
+	if(state == "on") 
+   {
+      EnvoiMessage("off")
+      document.getElementbyId(elem).classname = "off"
+      state = "on"
+	}
+	else
+	{
+      EnvoiMessage("on")
+      document.getElementbyId(elem).classname = "on"
+      state = "off"
+	}
+}
+\end{verbatim}
+\end{leftbar}
+
+Il ne faut pas penser qu'il s'agisse là de lignes parfaitement incompréhensibles. Le fonctionnement est très simple. Tout d'abord, on définit une variable appelée \emph{state} qui initialise l'état de l'éclairage et du bouton. Nous lui attribuons la valeur \emph{off} au début ainsi nous considérons que tout est éteint. Ensuite on assigne un comportement spécifique à l'élément \emph{elem} lors d'un clic de souris. L'élément \emph{elem} permet de faire référence à un élément HTML. 
+
+Lorsqu'un clic se produit sur l'élément. Un test est effectué pour savoir si la lampe est allumée ou éteinte. Dans un cas comme dans l'autre, on envoie un message au serveur en utilisant la fonction \textsf{EnvoiMessage()} qui est décrite ci-dessous. Ensuite, on modifie le style CSS du bouton pour le faire prendre la couleur verte ou rouge et enfin, on met à jour l'état de la variable \emph{state} entrant en jeu lors du clic de souris suivant.  
+
+Pour le bon  fonctionnement , le code HTML décrivant le bouton doit donc correspondre à ceci: 
+
+\begin{leftbar}\begin{verbatim}
+<div id="elem">Un bouton</div>
+\end{verbatim}
+\end{leftbar} 
+
+Finalement, les styles CSS décrivant les états \emph{on} ou \emph{off} sont:
+
+\begin{leftbar}\begin{verbatim}
+.on 
+{ 
+   background-color: green; 
+   height: 50px;
+   width: 50px;
+}
+.off 
+{ 
+   background-color: red; 
+   height: 50px;
+   width: 50px;
+}
+\end{verbatim}
+\end{leftbar} 
+
+Cet exemple simple démontre que le bagage nécessaire pour ajouter du dynamisme à une page web n'est pas négligeable. Aussi, l'un des objectifs de ce travail est de constituer une librairie JavaScript qui s'occupera de façon la plus automatique possible, de gérer ce dynamisme. L'utilisateur se contentera de définir le type de contrôle à assigner à un élément HTML. Il peut s'agir d'un bouton, d'un rhéostat,  d'un indicateur de température, etc.. Le chapitre [refchapter] est consacré à la réalisation de cette librairie. Il précède le chapitre concernant la réalisation d'un Interface graphique utilisant les contrôles interactifs définis dans la librairie. 
+
+\section{Travail sous Linux}
+Sans vouloir tergiverser en argumentant sur les avantages de tel ou tel OS, nous décrirons ici, les principaux arguments ayants permis d'aboutir à Linux. 
+
+Tout d'abord, linux est un système dit "open-source". Il est d'une part gratuit, mais en plus de son code source, ses lignes de programme, sont accessibles à l'utilisateur. Ceci permet par exemple de choisir les constituants du NOYAU. Ce dernier étant le super programme chargé de faire fonctionner le système d'exploitation. En choisissant les constituants du noyau, on peu réduire la taille du système au strict minimum nécessaire. L'avantage est de permettre une utilisation de mémoire optimisée à son maximum et d'envisager alors de faire tourner l'OS sur une plate-forme matérielle construite sur mesure
+
+Construire une plate-forme matérielle nécessite avant toute chose de choisir un micro-processeur. Le jeu d'instructions assembleur, l'organisation de la mémoire interne étant spécifique à chaque type de circuit, il faut être à même de construire le noyau linux pour qu'il fonctionne avec le micro-processeur choisi. En parlant de jeu d'instructions assembleur ou d'organisation mémoire, on sous-entend le terme ARCHITECTURE. En termes techniques il s'agit de configuration et compilation du kernel pour une architecture processeur donnée.   
+
+L'ensemble des arguments évoqués ici, traitent des avantage liés à une utilisation de linux dans un dispositif embarqué: Les écrans tactiles abrégé TP comme \emph{TouchPanels}. Cependant, les avantages de ce système ne s'arrêtent pas ici. En se concentrant le sur le SERVEUR, on s'aperçoit des besoins de communication avec les réseaux LonWorks ou Ethernet. Linux permet l'écriture ou la lecture de données sur un canal de communication comme Ethernet avec une facilité dérisoire en rapport à un système de type Microsoft Windows. 
+
+\section{Architecture réseau}
+Idéalement les TP devraient pouvoir être installés sans avoir à tirer des câbles supplémentaires. Un enchâssement dans le mur d'un bâtiment nécessite impérativement une ligne d'alimentation, bien qu'il existe des technologies, \emph{Wireless} ou \emph{PowerLine} permettant une communication sans fil ou au travers de la ligne d'alimentation électrique.. Ces solutions sont encore trop peu répandues et par conséquent trop coûteuses. Dans ces conditions il sera nécessaire d'adjoindre une connexion supplémentaire pour communiquer avec le serveur. 
+
+Concernant le PLT  \emph{PowerLine technology},  l'idée n'est pas à écarter complètement. Les inconvénients liés au coût de la technologie peuvent selon la quantité de câbles à mettre en place, s'avérer avantageuse. 
+
+On peut imaginer qu'un TP vienne prendre la place d'anciens interrupteurs LonWorks dans une installation existante.  Dans ce cas, on aurait à disposition un connexion LonWorks. Cependant, la vitesse de transmission des données sur ce réseau serait limitée à $78[Kbits/sec]$. Or, le transfert des \textsf{GI} sur les \textsf{TP} doit rester possible en temps acceptables. L'utilisation d'un canal de communication avec le serveur via LON implique de limiter la taille des Interfaces graphiques à quelques centaines d'octets. 
+
+Alternativement, l'utilisation d'Ethernet peu s'avérer avantageuse. Les point d'accès étant de plus en plus nombreux les bâtiments depuis la révolution de la téléphonie sur IP. La pose d'une connexion Ethernet devrait être facile. 
+
+L'avantage notoire quant à l'utilisation d'Ethernet est de permettre l'emploi d'interfaces tactiles exemptes d'un contrôleur LonWorks. L'ordinateur mis à disposition par la firme B\&R peut alors convenir.
+
+La vitesse d'Ethernet étant plus de mille fois supérieur à celle de LON. La limitation de la taille des GI ne serait plus nécessaire. 
+
+Considérant les avantages lié à l'utilisation d'une connexion LonWorks ou Ethernet on peut envisager la possibilité de pouvoir offrir les deux solutions. Ceci implique qu' il faut établir un protocole de communication indépendant du réseau. Un protocole indépendant des couches 1 à 4 du modèle OSI.  
+
+Ultérieurement, dans le chapitre consacré à LonWorks nous verrons que le protocole UDP sur Ethernet et la fonctionnalité de messages explicites sur LON on de grandes similitudes.  
+
+La figure [reffigure] présente les quatre architectures évoquées ci-dessus. En (a), on observe un câblage des TP sur LonWorks et la présence des CLIENTS sur Ethernet. En (b) les TP ont été placés au même niveau que les clients. Ceci permettant une vitesse de transfert maximum mais aussi une plus grande difficulté de câblage. En (c) l'utilisation de la technologie PowerLine (PLT-22) de LonWorks est utilisée. Les TP n'ont alors besoin que d'une liaison unique apportant l'énergie et le canal de communication avec le SERVER. Enfin en (d), on observe l'utilisation d'une technologie PowerLine cette fois-ci sur Ethernet. Il s'agit là du cas idéal. Malheureusement, les contrôleurs supportant cette technologie ne se sont pas encore bien démocratisés. 
+
+\section{Les écrans tactiles}
+Il a été expliqué précédemment que  le système d'exploitation linux permet de garder une indépendance totale du matériel utilisé. Le démonstrateur sera construit à l'aide du "Pc Panel" de chez B\&R mais dans l'avenir il s'agira d'un hardware conçu sur mesure ou les ressources mémoires et processeur seront limitées. La raison première concerne le coût du matériel et la seconde,  les besoins en électricité. Il est important de consommer un minimum pour que le projet soit rentable au niveau énergétique.  
+
+En choisissant Gecko comme moteur d'interprétation web, nous plaçons déjà la barre très haut. Gecko est un projet de plusieurs centaines de milliers de lignes de code, il demande des ressources système importantes. Aussi, il faudra s'intéresser à l'avenir au projet MINIMO qui vise à concevoir une version allégée de Gecko. 
+
+Un navigateur web possède des règles de sécurité très poussées afin d'éviter toute intrusion sur l'ordinateur par les pirates. Aussi, la fonction \textsf{EnvoiMessage()} vue au paragraphe [refsection] ne pourra communiquer directement avec le serveur. Les informations issues de l'interface graphique devront transiter par un démon local au TP. Une seconde raison à cela est que le protocole de communication utilisé pour dialoguer avec le serveur sera basé sur UDP pour Ethernet et sur les messages explicites pour LON. Un navigateur web n'est en mesure de dialoguer que par l'intermédiaire d'un protocole nommé TCP. 
+
+La figure <reffigure> représente l'architecture interne d'un TP. Il s'agit ici d'une représentation d'un TP hybride capable de communiquer à la fois sur Ethernet ou sur LON. 
+
+Le client web sera dans l'idéal non pas Mozilla Firefox mais une application indépendante intégrant Gecko, voire Minimo. Cette application devra rendre possible : 
+
+\begin{itemize}
+	\item	Un mode plein écran par défaut.
+	\item	De ne pas afficher le pointeur de la souris.
+	\item	De rendre la sélection des éléments de la page impossible.
+	\item	De dialoguer le plus facilement possible avec le démon
+	\item	D'être sensible à un signal émis par le démon lorsqu'il faut recharger la page. Par exemple, lors d'un changement d'interface graphique. 
+\end{itemize}
+
+Le démon assurant la communication avec le SERVEUR doit pouvoir :
+
+\begin{itemize}
+	\item	Renseigner le SERVEUR sur l'état du TP
+	\item	Recevoir les nouvelles GI et interagir avec le client web pour les afficher.
+	\item	Assurer le transfert des commandes entre le client web et le SERVER ( i.e.) lire ou écrire sur un périphérique LON .		
+\end{itemize}
+
+\section{Le Serveur}
+Comme évoqué précédemment, le rôle du SERVEUR est de configurer les interfaces graphiques actives sur chacun des écrans tactiles. Il doit permettre via l'interface de configuration web appelé WEBGUI ,l'administration des autorisations d'accès aux GI par les CLIENTS. Enfin il lui faut également être à même d'effectuer des interconnexion entres les périphériques LON et les contrôles des GI. En d'autres termes, définir que le luminaire de l'étage 24 bureau 3 est contrôlé par le second bouton de l'interface graphique numéro 2. 
