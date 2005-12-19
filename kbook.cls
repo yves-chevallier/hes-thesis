@@ -13,7 +13,7 @@
 %// @author   Y. Chevallier <nowox@kalios.ch>                                   
 %// @file     kbook.cls                                                         
 %// @language ASCII/C                                                           
-%// @svn      $Id: kbook.cls 82 2005-12-14 05:41:51Z Canard $                   
+%// @svn      $Id$                   
 %///////////////////////////////////////////////////////////////////////////////
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
 \ProvidesClass{rapport}[2004/11/10 Extension pour RAPPORT EIVD]   
@@ -21,9 +21,11 @@
 %///////////////////////////////////////////////////////////////////////////////
 % Chargement de la classe du document                                           
 %///////////////////////////////////////////////////////////////////////////////
-\LoadClass[12pt,a4paper, twoside,final]{book}
+\LoadClass[11pt, b5paper,twoside,final]{book}
 
-% Packages utiles
+%///////////////////////////////////////////////////////////////////////////////
+% Packages                                                                      
+%///////////////////////////////////////////////////////////////////////////////
 \usepackage[latin1]{inputenc}     		% Format d'encodage
 \usepackage[T1]{fontenc} 					% Table d'encodage de caractères
 \usepackage[french]{babel} 				% Conventions francaises
@@ -33,34 +35,64 @@
 \usepackage{makeidx} 						% Constitution d'un index
 \usepackage{fancyhdr}						% En-tête et pied de pages
 \usepackage{lastpage} 						% Permet de connaître le numéro de la dernière page
-\usepackage{fix-cm} 
-\usepackage{titletoc}
-\usepackage{utopia}
-\usepackage{helvet}
-
+\usepackage{fix-cm}                    % ??
+\usepackage{titletoc}                  % Modification de la table des matières
+\usepackage{utopia}                    % Fonte Utopia
+\usepackage{helvet}                    % Fonte Helvetica
+\usepackage{framed}                    % permet le \begin{leftbar}
+\usepackage{tipa}                      % phonétique internationale
+\usepackage{dirtree}                   % Arborescence de repertoires (J.C.Charpentier)
+\usepackage{multicol}                  % Disposition de texte sur plusieurs colonnes
+%\usepackage[leftbars]{changebar}       % ??
 \usepackage[ps2pdf,pagebackref=true,colorlinks=false,linkcolor=blue,plainpages=true]{hyperref}
-\usepackage[leftbars]{changebar}
-\usepackage{framed}
 %\usepackage{palatino} 						% Groupes de fontes Palatino
 
 %///////////////////////////////////////////////////////////////////////////////
 % Mise à jour des longueurs                                                     
+%                                                                               
+%   +-----------------------------14------------------/-------------------+     
+%   |                                                 1                   |     
+%   |           /                                     /                   |     
+%   |           2                                                         |     
+%   |    +--/---/--------------------------------------------+            |     
+%   |    |  3                 En-tête                        |            |     
+%   |    +--/-----/------------------------------------------+            |     
+%   |             4                                                       |     
+%   |    +--/-----/------------------------------------------+  +-12+     |     
+%   |    |  5                                                |  |   |     |     
+%   |    |  / texte                                          |  |   |     |     
+%   |    |                                                   |  |   |     |     
+%   |    |                Corps du texte                     6  |   |    15     
+%   |    |                                                   |  |   |     |     
+%   |    /-13-/lorem ipsum.. .. .. ..                        |  |   |     |     
+%   |    | dolor .. .. ..                                    /11/   |     |     
+%   |    |                                                   |  |   |     |     
+%   |    +--------/-----------------7------------------------+  +---+     |     
+%   |             |                                                       |     
+%   |    +--------8------------------------------------------+            |     
+%   |  /9/        |        Pied de page                      |            |     
+%   /10/ +--------/------------------------------------------+            |     
+%   |                                                                     |     
+%   +---------------------------------------------------------------------+     
+%                                                                               
 %///////////////////////////////////////////////////////////////////////////////
-\setlength\parindent				{0pt}
-\setlength\parskip            {\bigskipamount}
-%\setlength\hoffset				{-18pt}  	
-%\setlength\oddsidemargin		{0cm} 	% Marge gauche sur pages impaires
-%\setlength\evensidemargin		{0cm} 	% Marge gauche sur pages paires
-%\setlength\marginparwidth		{3cm} 	% Largeur de note dans la marge
-%\setlength\textwidth				{13cm}	% Largeur de la zone de texte
-%\setlength\voffset				{-18pt}	% Bon pour DOS
-%\setlength\marginparsep			{7pt} 	% Séparation de la marge
-%\setlength\topmargin				{0pt} 	% Pas de marge en haut
-%\setlength\headheight			{13pt} 	% Haut de page
-%\setlength\headsep				{10pt} 	% Entre le haut de page et le texte
-%\setlength\footskip				{27pt} 	% Bas de page + séparation
-%\setlength\textheight			{708pt}  % Hauteur de la zone de texte (25cm)
- 
+\setlength\voffset				{-1in}	% (1) + 1 in.
+\setlength\topmargin				{1cm} 	% (2)
+\setlength\headheight			{6mm} 	% (3)
+\setlength\headsep				{5mm} 	% (4)
+\setlength\topskip				{0mm} 	% (5)
+\setlength\textheight			{18.5cm} % (6)
+\setlength\textwidth				{12.5cm}	% (7)
+\setlength\footskip				{2.5cm} 	% (8)
+\setlength\oddsidemargin		{0cm} 	% (9) pair
+\setlength\evensidemargin		{0cm} 	% (9) impair
+\setlength\hoffset				{-0.5cm} % (10)
+\setlength\marginparsep			{4mm} 	% (11)
+\setlength\marginparwidth		{2cm} 	% (12)
+\setlength\parindent				{0pt}    % (13)
+\setlength\paperheight			{240mm}  % (14)
+\setlength\paperwidth			{175mm}  % (15)
+%\setlength\parskip            {\bigskipamount} % (Separation de paragraphe)
 \def\graphicsExt	            {eps}
 
 %///////////////////////////////////////////////////////////////////////////////
@@ -165,16 +197,16 @@
 % Redéfinition des sections et sous sections                                    
 %///////////////////////////////////////////////////////////////////////////////
 \renewcommand\section{\@startsection {section}{1}{\z@}%
-                                   {-3.5ex \@plus -1ex \@minus -.2ex}%
-                                   {2.3ex \@plus.2ex}%
+                                   {-2.5ex \@plus -1ex \@minus -.2ex}%
+                                   {2.0ex \@plus.2ex}%
                                    {\normalfont\Large\bfseries\itshape}}
 \renewcommand\subsection{\@startsection{subsection}{2}{\z@}%
-                                     {-3.25ex\@plus -1ex \@minus -.2ex}%
-                                     {1.5ex \@plus .2ex}%
+                                     {-1.5ex\@plus -1ex \@minus -.2ex}%
+                                     {1.0ex \@plus .2ex}%
                                      {\normalfont\large\bfseries\itshape}}
 \renewcommand\subsubsection{\@startsection{subsubsection}{3}{\z@}%
-                                     {-3.25ex\@plus -1ex \@minus -.2ex}%
-                                     {1.5ex \@plus .2ex}%
+                                     {-2.25ex\@plus -1ex \@minus -.2ex}%
+                                     {1.0ex \@plus .2ex}%
                                      {\normalfont\normalsize\bfseries\itshape}}
 \renewcommand\paragraph{\@startsection{paragraph}{4}{\z@}%
                                     {3.25ex \@plus1ex \@minus.2ex}%

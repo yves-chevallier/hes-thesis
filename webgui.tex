@@ -1,0 +1,153 @@
+%///////////////////////////////////////////////////////////////////////////////
+%//  _   _        _                            _                                
+%// | | | |      |_|                          | |                               
+%// | |_| |_____  _ _____           _     _ __| |                               
+%// | |_  | ___ || |  _  \  _____  \ \  / // _  |                               
+%// | | | | ____|| | |_| | (_____)  \ \/ /( (_| |                               
+%// |_| |_|_____)|_|___  |           \__/  \____|                               
+%//                  __| | Haute Ecole d'Ingenieurs                             
+%//                 |___/  et de Gestion - Vaud                                 
+%//                                                                             
+%// @title    Mémoire de diplôme: Interface web de configuration                
+%// @context  Travail de diplôme                                                
+%// @author   Y. Chevallier <nowox@kalios.ch>                                   
+%// @file     webgui.tex                                                        
+%// @language ASCII/C                                                           
+%// @svn      $Id$                  
+%///////////////////////////////////////////////////////////////////////////////
+\chapter{L'interface web de configuration}
+L'intégralité de l'interface web de configuration appelé tout au long de cet ouvrage WEBGUI à été programmé en PHP. Il s'agit d'un langage de script très répandu pour le développement de ce type d'application. 
+
+Le serveur web nécessaire à l'hébergement de la plateforme est Lighttpd 1.4. Il est bien plus rapide qu'Apache lorsqu'il s'agit d'héberger une petite plateforme Web. D'autre part, comme homologue, il est open-source. L'installation est facile et l'interconnexion avec PHP est réalisée au moyen de la méthode FASTCGI. 
+
+Le WEBGUI doit permettre la gestion complète du système. Les différentes fonctionnalités que doit permettre la plateforme sont énumérées ci-dessous:
+
+\begin{itemize}
+\item	La gestion des utilisateurs
+	\subitem	Liste des utilisateurs
+	\subitem	Ajout d'un utilisateur
+	\subitem	Suppression d'un utilisateur
+	\subitem	Modification des entrées d'un utilisateur
+	\subitem	Administration des autorisations d'accès aux différentes GI
+\item	La gestion des interfaces graphiques
+	\subitem	Liste des interfaces graphiques
+	\subitem	Installation d'une nouvelle interface graphique
+	\subitem	Suppression d'une interface graphique
+	\subitem	Visualisation de l'interface graphique
+	\subitem	Edition des interconnexions avec les variables LonWorks
+\item	La gestion des écrans tactiles
+	\subitem	Liste des écrans tactiles
+	\subitem	Installation d'un nouvel écran tactile
+	\subitem	Suppression d'un panneau tactile
+	\subitem	Téléchargement des interfaces graphiques sur le TP
+\item	La gestion des variables réseau LonWorks
+	\subitem	Liste des variables réseaux disponibles
+	\subitem	Affichage des propriétés d'une variable
+	\subitem	Liste des interconnexions avec les variables d'interfaces
+	\subitem	Modification directe de la valeur des variables. 
+\item	Préférences générales
+	\subitem	Réglage du serveur NTP
+	\subitem	Modification de l'adresse IP du serveur
+	\subitem	Modification du masque sous réseau du serveur
+	\subitem	Modification du mot de passe administrateur
+	\subitem	Modification du login administrateur
+	\subitem	Envoi du message de service sur le réseau LonWorks
+\end{itemize}
+
+\section{Schéma bloc de l'interface}
+La figure [reffigure] présente la cartographie du WEBGUI. On remarque qu'en fonction du type d'authentification, on aboutit soit sur la console d'administration \emph{WEBadmin}, soit sur la page permettant de sélectionner une interface graphique accessible par les CLIENTS: le \emph{WEBclient}.
+
+\section{Constitution de la charte graphique}
+Il à été jugé important de réaliser une charte graphique ayant un design sobre mais élégant. En règle générales les gens ont une tendance particulière à juger l'apparence des choses. C'est pour cette raison qu'un laps de temps conséquent à été consacré à la réalisation d'une charte graphique pour le WEBGUI.
+
+Cette dernière à été réalisée à l'aide des logiciels \emph{Adobe Illustrator} et \emph{Adobe Photoshop}. L'implantation du graphisme sur la plateforme web a nécessité des efforts particulièrement importants pour respecter au mieux les recommandations du w3c. 
+
+La figure [reffigure] présente la page d'authentification en (a) et celle de gestion des variables réseau en (b) de la plateforme Web. 
+
+\section{Spécificités du programme}
+Aborder la réalisation d'une console d'administration web oblige le programmeur à adopter certaines conventions pour éviter que le code source ne devienne incompréhensible. L'inconvénient majeur du PHP est son aspect permissif. Sans adopter une certaine rigueur et une certaine méthodologie de travail, il est vite fait d'obtenir, au final, du code spaghetti. De plus, étant un langage de TEMPLATE, les fichiers sources contiennent à la fois du code HTML et PHP ce qui facilite encore moins la compréhension. 
+
+Pour résoudre certain de ces problèmes, des librairies ont été écrites dans le but de minimiser un maximum le code HTML présent dans les scripts PHP. Par exemple, une des librairies permet de séparer la charte graphique de l'intelligence. Ainsi, il peut être possible de modifier intégralement la présentation du WEBGUI sans modifier la moindre ligne du programme PHP. 
+
+\subsection{Une librairie pour la gestion de l'apparence}
+Ecrite en partie pour le site Internet du FORUMHES-SO, cette librairie à été perfectionnée durant ce travail de diplôme. Elle permet de programmer une interface web sans se soucier de son apparence. Bien qu'il existe des dizaines de librairies similaires sur le web, elles ont toutes l'inconvénient d'être complexes et d'ajouter un OVERHEAD non négligeable lors de leur utilisation. 
+
+\subsection{Une librairie pour l'internationalisation}
+Un point souvent négligé lors de l'élaboration d'une plateforme web, c'est l'adaptation d'un mode programmation permettant une traduction facile de l'interface dans d'autres langues. Le traducteur ne doit pas avoir à connaître le PHP pour effectuer son travail. De plus, il faut éviter d'avoir recours au programmeur pour mettre à jour les textes contenus dans le code source du programme. C'est pourquoi une librairie à été établie pour faciliter l'internationalisation du système. 
+
+Son fonctionnement est couplé avec l'outil GNU gettext spécialement adapté à l'internationalisation de documents. L'auteur vous incite à lire la documentation de cet outil en suivant le lien donné dans le glossaire. 
+
+\subsection{Une librairie pour l'authentification}
+Dans le but d'accroitre la sécurité du système, une librairie s'occupe intégralement de gérer l'authentification des utilisateurs. Elle permet la connexion d'un utilisateur sur le système ainsi que sa déconnexion se basant sur la table SQL user définie au chapitre [refchapter]. 
+ 
+\subsection{Une librairie pour contacter la base de donnée}
+Afin d'offrir un maximum d'indépendance entre la plateforme web et le serveur de données utilisées, une librairie à été mise en place pour faciliter l'exécution de requêtes auprès du serveur MySQL. 
+
+\subsection{Une librairie pour discuter avec le démon}
+La communication avec le démon par le biais de LTP/HTTP en mode administration est facilité par l'écriture d'une librairie supplémentaire. 
+
+\clearpage
+\section{Organisation au niveau du système de fichiers}
+L'arborescence présentée ci-dessous montre le WEBGUI du point de vue de ses fichiers sources. On observe par exemple que les GI sont installées dans le répertoire \textsf{gi/} et que les images sont placées dans le répertoire \textsf{images/}. 
+
+Les différentes librairies JavaScript prennent place dans le répertoire \textsf{js/} et les librairies PHP dans le répertoire \textsf{php/}. Le répertoire \textsf{locales/} est prévu pour contenir les informations relatives à l'internationalisation de la plateforme. Enfin, le répertoire \textsf{skins/} contient les différentes chartes graphiques de la plateforme Web. Les images relatives à une charte graphique sont placées au même niveau que cette dernière, dans le répertoire \textsf{skins/}. 
+
+Les fichiers PHP décrivant la plateforme, sont tous placés à la racine du répertoire qui contient la plateforme web. 
+
+\DTsetlength{3pt}{8pt}{5pt}{0.4pt}{0pt}
+\begin{multicols}{2}
+\dirtree{%
+   .1 \makebox[5ex][r]{/}.
+	.2 \folder gi.
+	.3 \folder gi\_1.
+	.4 \ldots.
+	.3 \folder gi\_2.
+	.4 \ldots.
+	.3 \ldots.	
+	.2 \folder images.
+	.3 \ldots.
+	.2 \folder js.
+	.3 \file ltch.lib.js.
+	.3 \file trails.lib.js.
+	.2 \folder lib.
+	.3 \file auth.lib.php.
+	.3 \file deamon.lib.php.
+	.3 \file html.lib.php.
+	.3 \file locales.lib.php.
+	.3 \file log.lib.php.
+	.3 \file mysql.lib.php.
+	.3 \file templates.lib.php.
+	.2 \folder locales.
+	.3 \folder fr\_CH.
+	.3 \ldots.
+	.2 \folder skins.
+	.3 \folder images.
+	.4 \ldots.
+	.3 \file admin.html.
+	.3 \file auth.html.
+	.3 \file commun.css.
+	.2 \file admin.php.
+	.2 \file auth.php.
+	.2 \file client.php.
+	.2 \file disconnect.php.
+	.2 \file gateway.php.
+	.2 \file gi.php.
+	.2 \file gi\_add.php.
+	.2 \file gi\_delete.php.
+	.2 \file gi\_edit.php.
+	.2 \file gi\_view.php.
+	.2 \file index.php.
+	.2 \file nv.php.
+	.2 \file nv\_edit.php.
+	.2 \file nv\_view.php.
+	.2 \file pref.php.
+	.2 \file tp.php.
+	.2 \file tp\_add.php.
+	.2 \file tp\_edit.php.
+	.2 \file user.php.
+	.2 \file user\_add.php.
+	.2 \file user\_delete.php.
+	.2 \file user\_edit.php.
+}
+\end{multicols}
+
