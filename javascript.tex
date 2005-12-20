@@ -13,7 +13,7 @@
 %// @author   Y. Chevallier <nowox@kalios.ch>                                   
 %// @file     javascript.tex                                                    
 %// @language ASCII/C                                                           
-%// @svn      $Id: javascript.tex 82 2005-12-14 05:41:51Z Canard $              
+%// @svn      $Id$              
 %///////////////////////////////////////////////////////////////////////////////
 \chapter{Librairie JavaScript}
 A la section [refsection], il a été établi que la réalisation d'une librairie JavaScript est nécessaire d'une part pour rendre possible le dialogue avec le démon et d'autre part pour assurer le dynamisme de la page. Ce langage étant orienté pour traiter des chaînes de caractères, concevoir un échange de données à l'aide de messages binaires n'est pas une bonne solution. D'autre part, la seule possibilité de JavaScript permettant de communiquer avec le monde extérieur c'est d'utiliser le protocole HTTP. C'est pour cette raison que nous allons nous y intéresser de plus près.
@@ -25,17 +25,21 @@ Le protocole HTTP sans aucun doute le plus utilisé de part le monde. Il s'agit d
 \subsection{Comprendre par l'exemple}
 C'est à l'aide d'un exemple simple que nous allons tenter de comprendre le fonctionnement du protocole HTTP. En imaginant que l'on souhaite effectuer une recherche sur Google sans utiliser de navigateur web, il faut faire appel à un outil de communication basé sur TCP. Pour la démonstration nous utiliserons TELNET. En règle générale cet outil est disponible sur toutes les plateformes informatiques. Sous Windows, c'est à l'aide du menu démarrer et de la commande "Exécuter" que l'on y accède. La figure [reffigure] montre visuellement comment exécuter cet outil. Une fois lancé, le programme est en attente d'une commande. Pour se connecter au moteur de recherche Google, utilisons celle-ci: 
 
-\begin{leftbar}\begin{verbatim}o www.google.ch 80\end{verbatim}
-\end{leftbar}
+\begin{lstlisting}
+o www.google.ch 80
+\end{lstlisting}
 
 La lettre o pour open puis l'adresse à contacter et enfin le port TCP sur lequel on veut tenter d'établir la connexion. Une fois la commande validée, nous sommes connectés avec le serveur de Google et celui-ci attends une commande HTTP. Nous allons utiliser ici un "en-tête HTTP" minimal pour permettre de charger la page habituellement accessible depuis http://www.google.ch. Voici la commande à envoyer au serveur pour effectuer une requête: 
 
-\begin{leftbar}\begin{verbatim}GET www.google.ch/ HTTP/1.0\end{verbatim}
-\end{leftbar} 
+\begin{lstlisting}
+GET www.google.ch/ HTTP/1.0
+\end{lstlisting}
 
 Après deux validations successives à l'aide de la touche "enter" du clavier. Une première fois pour valider la saisie et une seconde pour soumettre la commande au serveur. A cet instant une certaine quantité de texte apparaît alors. Ce n'est que la première partie qui nous intéresse ici: 
 
-\begin{leftbar}\begin{verbatim}HTTP/1.0 200 OK
+
+\begin{lstlisting}
+HTTP/1.0 200 OK
 Cache-Control: private
 Content-Type: text/html
 Set-Cookie: PREF=ID=5c2ce178cf3e7b4d; expires=Sun, 17-Jan-2038 19:14:07 GMT; path=/; domain=.google.fr
@@ -45,8 +49,8 @@ Connection: Close
 
 <html>
    <head>
- ...\end{verbatim}
-\end{leftbar}
+ ...
+\end{lstlisting}
 
 Ce qui a été reçu  n'est rien d'autre que la page de recherche de Google dans sa version HTML brut. Le code HTML est précédé d'un "en-tête HTTP". Celui que nous pouvons observer ci-dessus. Ce qu'il faut comprendre c'est qu'en établissant une connexion TCP avec un serveur web et en utilisant la commande GET du protocole HTTP, il est possible d'effectuer une requête à un serveur web.  Selon  l'hypothèse que nous souhaitions effectuer une recherche pour le mot "lontouch". Il suffit alors d'utiliser la commande HTTP suivante: 
 

@@ -1,0 +1,189 @@
+%///////////////////////////////////////////////////////////////////////////////
+%//  _   _        _                            _                                
+%// | | | |      |_|                          | |                               
+%// | |_| |_____  _ _____           _     _ __| |                               
+%// | |_  | ___ || |  _  \  _____  \ \  / // _  |                               
+%// | | | | ____|| | |_| | (_____)  \ \/ /( (_| |                               
+%// |_| |_|_____)|_|___  |           \__/  \____|                               
+%//                  __| | Haute Ecole d'Ingenieurs                             
+%//                 |___/  et de Gestion - Vaud                                 
+%//                                                                             
+%// @title    Mémoire de diplôme: Annexe sur Linux                              
+%// @context  Travail de diplôme                                                
+%// @author   Y. Chevallier <nowox@kalios.ch>                                   
+%// @file     linux.tex                                                         
+%// @language ASCII/C                                                           
+%// @svn      $Id: linux.tex 110 2005-12-19 23:55:45Z Canard $                  
+%///////////////////////////////////////////////////////////////////////////////
+\chapter{Installation de LINUX}
+Le système linux est disponible selon plusieurs distributions, certaines tel que Suse ou Mandrake sont adaptées au novice. Cependant elles ne sont absolument pas optimisées pour l'application de LonTouch. En effet, l'installation de base prévoit tout un environnement graphique ainsi qu'une grande quantité d'applications qui ne sont en aucun cas utiles pour LonTouch. D'autres distributions tel que Gentoo permettent de régler les moindres paramètres du système mais nécessitent de très solides connaissances de linux. Enfin une troisième catégorie tout à fait adaptée à l'application visée regroupe les distributions Red Hat, Debian ou Slackware. Chacune d'entres-elles sont relativement similaires. Aussi, le choix de la distribution ne peut-être qu'arbitraire. Pour LonTouch c'est Debian qui à été retenu. 
+
+L'installation s'effectue en grande partie sur Internet. Un cd-rom comportant un système minimale peut être téléchargé sous forme d'archive ISO à l'adresse suivante: http://www.debian.org/CD/netinst/ Les disques d'installation sont disponibles pour différentes architectures machine. Un PC compatible appartient à l'architecture i386. Aussi l'archive à télécharger est la suivante: 
+
+\begin{lstlisting}
+http://cdimage.debian.org/debian-cd/3.1_r0a/i386/iso-cd/debian-31r0a-i386-netinst.iso
+\end{lstlisting}
+
+Une fois téléchargée il faut la graver sur un disque vierge. La plupart des logiciels de gravure permettent de graver un cd-rom à partir d'une image ISO. Lorsque cette image est téléchargée il suffit d'insérer le disque dans le lecteur de la machine sur lequel installer linux. Les opérations suivantes sont expliquées durant l'installation. 
+
+Notons que l'encodage clavier à sélectionner est swiss-french et qu'il faut cocher la case de sélection manuelle des paquets à installer. 
+
+Les paquets indispensables sont: 
+
+\begin{itemize}
+	\item	gcc (développement)
+	\item	gettext
+	\item	make
+	\item	manpages (développement)
+	\item	vim (développement)
+	\item	mysql-server (serveur)
+	\item	ntp
+	\item	ssh
+	\item	samba (développement)
+	\item	telnet (développement)
+	\item	tcpdump (développement)
+	\item	zip
+	\item	bzip2
+	\item	unzip
+	\item	tar
+	\item	xwindow-system-core (tp)
+	\item	mozilla-firefox (tp)
+\end{itemize} 
+
+Les dépendances des paquets (paquets nécessaires pour faire tourner un des logiciels cités) ci-dessus ne sont pas indiquées mais la liste est longue. La mention développement indique les paquets nécessaires à la compilation et au développement du démon. L'indication serveur ne concerne que le SERVEUR et l'indication tp ne concerne que les TP. 
+\section{Installation du serveur web}
+L'installation de lighttpd doit se faire séparément car le paquet d'installation ne fait encore partie des sources de debian. C’est pour cette raison qu’ il faut ajouter un lien au fichier de configuration permettant l'installation du paquet binaire et ainsi éviter d'avoir à compiler l'application. La commande suivante ajoute une liste de paquets supplémentaires au fichier /etc/apt/sources-list: 
+
+\begin{lstlisting}
+echo "deb http://debian.bougyman.com unstable main" >> /etc/apt/sources-list
+\end{lstlisting}
+
+Ensuite, il faut mettre à jour la base de données de l'installateur de paquet: 
+
+\begin{lstlisting}
+apt-get update
+\end{lstlisting} 
+
+Si l'opération se déroule correctement il est possible d'installer lighttpd: 
+
+\begin{lstlisting}
+apt-get install lighttpd
+\end{lstlisting} 
+
+A présent le serveur HTTP est installé et peut être démarré, stoppé ou redémarré à l'aide des commandes suivantes: 
+
+\begin{lstlisting}
+/etc/init.d/lighttpd start
+\end{lstlisting}
+
+\begin{lstlisting}
+/etc/init.d/lighttpd stop
+\end{lstlisting}
+	
+\begin{lstlisting}
+/etc/init.d/lighttpd restart
+\end{lstlisting}
+
+\section{Compilation et installation de PHP}
+C'est la version 5.x de PHP qui convient au WEBGUI. En raison d'une configuration particulière, il n'est pas possible d'installer directement le paquet binaire fourni par debian. Il est donc nécessaire de  télécharger les fichiers sources, établir une configuration, compiler l'application puis l'installer. La source peut être téléchargée à partir de l'adresse suivante: http://ch2.php.net/get/php-5.1.1.tar.gz/from/ch2.php.net/mirror. La commande ci-dessous permet le téléchargement de l'archive depuis la console debian: 
+
+\begin{lstlisting}
+cd /usr/src/
+wget http://ch2.php.net/get/php-5.1.1.tar.gz/from/ch2.php.net/mirror 
+\end{lstlisting} 
+
+Une fois téléchargée l'archive doit être décompressée: 
+
+\begin{lstlisting}
+tar –xvzf php-5.1.1.tar.gz
+\end{lstlisting}
+
+Cette opération accomplie, on entre dans le répertoire décompressé:
+
+\begin{lstlisting}
+cd php-5.1.1
+\end{lstlisting} 
+
+La commande permettant la configuration de la compilation est la suivante: 
+
+\begin{lstlisting}
+./configure \ 
+--enable-fastcgi \
+--enable-discard-path \
+--enable-force-redirect \
+--with-mysql \
+--with-gettext \
+--enable-sockets \
+--with-tidy 
+\end{lstlisting}
+
+Il s'agit ici d'options de compilation. \emph{enable-fastcgi}  qui permettent l'interconnexion avec lighttpd.  La compilation  \emph{with-mysql} permet l'interconnexion avec le serveur de données MySQL. On mentionne gettext pour permettre l'internationalisation de la plateforme web et \emph{enable-sockets} pour permettre le dialogue avec le démon. 
+
+Une fois l'opération effectuée il faut procéder à la compilation des sources: 
+
+\begin{lstlisting}
+make 
+\end{lstlisting}
+
+L'opération prend un certain temps. Lorsque la compilation est terminée le programme peut être installé.
+
+\begin{lstlisting}
+make install
+\end{lstlisting}
+
+La dernière étape à effectuer consiste à modifier la configuration de lighttpd pour qu'il prenne en compte PHP. Pour ce faire, il faut décommenter les lignes 164 à 171 et 20 du fichier de configuration /etc/lighttpd/lighttpd.conf. 
+
+\begin{lstlisting}
+fastcgi.server              = ( ".php" =>
+   ( "localhost" => 
+      ( 
+         "socket" => "/tmp/php-fastcgi.socket",
+         "bin-path" => "/usr/local/bin/php"
+      )
+   )
+)   
+\end{lstlisting}
+
+\begin{lstlisting}
+"mod_fastcgi",
+\end{lstlisting}
+
+Lorsque le fichier est sauvegardé le serveur HTTP peut être relancé: 
+
+\begin{lstlisting}
+/etc/init.d/lighttpd restart
+\end{lstlisting} 
+
+\section{Configuration de samba}
+Samba est un logiciel permettant de partager et de rendre accessible des répertoires linux sous Windows. Pour rendre la lecture et l'écriture possible sur les répertoires partagés, il faut modifier les lignes 169 à 183 du fichier de configuration de samba accessible depuis /etc/samba/smb.conf
+
+\begin{lstlisting}
+[homes]
+   comment = Home Directories
+   browseable = yes
+
+# By default, the home directories are exported read-only. Change next
+# parameter to 'yes' if you want to be able to write to them.
+   writable = yes
+
+# File creation mask is set to 0700 for security reasons. If you want to
+# create files with group=rw permissions, set next parameter to 0775.
+   create mask = 0755
+
+# Directory creation mask is set to 0700 for security reasons. If you want to
+# create dirs. with group=rw permissions, set next parameter to 0775.
+   directory mask = 0755     
+\end{lstlisting} 
+
+Ensuite, il faut créer un accès utilisateur en remplaçant login par le nom choisis: 
+
+\begin{lstlisting}
+smbpasswd -a login 
+\end{lstlisting} 
+
+Finalement le serveur samba doit être démarré : 
+
+\begin{lstlisting}
+/etc/init.d/samba start
+\end{lstlisting}
+

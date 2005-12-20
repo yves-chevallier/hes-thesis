@@ -42,6 +42,8 @@
 \usepackage{framed}                    % permet le \begin{leftbar}
 \usepackage{tipa}                      % phonétique internationale
 \usepackage{dirtree}                   % Arborescence de repertoires (J.C.Charpentier)
+\usepackage{listings}
+\usepackage{color}
 \usepackage{multicol}                  % Disposition de texte sur plusieurs colonnes
 %\usepackage[leftbars]{changebar}       % ??
 \usepackage[ps2pdf,pagebackref=true,colorlinks=false,linkcolor=blue,plainpages=true]{hyperref}
@@ -76,23 +78,37 @@
 %   +---------------------------------------------------------------------+     
 %                                                                               
 %///////////////////////////////////////////////////////////////////////////////
-\setlength\voffset				{-1in}	% (1) + 1 in.
-\setlength\topmargin				{1cm} 	% (2)
-\setlength\headheight			{6mm} 	% (3)
-\setlength\headsep				{5mm} 	% (4)
-\setlength\topskip				{0mm} 	% (5)
-\setlength\textheight			{18.5cm} % (6)
-\setlength\textwidth				{12.5cm}	% (7)
-\setlength\footskip				{2.5cm} 	% (8)
-\setlength\oddsidemargin		{0cm} 	% (9) pair
-\setlength\evensidemargin		{0cm} 	% (9) impair
-\setlength\hoffset				{-0.5cm} % (10)
-\setlength\marginparsep			{4mm} 	% (11)
-\setlength\marginparwidth		{2cm} 	% (12)
-\setlength\parindent				{0pt}    % (13)
-\setlength\paperheight			{240mm}  % (14)
-\setlength\paperwidth			{175mm}  % (15)
-%\setlength\parskip            {\bigskipamount} % (Separation de paragraphe)
+\usepackage[dvips,
+            b5paper,
+            marginratio=1:2,
+            top=1cm,
+            left=2cm,
+            headheight=6mm,
+            headsep=5mm,
+            marginparwidth=2cm,
+            marginparsep=4mm,
+            heightrounded,
+%           includemp,
+            includehead]{geometry}
+				
+%\setlength\voffset{-1in}	% (1) + 1 in.
+%\setlength\topmargin{1cm}	% (2)
+%\setlength\headheight{6mm}	% (3)
+%\setlength\headsep{5mm}	% (4)
+%\setlength\topskip{0mm}	% (5)
+%\setlength\textheight{18.5cm}	% (6)
+%\setlength\textwidth{12.5cm}	% (7)
+%\setlength\footskip{2.5cm}	% (8)
+%\setlength\oddsidemargin{0cm}	% (9) pair
+%\setlength\evensidemargin{0cm}	% (9) impair
+%\setlength\hoffset{-0.5cm}	% (10)
+%\setlength\marginparsep{4mm}	% (11)
+%\setlength\marginparwidth{2cm}	% (12)
+%\setlength\paperheight{240mm}	% (14)
+%\setlength\paperwidth{175mm}	% (15)
+
+\setlength\parindent{0pt}	% (13) <- reste celle-là  
+\setlength\parskip{\bigskipamount} % <- et celle-là  
 \def\graphicsExt	            {eps}
 
 %///////////////////////////////////////////////////////////////////////////////
@@ -322,4 +338,14 @@ Toute représentation ou reproduction, intégrale ou partielle, fait sans le conse
 } 
 
 \newcommand{\maraja}[1]{\mbox{}\marginpar{\tiny#1}}
+
+\definecolor{shadecolor}{gray}{0.85}
+\lstset{
+	basicstyle=\sffamily\scriptsize, 
+	breaklines=true, 
+	tabsize=3, 
+	backgroundcolor=\color{shadecolor}
+}
+
+
 % vim: ft=tex: 
