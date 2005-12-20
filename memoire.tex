@@ -36,11 +36,13 @@
 \def\SE                       {\textbf{SERVEUR}~}
 \def\LonTouch                 {\includegraphics[height=0.8em]{figures/ltch.eps}~}
 
+\makeindex
 %///////////////////////////////////////////////////////////////////////////////
 % Début du contenu                                                              
 %///////////////////////////////////////////////////////////////////////////////
 \begin{document}
 
+\index{prout}
 % Pages de garde et titre
 \maketitle\newpage
 	\firstPage
@@ -70,11 +72,14 @@
 
 % Bibliographie etc...
 \backmatter
-	\input{bibliography}   
-	\input{merci}
+	%\input{bibliography}   
+	\input{internet}
 	\input{software}
 	\input{cdrom} 
 	\input{glossaire}
+	\input{merci}	  	
+	\printindex
+	\input{colophon}
 	\input{thanknuth}
 	
 \end{document}

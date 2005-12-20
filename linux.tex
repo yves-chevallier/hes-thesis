@@ -52,7 +52,7 @@ Les paquets indispensables sont:
 
 Les dépendances des paquets (paquets nécessaires pour faire tourner un des logiciels cités) ci-dessus ne sont pas indiquées mais la liste est longue. La mention développement indique les paquets nécessaires à la compilation et au développement du démon. L'indication serveur ne concerne que le SERVEUR et l'indication tp ne concerne que les TP. 
 \section{Installation du serveur web}
-L'installation de lighttpd doit se faire séparément car le paquet d'installation ne fait encore partie des sources de debian. C’est pour cette raison qu’ il faut ajouter un lien au fichier de configuration permettant l'installation du paquet binaire et ainsi éviter d'avoir à compiler l'application. La commande suivante ajoute une liste de paquets supplémentaires au fichier /etc/apt/sources-list: 
+L'installation de lighttpd doit se faire séparément car le paquet d'installation ne fait encore partie des sources de debian. C'est pour cette raison qu' il faut ajouter un lien au fichier de configuration permettant l'installation du paquet binaire et ainsi éviter d'avoir à compiler l'application. La commande suivante ajoute une liste de paquets supplémentaires au fichier /etc/apt/sources-list: 
 
 \begin{lstlisting}
 echo "deb http://debian.bougyman.com unstable main" >> /etc/apt/sources-list
@@ -95,7 +95,7 @@ wget http://ch2.php.net/get/php-5.1.1.tar.gz/from/ch2.php.net/mirror
 Une fois téléchargée l'archive doit être décompressée: 
 
 \begin{lstlisting}
-tar –xvzf php-5.1.1.tar.gz
+tar -xvzf php-5.1.1.tar.gz
 \end{lstlisting}
 
 Cette opération accomplie, on entre dans le répertoire décompressé:
