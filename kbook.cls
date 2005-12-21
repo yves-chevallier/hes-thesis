@@ -37,8 +37,10 @@
 \usepackage{lastpage} 						% Permet de connaître le numéro de la dernière page
 \usepackage{fix-cm}                    % ??
 \usepackage{titletoc}                  % Modification de la table des matières
-\usepackage{utopia}                    % Fonte Utopia
+%\usepackage{lmodern}
+%\usepackage{utopia}                    % Fonte Utopia
 \usepackage{helvet}                    % Fonte Helvetica
+\usepackage{courier}                   % Fonte Courier
 \usepackage{framed}                    % permet le \begin{leftbar}
 \usepackage{tipa}                      % phonétique internationale
 \usepackage{dirtree}                   % Arborescence de repertoires (J.C.Charpentier)
@@ -217,7 +219,7 @@
                                    {-2.5ex \@plus -1ex \@minus -.2ex}%
                                    {2.0ex \@plus.2ex}%
                                    {\normalfont\Large\bfseries\itshape}}
-\renewcommand\subsection{\@startsection{subsection}{2}{\z@}%
+\renewcommand\subsection{\@startsection{subsection}{6}{\z@}%
                                      {-1.5ex\@plus -1ex \@minus -.2ex}%
                                      {1.0ex \@plus .2ex}%
                                      {\normalfont\large\bfseries\itshape}}
@@ -225,14 +227,14 @@
                                      {-2.25ex\@plus -1ex \@minus -.2ex}%
                                      {1.0ex \@plus .2ex}%
                                      {\normalfont\normalsize\bfseries\itshape}}
-\renewcommand\paragraph{\@startsection{paragraph}{4}{\z@}%
-                                    {3.25ex \@plus1ex \@minus.2ex}%
-                                    {2.5ex \@plus .2ex}%
-                                    {\normalfont\normalsize\bfseries\itshape}}
-\renewcommand\subparagraph{\@startsection{subparagraph}{5}{\parindent}%
-                                       {3.25ex \@plus1ex \@minus .2ex}%
-                                       {1.5ex \@plus .2ex}%
-                                      {\normalfont\normalsize\bfseries\itshape}}
+%\renewcommand\paragraph{\@startsection{paragraph}{4}{\z@}%
+%                                    {3.25ex \@plus1ex \@minus.2ex}%
+%                                    {2.5ex \@plus .2ex}%
+%                                    {\normalfont\normalsize\bfseries\itshape}}
+%\renewcommand\subparagraph{\@startsection{subparagraph}{5}{\parindent}%
+%                                       {3.25ex \@plus1ex \@minus .2ex}%
+%                                       {1.5ex \@plus .2ex}%
+%                                      {\normalfont\normalsize\bfseries\itshape}}
 												  
 %///////////////////////////////////////////////////////////////////////////////
 % Redéfinition de Tables des matières & Liste des figures ...                   
@@ -260,7 +262,8 @@
 	 \reset@font
 	 \null\vfil
 	 \begin{center}
-		 {\fontsize{40pt}{30pt}\usefont{T1}{cmss}{bx}{n}\@title}
+%		 {\fontsize{40pt}{30pt}\usefont{T1}{cmss}{bx}{n}\@title}
+		 {\fontsize{40pt}{280pt}\usefont{T1}{cmr}{bx}{n}\@title}
 	 \end{center}
 	 \vfil~\null
 	\end{titlepage}%
@@ -274,7 +277,9 @@
 	 \null	 
 	 \Huge{\textsc{\@author}}
 	 \vfil
-	 {\fontsize{40pt}{30pt}\usefont{T1}{cmss}{bx}{n}\@title}
+%		 {\fontsize{40pt}{30pt}\usefont{T1}{cmss}{bx}{n}\@title}
+		 {\fontsize{40pt}{30pt}\@title}
+	 
 	 \vfil
 	 \huge{\emph{\ksubTitle}}
 	 \vfil
@@ -331,7 +336,7 @@ Toute représentation ou reproduction, intégrale ou partielle, fait sans le conse
    \end{figure}   
 } 
 
-\newcommand{\maraja}[1]{\mbox{}\marginpar{\tiny#1}}
+\newcommand{\maraja}[1]{\mbox{}\marginpar{\raggedright\tiny#1}}
 
 \definecolor{shadecolor}{gray}{0.85}
 \lstset{
@@ -349,4 +354,9 @@ Toute représentation ou reproduction, intégrale ou partielle, fait sans le conse
    \caption{\label{#1}#2}
    \end{figure}   
 }                    
+
+
+\AtBeginDocument{\renewcommand{\labelitemi}{\textbullet}}
+
+
 % vim: ft=tex: 
