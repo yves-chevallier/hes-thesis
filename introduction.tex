@@ -13,7 +13,7 @@
 %// @author   Y. Chevallier <nowox@kalios.ch>                                   
 %// @file     introduction.tex                                                  
 %// @language ASCII/C                                                           
-%// @svn      $Id: introduction.tex 82 2005-12-14 05:41:51Z Canard $            
+%// @svn      $Id$            
 %///////////////////////////////////////////////////////////////////////////////
 \chapter{Introduction}
 \maraja{Le bus de terrain prend l'avantage}
@@ -166,7 +166,7 @@ Le CSS étant l'acronyme de Cascading Style Sheet est, utilisé pour mettre en pag
 
 Supposons que nous souhaitons appliquer à notre \texttt{<strong>texte en gras</strong>} une taille de caractère de $15[pt]$. (15 POINT), une couleur bleue et l'utilisation d'une forme de caractère sans empattement, nous procéderions ainsi: 
 
-\begin{leftbar}\begin{verbatim}
+\begin{lstlisting}
 strong 
 { 
    font-size:   15pt;
@@ -174,8 +174,7 @@ strong
    text-weight: bold;
    color:       blue; 
 }
-\end{verbatim}
-\end{leftbar}
+\end{lstlisting}
 
 La structure est simple. On débute par le nom de la balise HTML concernée, puis, entres accolades, viennent les différents paramètres que l'on veut définir pour le bloc. A noter que les deux points séparant le nom du paramètre de sa valeur et le point virgule sont en fin de commande. 
 
@@ -190,7 +189,7 @@ JavaScript est un langage très controversé par les puristes de la programmation.
 
 Reprenons notre exemple du bouton de cinquante pixels d'arrête, nous pouvons obtenir le résultat souhaité avec le code JavaScript suivant: 
 
-\begin{leftbar}\begin{verbatim}
+\begin{lstlisting}
 var state = "off"
 document.getElementById(elem).onclick = function() 
 {
@@ -207,8 +206,7 @@ document.getElementById(elem).onclick = function()
       state = "off"
 	}
 }
-\end{verbatim}
-\end{leftbar}
+\end{lstlisting}
 
 Il ne faut pas penser qu'il s'agisse là de lignes parfaitement incompréhensibles. Le fonctionnement est très simple. Tout d'abord, on définit une variable appelée \emph{state} qui initialise l'état de l'éclairage et du bouton. Nous lui attribuons la valeur \emph{off} au début ainsi nous considérons que tout est éteint. Ensuite on assigne un comportement spécifique à l'élément \emph{elem} lors d'un clic de souris. L'élément \emph{elem} permet de faire référence à un élément HTML. 
 
@@ -216,14 +214,13 @@ Lorsqu'un clic se produit sur l'élément. Un test est effectué pour savoir si la 
 
 Pour le bon  fonctionnement , le code HTML décrivant le bouton doit donc correspondre à ceci: 
 
-\begin{leftbar}\begin{verbatim}
+\begin{lstlisting}
 <div id="elem">Un bouton</div>
-\end{verbatim}
-\end{leftbar} 
+\end{lstlisting}
 
 Finalement, les styles CSS décrivant les états \emph{on} ou \emph{off} sont:
 
-\begin{leftbar}\begin{verbatim}
+\begin{lstlisting}
 .on 
 { 
    background-color: green; 
@@ -236,8 +233,7 @@ Finalement, les styles CSS décrivant les états \emph{on} ou \emph{off} sont:
    height: 50px;
    width: 50px;
 }
-\end{verbatim}
-\end{leftbar} 
+\end{lstlisting}
 
 Cet exemple simple démontre que le bagage nécessaire pour ajouter du dynamisme à une page web n'est pas négligeable. Aussi, l'un des objectifs de ce travail est de constituer une librairie JavaScript qui s'occupera de façon la plus automatique possible, de gérer ce dynamisme. L'utilisateur se contentera de définir le type de contrôle à assigner à un élément HTML. Il peut s'agir d'un bouton, d'un rhéostat,  d'un indicateur de température, etc.. Le chapitre [refchapter] est consacré à la réalisation de cette librairie. Il précède le chapitre concernant la réalisation d'un Interface graphique utilisant les contrôles interactifs définis dans la librairie. 
 

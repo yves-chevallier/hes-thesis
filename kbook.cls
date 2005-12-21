@@ -43,6 +43,7 @@
 \usepackage{tipa}                      % phonétique internationale
 \usepackage{dirtree}                   % Arborescence de repertoires (J.C.Charpentier)
 \usepackage{listings}
+\usepackage{tabularx}
 \usepackage{color}
 \usepackage{multicol}                  % Disposition de texte sur plusieurs colonnes
 %\usepackage[leftbars]{changebar}       % ??
@@ -108,7 +109,7 @@
 %\setlength\paperwidth{175mm}	% (15)
 
 \setlength\parindent{0pt}	% (13) <- reste celle-là  
-\setlength\parskip{\bigskipamount} % <- et celle-là  
+\setlength\parskip{\medskipamount} % <- et celle-là  
 \def\graphicsExt	            {eps}
 
 %///////////////////////////////////////////////////////////////////////////////
@@ -320,14 +321,7 @@ Toute représentation ou reproduction, intégrale ou partielle, fait sans le conse
 %///////////////////////////////////////////////////////////////////////////////
 %  Importation d'une figure                                                     
 %///////////////////////////////////////////////////////////////////////////////
-\newcommand{\fig}[2]{
-   \begin{figure}[!h]
-   \begin{center}
-   \includegraphics[width=\textwidth]{figures/#1.\graphicsExt}
-   \end{center}
-   \caption{\label{#1}#2}
-   \end{figure}   
-}
+
 \newcommand{\figi}[4]{
    \begin{figure}[!h]
    \begin{center}
@@ -347,5 +341,12 @@ Toute représentation ou reproduction, intégrale ou partielle, fait sans le conse
 	backgroundcolor=\color{shadecolor}
 }
 
-
+\newcommand{\fig}[2]{
+   \begin{figure}[!h]
+   \begin{center}
+   \includegraphics[width=\textwidth]{figures/#1.\graphicsExt}
+   \end{center}
+   \caption{\label{#1}#2}
+   \end{figure}   
+}                    
 % vim: ft=tex: 

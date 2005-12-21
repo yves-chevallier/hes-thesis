@@ -16,11 +16,11 @@
 %// @svn      $Id$              
 %///////////////////////////////////////////////////////////////////////////////
 \chapter{Librairie JavaScript}
+\label{chpjs}
 A la section [refsection], il a été établi que la réalisation d'une librairie JavaScript est nécessaire d'une part pour rendre possible le dialogue avec le démon et d'autre part pour assurer le dynamisme de la page. Ce langage étant orienté pour traiter des chaînes de caractères, concevoir un échange de données à l'aide de messages binaires n'est pas une bonne solution. D'autre part, la seule possibilité de JavaScript permettant de communiquer avec le monde extérieur c'est d'utiliser le protocole HTTP. C'est pour cette raison que nous allons nous y intéresser de plus près.
 
 \section{HTTP en bref}
 Le protocole HTTP sans aucun doute le plus utilisé de part le monde. Il s'agit d'un protocole de la sixième couche OSI il s'appuie sur TCP un protocole de transport de la couche quatre. Malgré sa complexité, du point de vue de LonTouch, ce ne sont que les fonctionnalités de base qui seront utilisées. 
-
 
 \subsection{Comprendre par l'exemple}
 C'est à l'aide d'un exemple simple que nous allons tenter de comprendre le fonctionnement du protocole HTTP. En imaginant que l'on souhaite effectuer une recherche sur Google sans utiliser de navigateur web, il faut faire appel à un outil de communication basé sur TCP. Pour la démonstration nous utiliserons TELNET. En règle générale cet outil est disponible sur toutes les plateformes informatiques. Sous Windows, c'est à l'aide du menu démarrer et de la commande "Exécuter" que l'on y accède. La figure [reffigure] montre visuellement comment exécuter cet outil. Une fois lancé, le programme est en attente d'une commande. Pour se connecter au moteur de recherche Google, utilisons celle-ci: 
@@ -54,28 +54,32 @@ Connection: Close
 
 Ce qui a été reçu  n'est rien d'autre que la page de recherche de Google dans sa version HTML brut. Le code HTML est précédé d'un "en-tête HTTP". Celui que nous pouvons observer ci-dessus. Ce qu'il faut comprendre c'est qu'en établissant une connexion TCP avec un serveur web et en utilisant la commande GET du protocole HTTP, il est possible d'effectuer une requête à un serveur web.  Selon  l'hypothèse que nous souhaitions effectuer une recherche pour le mot "lontouch". Il suffit alors d'utiliser la commande HTTP suivante: 
 
-\begin{leftbar}\begin{verbatim}GET www.google.ch/search?q=lontouch  HTTP/1.0\end{verbatim}
-\end{leftbar} 
+\begin{lstlisting}  
+GET www.google.ch/search?q=lontouch  HTTP/1.0
+\end{lstlisting}  
 
 On observe ici que l'on s'adresse à un script nommé \emph{search} auquel on assigne au paramètre \emph{q} la valeur lontouch. Ce script va pouvoir ensuite traiter la demande et renvoyer un résultat. En l'occurrence, le nombre de résultats sera nul puisque le nom LonTouch n'est encore utilisé de personne. Ce qu'il faut retenir c'est qu'il est possible de véhiculer des informations à caractère variable au travers de l'URL ou Uniform Resource Locator, autrement dit, de l'adresse HTTP. 
 
 \subsection{HTTP pour dialoguer avec le démon} 
 A l'aide de cette initiation à HTTP, il est possible, sans difficulté, de comprendre comment transférer des données au démon. En considérant une interface graphique permettant le contrôle d'un éclairage LON au travers d'une variable de type SNVT, nous savons que deux paramètres sont mis en jeu: L'intensité de l'éclairage à l'aide du paramètre value et l'état binaire de la lampe avec le paramètre state. Si l'on considère que l'adresse http://www.lontouch.ch est l'adresse du démon, la requête HTTP suivante pourrait permettre de mettre à jour l'état de l'éclairage: 
 
-\begin{leftbar}\begin{verbatim}GET www.lontouch.ch/snvt?value=128&state=1  HTTP/1.0\end{verbatim}
-\end{leftbar}  
+\begin{lstlisting}
+GET www.lontouch.ch/snvt?value=128&state=1  HTTP/1.0
+\end{lstlisting}  
 
 
 Le démon ne peut-être dans ce cas qu'un simple serveur TCP ne comprenant que certaines commandes primitives de HTTP. Quoi qu'il en soit, une information manque à la requête passée. Il n'est pas défini quel éclairage nous souhaitons commander. Il est donc nécessaire d'apporter à la requête une légère modification: 
 
-\begin{leftbar}\begin{verbatim}GET www.lontouch.ch/snvt?lamp1.value=128&lamp1.state=1  HTTP/1.0\end{verbatim}
-\end{leftbar}         
+\begin{lstlisting}
+GET www.lontouch.ch/snvt?lamp1.value=128&lamp1.state=1  HTTP/1.0
+\end{lstlisting}  
 
 
 Jusqu'ici tout est relativement simple. Néanmoins, le démon doit pouvoir, à un moment ou un autre informer l'interface graphique des éventuels changements survenus sur le réseau LON. Etant donné qu'avec HTTP les questions sont toujours posées par le client et qu'il ne peut y avoir de réponse sans question. C'est  au navigateur supportant l'interface graphique d'effectuer auprès du démon une demande. Définissons alors une requête HTTP pour ce type de demande: 
 
-\begin{leftbar}\begin{verbatim}GET www.lontouch.ch/snvt?update  HTTP/1.0\end{verbatim}
-\end{leftbar}         
+\begin{lstlisting}  
+GET www.lontouch.ch/snvt?update  HTTP/1.0
+\end{lstlisting}  
 
 Pour que l'interface graphique puisse disposer sans cesse des dernières valeurs de la SNVT, elle lui suffit d'exécuter la commande ci-dessus périodiquement. En domotique ou immotique, on autorise des écarts de temps de 300[ms]. Aussi, la requête update sera exécutée à cet intervalle de temps. Cependant, cette méthode consistant à envoyer périodiquement des demande à un serveur, appelée polling est mauvaise. En admettant qu'un millier d'interfaces graphiques soient réparties dans le bâtiment c'est alors plus de 9000 requêtes qui sont reçue par le SERVEUR toute les secondes. C'est pour cette raison qu'un démon "personnel" est installé dans chacun des écrans tactiles. Celui-ci sera en mesure être informé directement depuis le SERVEUR lorsque l'état d'un périphérique LON change. 
 
@@ -86,31 +90,37 @@ Ce langage est porté sur la notion d'objet ou tout au moins de "pseudo objet". L
 
 Pour expliquer quel est le format des réponses HTTP qui à été retenu et pourquoi, utilisons une fois de plus l'exemple. L'expression JavaScript suivante assigne à la variable toto la valeur 4.
 
-\begin{leftbar}\begin{verbatim}var toto = 4\end{verbatim}
-\end{leftbar} 
+\begin{lstlisting}  
+var toto = 4
+\end{lstlisting}   
 
 Rien n'empêche maintenant d'assigner à la variable toto un objet à deux propriétés. Dans l'exemple suivant, la propriété tata vaut 4 et titi vaut 5. 
 
-\begin{leftbar}\begin{verbatim}var toto = {tata:4, titi:5}\end{verbatim}
-\end{leftbar} 
+\begin{lstlisting}  
+var toto = {tata:4, titi:5}
+\end{lstlisting}  
 
 Ce format, simple, peut être appliqué à des structures SNVT comme le montre l'exemple suivant pour un type switch: 
 
-\begin{leftbar}\begin{verbatim}lamp1 = {state: 1, value: 130}\end{verbatim}
-\end{leftbar}                                             
+\begin{lstlisting}
+lamp1 = {state: 1, value: 130}
+\end{lstlisting}          
 
 Avec cette commande on défini que la variable lamp1, concerne un éclairage allumé à $65[\%]$. Si l'on fait l'hypothèse que le démon retourne à JavaScript une réponse similaire, la commande eval peut permettre directement de mettre à jour l'état d'une variable lamp1 locale à l'interface graphique. Nous verrons plus loin que le démon est en mesure de formater sa réponse selon plusieurs formats. Partant de ce fait, nous ajouterons le suffixe .js à l'URL pour indiquer que le format de réponse souhaité est celui que nous avons entraperçu ci-dessus: 
 
-\begin{leftbar}\begin{verbatim}GET www.lontouch.ch/snvt.js?update  HTTP/1.0\end{verbatim}
-\end{leftbar}                                             
+\begin{lstlisting}  
+GET www.lontouch.ch/snvt.js?update  HTTP/1.0
+\end{lstlisting}  
 
-A titre d'information, voici ce que nous aurions reçu pour un format XML (\texttt{GET www.lontouch.ch/snvt.xml?update  HTTP/1.0})
+A titre d'information, voici ce que nous aurions reçu pour un format XML \\
+(\texttt{GET www.lontouch.ch/snvt.xml?update  HTTP/1.0})
 
-\begin{leftbar}\begin{verbatim}<snvt type="switch" name="lamp1">
+\begin{lstlisting}  
+<snvt type="switch" name="lamp1">
 <value>128</value>
  	<state>1</state>
-</snvt>\end{verbatim}
-\end{leftbar}
+</snvt>
+\end{lstlisting}  
 
 Il est évident qu'en comparaison numérique  il faut 74 caractères ASCII/XML contre 30 pour le format JavaScript. Pour clore cette section sur le format des réponses HTTP, le protocole LTP/HTTP défini au chapitre [refchapter], défini l'ensemble des URL possibles ainsi que la structures des réponses.
 
@@ -181,14 +191,16 @@ Le mot clé new signifie que l'on souhaite attribuer à la variable bouton1 une in
 
 Si l'on souhaite initialiser la variable variable1 comme étant allumée à $50[\%]$ il faut écrire:
 
-\begin{leftbar}\begin{verbatim}bouton1.State(1)
-bouton1.Value(100)\end{verbatim}
-\end{leftbar}
+\begin{lstlisting}  
+bouton1.State(1)
+bouton1.Value(100)
+\end{lstlisting}  
 
 Réciproquement, si l'on souhaite affecter à une variable toto la valeur 55 on procédera de cette manière:
 
-\begin{leftbar}\begin{verbatim}var toto = bouton1.State()\end{verbatim}
-\end{leftbar}             
+\begin{lstlisting}
+var toto = bouton1.State()
+\end{lstlisting}  
 
 \subsection{Modification des styles CSS lors d'évènements du DOM}
 Lorsqu'un clic de souris, un survol ou même un double clic survient sur un élément HTML. Un évènement est généré à l'intérieur de JavaScript. La librairie capture les évènements qui surviennent sur élément HTML auquel on a assigné un contrôle. Ceci permet de modifier automatiquement le style CSS de l'élément. Pour prendre à nouveau exemple sur le contrôle de type SNVT\_switch les cas de figures suivants sont prédéfinis: 
@@ -202,24 +214,26 @@ Lorsqu'un clic de souris, un survol ou même un double clic survient sur un éléme
 
 En supposant que l'on souhaite appliquer le style CSS \emph{couleur\_rouge} lorsque la propriété state du contrôle vaut 0 et le style \emph{couleur\_vert} lorsque cette propriété vaut 1. Ainsi que les styles \emph{couleur\_rouge\_clair} lors que le pointeur de souris survole le bouton alors que la lampe (la propriété state) est éteinte, et \emph{couleur\_vert\_clair} dans le cas similaire mais lorsque la lampe est allumée, voici le code JavaScript à écrire: 
 
-\begin{leftbar}\begin{verbatim}bouton1.EventCSS('classOverOn', "couleur_vert_clair")
+\begin{lstlisting}  
+bouton1.EventCSS('classOverOn', "couleur_vert_clair")
 bouton1.EventCSS('classOverOff', "couleur_rouge_clair")
 bouton1.EventCSS('classOutOn', "couleur_vert")
-bouton1.EventCSS('classOutOff', "couleur_rouge")\end{verbatim}
-\end{leftbar}             
+bouton1.EventCSS('classOutOff', "couleur_rouge")
+\end{lstlisting}  
 
 La figure [reffigure] permet d'illustrer graphiquement le cas présenté. 
 
 \subsection{Modifications avancées}
 Il peut arriver que l'initié veuille modifier le comportement par défaut appliqué au contrôle bouton1 lors, par exemple, d'un clic de souris. Il voudrait afficher une alerte dans une fenêtre du navigateur web. La possibilité offerte par la librairie est la suivante: 
 
-\begin{leftbar}\begin{verbatim}bouton1.Event('onclick', "alert('vous venez de cliquez sur un contrôle de type SNVT switch')")\end{verbatim}
-\end{leftbar} 
+\begin{lstlisting}  
+bouton1.Event('onclick', "alert('vous venez de cliquez sur un contrôle de type SNVT switch')")
+\end{lstlisting}  
 
 
 La méthode Event concernant le contrôle bouton1 est appelée, recevant un premier paramètre qui définit sur quel type d'évènement modifier le comportement et en second paramètre l'action à effectuer. Ici, il s'agit d'exécuter la commande JavaScript alert qui affiche un message d'erreur dont le contenu est passé en paramètre. 
 
-\subsection{Aperçu des possibilités pour un contrôle de type SNVT\_switch}
+\subsection{Possibilités pour un contrôle SNVT\_switch}
 La figure [reffigure] présente un aperçu de l'ensemble des méthodes possibles pour l'objet SNVT\_switch. 
 
 \subsection{Les autres types de contrôles}

@@ -16,11 +16,18 @@
 %// @svn      $Id$                  
 %///////////////////////////////////////////////////////////////////////////////
 \chapter{L'interface web de configuration}
-L'intégralité de l'interface web de configuration appelé tout au long de cet ouvrage WEBGUI à été programmé en PHP. Il s'agit d'un langage de script très répandu pour le développement de ce type d'application. 
+\index{PHP}
+\maraja{PHP un langage de script}
+L'intégralité de l'interface web de configuration appelé tout au long de cet ouvrage \textsf{WEBGUI} à été programmé en \textsf{PHP}. Il s'agit d'un langage de script très répandu pour le développement de ce type d'application. 
 
-Le serveur web nécessaire à l'hébergement de la plateforme est Lighttpd 1.4. Il est bien plus rapide qu'Apache lorsqu'il s'agit d'héberger une petite plateforme Web. D'autre part, comme homologue, il est open-source. L'installation est facile et l'interconnexion avec PHP est réalisée au moyen de la méthode FASTCGI. 
+\maraja{Préférence pour Lighttpd}
+\index{Lighttpd}
+\index{Apache}
+\index{fastcgi}
+Le serveur web nécessaire à l'hébergement de la plateforme est \emph{Lighttpd 1.4}. Il est bien plus rapide qu'\emph{Apache} lorsqu'il s'agit d'héberger une petite plateforme Web. D'autre part, comme homologue, il est open-source. L'installation est facile et l'interconnexion avec \textsf{PHP} est réalisée au moyen de la méthode \textsf{FASTCGI}. 
 
-Le WEBGUI doit permettre la gestion complète du système. Les différentes fonctionnalités que doit permettre la plateforme sont énumérées ci-dessous:
+\index{WEBGUI}
+Le \textsf{WEBGUI} doit permettre la gestion complète du système. Les différentes fonctionnalités que doit permettre la plateforme sont énumérées ci-dessous:
 
 \begin{itemize}
 \item	La gestion des utilisateurs
@@ -54,45 +61,66 @@ Le WEBGUI doit permettre la gestion complète du système. Les différentes fonctio
 	\subitem	Envoi du message de service sur le réseau LonWorks
 \end{itemize}
 
+
 \section{Schéma bloc de l'interface}
-La figure [reffigure] présente la cartographie du WEBGUI. On remarque qu'en fonction du type d'authentification, on aboutit soit sur la console d'administration \emph{WEBadmin}, soit sur la page permettant de sélectionner une interface graphique accessible par les CLIENTS: le \emph{WEBclient}.
+\index{WBGUI!schéma bloc}
+La figure \ref{schblocwebgui} présente la cartographie du \textsf{WEBGUI}. On remarque qu'en fonction du type d'authentification, on aboutit soit sur la console d'administration \emph{WEBadmin}, soit sur la page permettant de sélectionner une interface graphique accessible par les \textsf{CLIENTS}: le \emph{WEBclient}.
+
+\fig{schblocwebgui}{Schéma bloc du WEBGUI}
 
 \section{Constitution de la charte graphique}
-Il à été jugé important de réaliser une charte graphique ayant un design sobre mais élégant. En règle générales les gens ont une tendance particulière à juger l'apparence des choses. C'est pour cette raison qu'un laps de temps conséquent à été consacré à la réalisation d'une charte graphique pour le WEBGUI.
+\index{WEBGUI!charte graphique}
+\maraja{Une charte graphique élégante}
+Il à été jugé important de réaliser une charte graphique ayant un design sobre mais élégant. En règle générales les gens ont une tendance particulière à juger l'apparence des choses. C'est pour cette raison qu'un laps de temps conséquent à été consacré à la réalisation d'une charte graphique pour le \textsf{WEBGUI}.
 
-Cette dernière à été réalisée à l'aide des logiciels \emph{Adobe Illustrator} et \emph{Adobe Photoshop}. L'implantation du graphisme sur la plateforme web a nécessité des efforts particulièrement importants pour respecter au mieux les recommandations du w3c. 
+\index{Adobe Illustrator}
+\index{Adobe Photoshop}
+Cette dernière à été réalisée à l'aide des logiciels \emph{Adobe Illustrator} et \emph{Adobe Photoshop}. L'implantation du graphisme sur la plateforme Web a nécessité des efforts particulièrement importants pour respecter au mieux les recommandations du \textsf{W3C}. 
 
-La figure [reffigure] présente la page d'authentification en (a) et celle de gestion des variables réseau en (b) de la plateforme Web. 
+La figure \ref{webgui} présente la page d'authentification en (a) et celle de gestion des variables réseau en (b) de la plateforme Web. 
+
+\fig{webgui}{Aperçu de la plateforme Web}
 
 \section{Spécificités du programme}
-Aborder la réalisation d'une console d'administration web oblige le programmeur à adopter certaines conventions pour éviter que le code source ne devienne incompréhensible. L'inconvénient majeur du PHP est son aspect permissif. Sans adopter une certaine rigueur et une certaine méthodologie de travail, il est vite fait d'obtenir, au final, du code spaghetti. De plus, étant un langage de TEMPLATE, les fichiers sources contiennent à la fois du code HTML et PHP ce qui facilite encore moins la compréhension. 
+\maraja{PHP trop permissif}
+Aborder la réalisation d'une console d'administration Web oblige le programmeur à adopter certaines conventions pour éviter que le code source ne devienne incompréhensible. L'inconvénient majeur du \emph{PHP} est son aspect permissif. Sans adopter une certaine rigueur et une certaine méthodologie de travail, il est vite fait d'obtenir, au final, du \emph{code spaghetti}. De plus, étant un langage de \textsf{TEMPLATE}, les fichiers sources contiennent à la fois du code \textsf{HTML} et \textsf{PHP} ce qui facilite encore moins la compréhension. 
 
-Pour résoudre certain de ces problèmes, des librairies ont été écrites dans le but de minimiser un maximum le code HTML présent dans les scripts PHP. Par exemple, une des librairies permet de séparer la charte graphique de l'intelligence. Ainsi, il peut être possible de modifier intégralement la présentation du WEBGUI sans modifier la moindre ligne du programme PHP. 
+\index{librairies}
+\maraja{La découpe en librairies}
+Pour résoudre certain de ces problèmes, des librairies ont été écrites dans le but de minimiser un maximum le code \textsf{HTML} présent dans les scripts \textsf{PHP}. Par exemple, une des librairies permet de séparer la charte graphique de l'intelligence. Ainsi, il peut être possible de modifier intégralement la présentation du \textsf{WEBGUI} sans modifier la moindre ligne du programme \textsf{PHP}. 
 
+\index{apparence} 
+\index{FORUMHES-SO} 
+\index{overhead}
 \subsection{Une librairie pour la gestion de l'apparence}
-Ecrite en partie pour le site Internet du FORUMHES-SO, cette librairie à été perfectionnée durant ce travail de diplôme. Elle permet de programmer une interface web sans se soucier de son apparence. Bien qu'il existe des dizaines de librairies similaires sur le web, elles ont toutes l'inconvénient d'être complexes et d'ajouter un OVERHEAD non négligeable lors de leur utilisation. 
+Ecrite en partie pour le site Internet du \textsf{FORUMHES-SO}, cette librairie à été perfectionnée durant ce travail de diplôme. Elle permet de programmer une interface Web sans se soucier de son apparence. Bien qu'il existe des dizaines de librairies similaires sur le Web, elles ont toutes l'inconvénient d'être complexes et d'ajouter un \textsf{OVERHEAD} non négligeable lors de leur utilisation. 
 
 \subsection{Une librairie pour l'internationalisation}
-Un point souvent négligé lors de l'élaboration d'une plateforme web, c'est l'adaptation d'un mode programmation permettant une traduction facile de l'interface dans d'autres langues. Le traducteur ne doit pas avoir à connaître le PHP pour effectuer son travail. De plus, il faut éviter d'avoir recours au programmeur pour mettre à jour les textes contenus dans le code source du programme. C'est pourquoi une librairie à été établie pour faciliter l'internationalisation du système. 
+Un point souvent négligé lors de l'élaboration d'une plateforme Web, c'est l'adaptation d'un mode programmation permettant une traduction facile de l'interface dans d'autres langues. Le traducteur ne doit pas avoir à connaître le \textsf{PHP} pour effectuer son travail. De plus, il faut éviter d'avoir recours au programmeur pour mettre à jour les textes contenus dans le code source du programme. C'est pourquoi une librairie à été établie pour faciliter l'internationalisation du système. 
 
-Son fonctionnement est couplé avec l'outil GNU gettext spécialement adapté à l'internationalisation de documents. L'auteur vous incite à lire la documentation de cet outil en suivant le lien donné dans le glossaire. 
+\index{gettext}
+\maraja{GETTEXT pour traduire}
+Son fonctionnement est couplé avec l'outil \emph{GNU gettext} spécialement adapté à l'internationalisation de documents. L'auteur vous incite à lire la documentation de cet outil en suivant le lien donné dans le glossaire. 
 
 \subsection{Une librairie pour l'authentification}
-Dans le but d'accroitre la sécurité du système, une librairie s'occupe intégralement de gérer l'authentification des utilisateurs. Elle permet la connexion d'un utilisateur sur le système ainsi que sa déconnexion se basant sur la table SQL user définie au chapitre [refchapter]. 
+\index{sql} 
+Dans le but d'accroitre la sécurité du système, une librairie s'occupe intégralement de gérer l'authentification des utilisateurs. Elle permet la connexion d'un utilisateur sur le système ainsi que sa déconnexion se basant sur la table \textsf{SQL} \emph{user} définie au chapitre \ref{chpbde}. 
  
 \subsection{Une librairie pour contacter la base de donnée}
-Afin d'offrir un maximum d'indépendance entre la plateforme web et le serveur de données utilisées, une librairie à été mise en place pour faciliter l'exécution de requêtes auprès du serveur MySQL. 
+\index{base de données}
+Afin d'offrir un maximum d'indépendance entre la plateforme web et le serveur de données utilisées, une librairie à été mise en place pour faciliter l'exécution de requêtes auprès du serveur \textsf{MYSQL}. 
 
 \subsection{Une librairie pour discuter avec le démon}
-La communication avec le démon par le biais de LTP/HTTP en mode administration est facilité par l'écriture d'une librairie supplémentaire. 
+\index{démon}
+La communication avec le démon par le biais de \textsf{LTP/HTTP} en mode administration est facilité par l'écriture d'une librairie supplémentaire. 
 
 \clearpage
 \section{Organisation au niveau du système de fichiers}
-L'arborescence présentée ci-dessous montre le WEBGUI du point de vue de ses fichiers sources. On observe par exemple que les GI sont installées dans le répertoire \textsf{gi/} et que les images sont placées dans le répertoire \textsf{images/}. 
+L'arborescence présentée ci-dessous montre le WEBGUI du point de vue de ses fichiers sources. On observe par exemple que les \textsf{GI} sont installées dans le répertoire \textsf{gi/} et que les images sont placées dans le répertoire \textsf{images/}. 
 
-Les différentes librairies JavaScript prennent place dans le répertoire \textsf{js/} et les librairies PHP dans le répertoire \textsf{php/}. Le répertoire \textsf{locales/} est prévu pour contenir les informations relatives à l'internationalisation de la plateforme. Enfin, le répertoire \textsf{skins/} contient les différentes chartes graphiques de la plateforme Web. Les images relatives à une charte graphique sont placées au même niveau que cette dernière, dans le répertoire \textsf{skins/}. 
+Les différentes librairies JavaScript prennent place dans le répertoire \textsf{js/} et les librairies \textsf{PHP} dans le répertoire \textsf{php/}. Le répertoire \textsf{locales/} est prévu pour contenir les informations relatives à l'internationalisation de la plateforme. Enfin, le répertoire \textsf{skins/} contient les différentes chartes graphiques de la plateforme Web. Les images relatives à une charte graphique sont placées au même niveau que cette dernière, dans le répertoire \textsf{skins/}. 
 
-Les fichiers PHP décrivant la plateforme, sont tous placés à la racine du répertoire qui contient la plateforme web. 
+Les fichiers \textsf{PHP} décrivant la plateforme, sont tous placés à la racine du répertoire qui contient la plateforme Web. 
 
 \DTsetlength{3pt}{8pt}{5pt}{0.4pt}{0pt}
 \begin{multicols}{2}
