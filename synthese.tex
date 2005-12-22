@@ -1,0 +1,75 @@
+%///////////////////////////////////////////////////////////////////////////////
+%//  _   _        _                            _                                
+%// | | | |      |_|                          | |                               
+%// | |_| |_____  _ _____           _     _ __| |                               
+%// | |_  | ___ || |  _  \  _____  \ \  / // _  |                               
+%// | | | | ____|| | |_| | (_____)  \ \/ /( (_| |                               
+%// |_| |_|_____)|_|___  |           \__/  \____|                               
+%//                  __| | Haute Ecole d'Ingenieurs                             
+%//                 |___/  et de Gestion - Vaud                                 
+%//                                                                             
+%// @title    Mémoire de diplôme: Synthèse des résultats                        
+%// @context  Travail de diplôme                                                
+%// @author   Y. Chevallier <nowox@kalios.ch>                                   
+%// @file     synthese.tex                                                      
+%// @language ASCII/C                                                           
+%// @svn      $Id: synthese.tex 110 2005-12-19 23:55:45Z Canard $               
+%///////////////////////////////////////////////////////////////////////////////
+\chapter{Synthèse des résultats}
+\section{Les résultats obtenus}
+Considérant l'ensemble du projet, seule une infime partie des fonctionnalités décrites tout au long de ce document sont aujourd'hui utilisables. Cependant, le chapitre précédant démontre que le cahier des charges à néanmoins été respecté. 
+
+\section{Politique de travail}
+Si une seulement une minorité des fonctionnalités de LonTouch est utilisable c'est en partie dû à la politique de travail choisie pour mener à bien le projet. Il aurait été possible d'adopter un comportement de travail très séquentiel et ainsi de terminer complètement un aspect fonctionnel du projet pour passer à un autre. Cependant cette méthode aurait eu comme désavantage de favoriser la spécificité au détriment d'une vision globale du projet. 
+
+La politique choisie consiste à se concentrer sur plusieurs fronts simultanément. Elle permet de dissiper peu à peu les points d'ombre et ainsi permettre un emboîtement parfait des différentes parties du projet. Malheureusement bon nombre de ces parties n'ont pu être terminées, faute de temps. 
+
+La méthode de travail appliquée est en relation directe avec la notion de  flou perçue au début du projet. Les détails techniques quant au fonctionnement final n'étant pas établis, il était donc difficile de se forger une idée générale du fonctionnement de LonTouch. 
+
+\section{Reprise du cahier des charges}
+Reconsidérations de cahier des charges initial: 
+
+Objectifs principaux:
+
+\begin{itemize}
+	\item	Installation du matériel et des logiciels
+	\item	Développement de l'interface de gestion du bus Lon sur le serveur;
+	\item	Développement de l'interface logicielle entre le bus LonWorks et Ethernet;
+	\item	Développement d'une ébauche de la console d'administration web; 
+	\item	Réalisation d'une interface de démonstration;
+	\item	Réalisation et mise au point du prototype; 
+	\item	Rédaction du mémoire de diplôme
+\end{itemize} 
+
+Objectifs secondaires:
+
+\begin{itemize}
+	\item	Implémentation du logiciel client;
+	\item	implémentation du protocole de communication basé sur UDP sur le client; 
+	\item	développement du démon UDP sur le serveur;
+	\item	perfectionnement de l'interface web d'administration; 
+\end{itemize}
+		
+Il est indéniable que l'installation du matériel et des logiciels est un succès. Linux est parfaitement fonctionnel et la prise en main des différents logiciels d'édition, de développement ou encore d'administration réseau est excellente.
+
+Le développement de l'interface de gestion du bus \textsf{LON} sur le \textsf{SERVEUR} fait référence à la librairie \emph{lon.c} qui dans son ensemble est parfaitement fonctionnelle. Un dernier point devra être parachevé  à savoir,  la réception et l'envoi de messages explicites nécessaire à la communication entre un \textsf{TP} et le \textsf{SERVEUR} sur LonWork. 
+
+Le développement de l'interface logicielle entre le bus LonWorks et Ethernet fait référence aux librairies \emph{lontouch.c} et \emph{ltp.c}. Ces dernières nécessiteraient quelques optimisations mais dans l'ensemble elles sont fonctionnelles. 
+
+Le développement d'une ébauche de la console d'administration Web désigne la réalisation du \textsf{WEBGUI} qui fonctionne. L'aspect d'internationalisation est néanmoins à peaufiner pour permettre une future traduction anglaise possible. 
+
+La réalisation d'une interface de démonstration fait référence au chapitre \ref{chpgi} qui décrit la réalisation d'un \textsf{GI} de démonstration. Celui-ci n'est pas le seul réalisé au cours du travail. Une version élaborée de l'interface conçue durant le travail de semestre à été modifiée pour être rendue fonctionnelle sur LonTouch. 
+
+Finalement, la rédaction du mémoire de diplôme fait l'objet du présent document. 
+
+Concernant les objectifs secondaires, l'implémentation du logiciel client est en partie réalisée. Un navigateur Web basé sur \textsf{GECKO} à été réalisé en s'appuyant sur les librairies \textsf{GTK} de \textsf{LINUX} avec beaucoup d'aide extérieure. Cependant, les difficultés liées à la compilation de \textsf{GECKO} n'ont pas permis d'effectuer des tests de fonctionnement. Notons pour ce point que le démon \textsf{CLIENT} est en partie réalisé puisqu'il hérite du code source du démon \textsf{SERVEUR}. 
+
+L'implémentation du protocole de communication basé \textsf{UDP} sur le \textsf{CLIENT} fait référence au protocole \textsf{LTP/UDP} décrit au chapitre \ref{chpltp}.
+
+Le développement du démon \textsf{UDP} sur le serveur est en partie fonctionnel dans la librairie \emph{ltp.c}. 
+
+Enfin, le perfectionnement de l'interface Web peut concerner la réalisation de la charte graphique,  la gestion des utilisateurs et de l'édition directe des variables réseau. 
+
+
+
+
