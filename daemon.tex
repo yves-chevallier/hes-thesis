@@ -1,0 +1,196 @@
+%///////////////////////////////////////////////////////////////////////////////
+%//  _   _        _                            _                                
+%// | | | |      |_|                          | |                               
+%// | |_| |_____  _ _____           _     _ __| |                               
+%// | |_  | ___ || |  _  \  _____  \ \  / // _  |                               
+%// | | | | ____|| | |_| | (_____)  \ \/ /( (_| |                               
+%// |_| |_|_____)|_|___  |           \__/  \____|                               
+%//                  __| | Haute Ecole d'Ingenieurs                             
+%//                 |___/  et de Gestion - Vaud                                 
+%//                                                                             
+%// @title    Mémoire de diplôme: Réalisation du démon                          
+%// @context  Travail de diplôme                                                
+%// @author   Y. Chevallier <nowox@kalios.ch>                                   
+%// @file     daemon.tex                                                        
+%// @language ASCII/C                                                           
+%// @svn      $Id$                 
+%///////////////////////////////////////////////////////////////////////////////
+\chapter{Réalisation du démon}
+\index{démon}
+\index{linux}
+\index{C}
+\maraja{Réaliser un démon c'est long}
+D'une façon incontestable, c'est la programmation du démon qui à nécessité le plus de temps. Plusieurs étapes d'apprentissage ont été nécessaires pour arriver au résultat souhaité. Dans un premier temps c'est un long travail de documentation sur les fondements de la programmation \textsf{C} sous \textsf{LINUX} qui à été nécessaire. Ensuite, les sujets étudiés ont fait l'objet de petits programmes de tests pour vérifier la bonne compréhension des concepts (\texttt{test\_sockettcp}, \texttt{test\_socketudp}, \texttt{tead\_thread}, \ldots). Enfin, la programmation en tant que telle à été précédée d'un travail de modélisation en différents blocs fonctionnels. 
+
+\section{Division du travail}
+L'étape de modélisation à permit d'établir la liste des blocs suivants: 
+
+\begin{itemize}
+\item	Gestion et affichage des erreurs.
+\item	Dialogue avec la base de données.
+\item	Implémentation du protocole \textsf{VTFTP}
+\item	Gestion du bus de terrain LonWorks
+\item	Réception des messages sur Ethernet \textsf{TCP/UDP}
+\item Analyse des requêtes \textsf{LTP/HTTP} et traitement
+\item	Gestion de files d'attentes
+\end{itemize}
+
+\maraja{Diviser pour mieux régner}
+Lors de la conception, une attention toute particulière à été consacrée à rendre chacune des librairies indépendantes les unes des autres. D'une part, pour faciliter la compréhension du code source par des personnes extérieures au projet mais aussi pour rendre le débogage du démon plus aisé. La découpe du travail permet aussi de tester individuellement chacun des blocs. A titre indicatif, une fois la librairie de gestion du bus LonWorks parfaitement fonctionnelle, c'est la librairie de traitement des données qui pu être programmée, puis testée. 
+
+\section{Conventions de programmation}
+\index{conventions}
+D'une manière générale, les conventions relatives à la programmation d'un système sont inhérentes à chaque société ou organisme de développement. N'ayant pas pu recevoir une formation relative à ces règles de programmation au sein de l'école. Ce sont des conventions plus internationales qui ont été adoptées. Les recherches Internet abordées ont débouchées sur les \emph{GNU coding standards}. Il s'agit de règles de programmation créées dans le cadre du projet \textsf{GNU} pour faciliter l'inter-développement des projets \emph{open-source}. Ces standards concernent principalement la programmation \textsf{C} sous \textsf{LINUX}. 
+
+\fig{gnu}{Logo de GNU}
+
+L'importance du document présentant ces conventions et tel qu'il a été impossible de respecter scrupuleusement chacune des règles. Aussi, seuls les plus importantes concernant la présentation ont été appliquées lors du développement du démon. 
+
+
+\subsection{Commentaires}
+Le format des commentaires étant relativement libre. Ce sont les conventions d'un logiciel open-source nommé Doxygen qui ont été adoptées. Doxygen permet de générer automatiquement une documentation d'un fichier source dans divers formats (\textsf{HTML}, \LaTeX, \ldots) en se basant sur les commentaires du programme. Sur les différentes propositions de Doxygen c'est le format suivant qui a été choisi: 
+
+\begin{lstlisting}
+////////////////////////////////////////////////////////////////
+/// <Brève description de la fonction>.
+/// <Description générale...>            
+/// @param <nom du paramètre 1> <explication du paramètre1>
+/// @param <nom du paramètre 1> <explication du paramètre1>
+/// @return <description de la donnée retournée par la fonction>
+////////////////////////////////////////////////////////////////
+\end{lstlisting}
+
+\subsection{Variables}
+Une variable débute par une lettre minuscule. Lorsque cette dernière comporte plusieurs mots, les premières lettres de chaque mot excepté la première, sont en majuscule. Voici quelques exemples: 
+
+\begin{lstlisting}
+int numero
+int numeroDePorte
+int ltchAddress
+int ltchLocalDatagram
+\end{lstlisting}
+
+\subsection{Constantes}
+Les constantes peuvent être découpées en 3 catégories: 
+
+\begin{itemize}
+	\item	Les constantes énumérées
+	\item	Les constantes de configuration
+	\item	Les constantes préprocesseur
+\end{itemize}
+
+Pour ces $3$ catégories c'est l'écriture majuscule qui prévaut. Le caractère permettant de séparer les constantes composées de plusieurs mots est l'\emph{underscore} ou caractère de soulignement. 
+
+La catégorie des constantes énumérées porte sur toute appellation verbale d'une valeur numérique, ainsi que le montre les exemples suivants: 
+
+\begin{lstlisting}
+#define OUI 1
+#define NON 0
+
+#define ETAGE_1 1
+#define ETAGE_2 2
+#define ETAGE_3 3
+\end{lstlisting}
+
+Les constantes de configuration se différencient de la catégorie précédente par l'adjonction d'un \emph{underscore} en préfixe. Il s'agit d'un type de constante appliquée aux paramètres de configuration du programme. 
+
+\begin{lstlisting}
+#define _PORT_TCP  2250
+#define _PORT_UDP  2360
+
+#define _LTP_PATTERN 0xB0
+\end{lstlisting}
+
+Enfin, la dernière catégorie concerne les constantes permettant une compilation sélective du code source. Elles sont précédées de 2 underscore. 
+
+\begin{lstlisting}
+#ifndef __SERVEUR
+#define __SERVEUR
+...
+#endif
+\end{lstlisting}
+
+\subsection{Fonctions}
+Le nom des fonctions est similaire aux variables sauf le premier caractère est toujours écrit en majuscule. Bien que cette règle ne fasse pas partie des conventions standard de programmation \textsf{GNU}, elle offre néanmoins une meilleure lisibilité du code source. 
+
+\subsection{ANSI}
+L'institut de normalisation \textsf{ANSI} à établi une normalisation du langage \textsf{C}. Toutefois  cette dernière étant très restrictive, elle n'a pu être respectée lors de la programmation du démon. 
+
+\section{Travail en threads}
+Pour être fonctionnel, le démon doit pouvoir effectuer plusieurs tâches en même temps. Par exemple, il doit être à même d'écouter en permanence l'arrivée de messages LonWorks, d'attendre l'arrivée d'une requête \textsf{LTP/HTTP} et enfin pouvoir traiter une requête \textsf{LTP/UDP}. Cette possibilité est offerte par la programmation en \emph{thread}. La librairie \emph{Pthread} appartenant à la norme Posix 1.c permet la création dynamique de plusieurs processus parallèles. Nonobstant, c'est la librairie \textsf{OSSI}, issue de la société Loytec, qui sera utilisée pour des raisons de compatibilité avec la librairie \textsf{ORION}. 
+
+Pour le novice, le thread permet à une application, de pouvoir exécuter plusieurs tâches simultanément. Le \emph{scheduler} ou ordonnanceur, accorde à chaque \emph{thread} une jouissance complète du processeur durant un certain laps de temps. La durée de ce dernier est régie par une politique d'ordonnancement. Les exceptions mutuelles sont apparues avec la programmation en \emph{thread}. Il s'agit d'astuces logicielles pour garantir la lecture ou l'écriture d'une ressource système par un seul \emph{thread} en même temps. Dans ce type de programmation des erreurs peuvent survenir si plusieurs processus tentent de modifier le contenu d'une variable en même temps. Les exceptions mutuelles font partie d'une famille de fonctionnalités utilisées en programmation concurrente:
+
+Les \emph{global lock} sont des sortes verrous pour empêcher l'exécution simultanée de certaines parties du programme. Ces régions de programme portent la dénomination de code sensible. 
+
+Le \emph{mutex} est assimilable à un témoin permettant d'accéder à une ressource mémoire commune à plusieurs \emph{thread}. Le témoin doit être obtenu pour permette l'écriture ou la lecture de la ressource et il doit être rendu en fin d'opération. 
+
+Le \emph{sémaphore} similaire au mutex dans sont principe permet d'autoriser l'accès de lecture à plusieurs tâches en même temps, Toutefois, l'accès d'écriture est exclusif. 
+
+Les \emph{events} ou évènements offrent une solution élégante pour prévenir une tâche au moyen d'un signal. Par exemple, un évènement est utilisé dans la librairie de gestion de LonWorks pour la réception des messages. Lorsqu'un message est reçu par la librairie \textsf{ORION}, un \emph{event} est déclenché prévenant ainsi le \emph{thread} responsable du traitement du message. 
+
+\section{Librairie OSSI}
+Créée par la société Loytec. Cette librairie à été conçue à l'origine pour permettre l'utilisation de \textsf{ORION} sur différents systèmes d'exploitations. Par exemple, lors d'un développement embarqué sur le \textsf{L-CORE} (un hardware développé par Loytec), le système d'exploitation utilisé est \textsf{RTEMS}. La librairie \textsf{OSSI} permet d'utiliser de la même manière les \emph{threads} ou les sockets sans avoir à adapter le programme pour une librairie de gestion de \emph{thread} spécifique au système (\emph{i.e.} pthread dans le cas de Linux). Une documentation très complète est disponible sur le cdrom venant avec ce mémoire de diplôme. 
+
+\section{Librairie ORION}
+L'\emph{Orion Stack} également développé par la société autrichienne Loytec, offre des fonctionnalités très puissantes pour gérer un noeud LonWorks. Bâtie sur \textsf{OSSI}, la portabilité de la librairie est maximum. La réalisation de périphériques \textsf{LON} peut alors se faire sur \textsf{WINDOWS}, \textsf{LINUX} ou \textsf{RTEMS}. 
+
+\section{La notion de SOCKET}
+Apparu avec les systèmes \textsf{UNIX}, le socket est un élément logiciel disponible aujourd'hui sur la plupart des systèmes d'exploitation. Il d'agit d'une interface avec des services du système d'exploitation grâce à laquelle un développeur peut exploiter facilement les services d'un protocole réseau. L'établissement d'une session \textsf{TCP} ou \textsf{UDP} est ainsi rendue possible en toute simplicité, la définition des différents protocoles de bas niveau étant implémentée au coeur du système d'exploitation. 
+
+Pour la réalisation du démon, sont mis en place $2$ sockets. L'un sur le protocole \textsf{UDP} permettant une communication avec \textsf{LTP/UDP} et l'autre sur \textsf{TCP} en mode connecté pour gérer les transactions \textsf{LTP/HTTP}. 
+
+\section{Un serveur HTTP inexistant}
+Le protocole \textsf{LTP/HTTP} nécessite un décodage de l'en-tête \textsf{HTTP}. Les librairies existantes, disponibles librement sur Internet, offrant de tels services, sont conséquentes par leur taille et leur maîtrise est difficile. En outre, vu les spécificités rudimentaires du protocole \textsf{HTTP} utilisée par \textsf{LTP}, il n'a pas été jugé indispensable de faire appel à des librairies spécialisées. L'analyse et la constitution d'en-tête \textsf{HTTP} à été réalisée en quelques dizaines de ligne de programme seulement. 
+
+\section{Ports réseau}
+Les protocoles de bas niveau tels que \textsf{TCP} ou \textsf{UDP} fonctionnent sur un système de ports. Il existe $65535$ type de ports différents. Chaque protocole informatique de haut niveau est prévu pour fonctionner avec un port spécifique. C'est ainsi que le port $80$ est affilié au protocole \textsf{HTTP} et le port $21$ à \textsf{FTP}. Le choix des ports utilisés pour LonTouch à été effectué selon une liste de ports disponible sur le site internet suivant: \url{http://www.iana.org   assignments/port-numbers}.
+Les ports qui ont été retenus sont les suivants: 
+
+\begin{tabbing}
+UDP/13162:XXXXX\= \kill \\
+TCP/8080\>Pour la \textsf{LTP/HTTP} \\
+UDP/13161\>Pour la réception de messages \textsf{LTP/UDP} \\
+UDP/13162\>Pour l'envoi de messages \textsf{LTP/UDP} \\
+\end{tabbing}
+
+Le port $8080$ est une alternative au port $80$ déjà utilisé par le \textsf{WEBGUI}. Les ports $13161$ à $13222$ sont marqués comme encore non assignés. 
+
+\section{Le coeur du démon}
+Cette section traite du fonctionnement interne du démon. Comme évoqué précédemment, ce dernier est constitué sur la base de plusieurs blocs. La figure \ref{daemon} schématise l'interconnexion de ces derniers. Tout d'abord, on peut apercevoir la librairie \textsf{ORION} qui s'occupe du dialogue avec le \textsf{LDI} qui n'est rien d'autre que le driver de la carte d'accès au bus LonWorks. La librairie \texttt{lon.c}, constituée lors de ce travail, gère la création d'un noeud \textsf{LON} et la réception des messages du réseau. Les informations récoltées sont transmises à la librairie \texttt{lontouch.c} qui à pour but l'analyse et le traitement des messages. En fonction du type de message reçu, la librairie doit prendre la décision d'en informer les différents \textsf{TP} connectés pour la plupart sur le réseau Ethernet. Pour ce faire, elle est interconnectée avec la librairie \texttt{ltp.c} chargée de formater et d'envoyer des messages \textsf{LTP} sur le réseau Ethernet. Durant l'initialisation de cette librairie $2$ sockets sont créés. L'un en mode non-connecté sur \textsf{UDP} et l'autre en mode connecté sur \textsf{TCP}. 
+
+\fig{daemon}{schématisation des blocs fonctionnels}
+
+La librairie \texttt{ftp.c} est utilisée par \texttt{ltp.c} pour permettre l'échange de fichiers au moyen du protocole \textsf{VTFTP}. Ces deux librairies utilisent \texttt{databox.c} pour gérer plus facilement les files d'attentes de messages. Le concept de \texttt{databox.c} repose sur celui des doubles listes chaînées avec allocation dynamique de mémoire. 
+
+\section{Implantation du protocole VTFTP}
+Le transfert des interfaces graphiques du SERVEUR aux TP doit se faire au moyen d'un protocole de transfert de fichier sur UDP ou plus précisément sur LTP. Les différentes recherches entreprises quant à l'existence d'un protocole répondant à ces spécificités ont abouties sur TFTP. Malheureusement, le protocole décrit par la RFC 1350 décrit une longueur de paquet de 512 octets et nous savons que les paquets LTP sont limités à 226 octets. D'autre part, à chacun des paquets de données TFTP correspond un paquet d'accusés. Ce procédé à l'inconvénient de charger inutilement le réseau c'est pour cette raison qu'une amélioration à été apportée au protocole en permettant d'accuser non pas chaque datagramme individuellement, mais des groupes de plusieurs datagrammes. 
+
+\subsection{Ordinogramme}
+\maraja{On dit ordinogramme pas organigramme}
+S'agissant d'une implémentation relativement compliquée, le design à fait l'objet d'un ordinogramme. La figure \ref{ordino} montre un aperçu général de ce dernier. Etant donné sa complexité, il n'a pas été possible de le présenter dans sa taille réelle. Aussi, une version PDF est disponible sur le cdrom joint à ce mémoire. 
+
+\fig{ordino}{Ordinogramme de VTFTP} 
+
+L'organigramme se compose de 3 parties. Une traitant de la réception des fichiers, une autre de l'envoi et une troisième de l'arbitration des messages. 
+
+\subsection{Structogramme}
+Un structogramme est une représentation plus fidèle d'un algorithme informatique. Alors que l'organigramme peu permettre d'aboutir à des situations non programmable, le structogramme impose une structure rigoureuse dans son élaboration. La figure \ref{structftp} présente le structogramme réalisé pour la partie d'arbitration des messages de VTFTP. Une version PDF est également disponible sur le cdrom joint à ce document. 
+
+\fig{structftp}{Structogramme de VFTFP} 
+
+\subsection{Tests}
+\maraja{VTFTP fonctionne !}
+Une fois implémenté, des tests de fonctionnement ont été réalisés. Ce n'est qu'après de longues heures de débogage que le transfert de fichier entre 2 machines à été possible. Toutefois, certains bugs n'ont pas pu être résolus, faute de temps. Ces derniers apparaissent généralement lors du transfert de fichiers de plus d'une dizaine de méga octets. 
+
+Lors des tests, il a été constaté que le transfert de fichier est relativement lent. C'est la stratégie de fonctionnement de la librairie \emph{databox.c} qui est mis en cause. Elle fonctionne par allocation successive de mémoire. Sachant qu'une demande de réservation d'un espace mémoire est une tâche lourde pour le système, une stratégie alternative est à envisager. Elle consisterait en la réservation de blocs de mémoire plus important au lieu de réserver, aussi souvent, des petits blocs.
+
+\section{Démon client, démon serveur}
+Lors des chapitres précédents, deux démons différents ont été décrits. Celui présent dans les \textsf{TP} et celui présent dans le \textsf{SERVEUR}. Mise à part certains aspects spécifiques, l'architecture générale du programme est la même. Aussi, une stratégie consistant à utiliser les règles de \emph{preprocessing} offertes par le langage \textsf{C} permet de compiler le démon soit en mode \textsf{TP} soit en mode \textsf{SERVEUR}. 
+
+\section{Makefile}
+La compilation du démon nécessite de compiler chaque fichier source en un fichier objet puis d'effectuer une opération de \emph{linking} appelé également "édition des liens" qui consiste à créer l'exécutable final au moyen des différents fichiers objets. Toutes ces opérations peuvent être automatisées par l'utilisation de l'outil \textsf{MAKE}. Celui-ci permet de décrire toutes les opérations relatives à la compilation dans un fichier nommé \emph{Makefile}. Le fonctionnement de \textsf{MAKE} permet d'éviter les recompilations inutiles des fichiers sources qui n'ont pas été modifiés, évitant ainsi une perte sensible de temps lors du développement. 
+
+Des règles spécifiques permettant de compiler en une opération le démon \textsf{CLIENT} et le démon \textsf{SERVEUR} ont été également ajoutées au \emph{Makefile}. 
+
+

@@ -13,36 +13,57 @@
 %// @author   Y. Chevallier <nowox@kalios.ch>                                   
 %// @file     lonworks.tex                                                      
 %// @language ASCII/C                                                           
-%// @svn      $Id: lonworks.tex 82 2005-12-14 05:41:51Z Canard $                
+%// @svn      $Id$                
 %///////////////////////////////////////////////////////////////////////////////
 \chapter{LonWorks}
+\maraja{LonWorks est compliqué}
 Ce chapitre pourrait faire l'objet d'un ouvrage à lui tout seul. Or, ce qui nous intéresse pour ce travail, ce sont seulement quelques aspects fondamentaux de la technologie. 
 
 \section{Historique}
-C'est à la fin des années 80 que LonWorks émerge. Sa grande différence par rapport à beaucoup d'autres bus de terrains c'est qu'il à été conçu par des équipes d'informaticiens et non d'automaticiens ou électroniciens. Se faisant, la technologie fait appel à des concepts informatiques de pointe et les possibilités de LonWorks sont énormes.  
+\maraja{Conçu par des informaticiens}
+\index{Mike Markula}
+\index{Apple Computer}
+\index{Echelon}
+\index{Local Operating Network}
+C'est à la fin des années 80 que LonWorks émerge. Sa grande différence par rapport à beaucoup d'autres bus de terrains est qu'il à été conçu par des équipes d'informaticiens et non d'automaticiens ou électroniciens. Se faisant, la technologie fait appel à des concepts informatiques de pointe et les possibilités de LonWorks sont énormes.  
 
-En 1986 Mike Markula, l'un des fondateurs et principal actionnaire d'Apple Computer fonde la société ACM Resarch qui deviendra quelques années plus tard Echelon. Cette nouvelle société propose un nouveau bus de terrain nommé LonWorks (Local Operating Network).  
+En 1986 Mike Markula, l'un des fondateurs et principal actionnaire d'\emph{Apple Computer} fonde la société \emph{ACM Resarch} qui deviendra quelques années plus tard \emph{Echelon}. Cette nouvelle société propose un nouveau bus de terrain nommé LonWorks \emph{Local Operating Network}.  
 
-Au début un seul circuit permettait de dialoguer avec le bus. Il s'agissait d'un ASIC fabriqué par Motorola et Toshiba. Mais très vite, la société Loytec arriva sur le marché avec un tout nouveau chip: le L-chip. Malgré un coût plus élevé que le circuit d'Echelon, le NeuronChip, il s'imposa avec ses possibilités bien plus étendues. 
+\index{Motorola}
+\index{Toshiba}
+\index{Echelon}
+\index{NeuronChip}
+\index{L-chip}
+\maraja{Echelon et Loytec}
+Au début un seul circuit permettait de dialoguer avec le bus. Il s'agissait d'un \textsf{ASIC} fabriqué par Motorola et Toshiba. Mais très vite, la société Loytec arriva sur le marché avec un tout nouveau chip: le L-chip. Malgré un coût plus élevé que le circuit d'Echelon, le NeuronChip s'impose avec ses possibilités bien plus étendues. 
 
-Aujourd'hui ces deux sociétés détiennent le monopole absolu. L'organisation LonMark à engagé un combat contre ce monopole et vise à rendre la technologie libre. 
+Aujourd'hui ces deux sociétés détiennent le monopole absolu. L'organisation LonMark à engagé un combat contre ce monopole et vise à rendre la technologie plus ouverte. 
 
-Le protocole de communication de LonWorks appelé LonTalk est basé sur les sept couches du modèle OSI. 
+Le protocole de communication de LonWorks appelé LonTalk est basé sur les sept couches du modèle \textsf{OSI}. 
 
 \section{LonWorks et OSI}
+\index{OSI}
+\index{Open Systems Interconnection}
+\index{ISO}
+\maraja{Le Modèle OSI}
 Le modèle OSI pour \emph{Open Systems Interconnection} à été crée par l'ISO afin d'offrir une base commune à la description de tout bus de communication. Le modèle est décrit en sept couches, chacune apportant un degré d'abstraction supplémentaire concernant l'échange d'information. 
 
-La description des différentes couches concernant LonWorks en partant du principe que nous utilisons un chip de chez Loytec est la suivante :
-          
-La première décrit la manière dont les informations binaires sont envoyées sur le canal de communication. Il s'agit d'un code de type BIPHASE ou code de MANCHESTER. Cette partie est assumée par le contrôleur hardware. 
+\index{LonWorks}
+La description des différentes couches concernant LonWorks, en partant du principe que nous utilisons un chip de chez Loytec est la suivante :
 
+\maraja{Un code de manchester}
+La première décrit la manière dont les informations binaires sont envoyées sur le canal de communication. Il s'agit d'un code de type \textsf{BIPHASE} ou code de \textsf{MANCHESTER}. Cette partie est assumée par le contrôleur hardware. 
+
+\index{CSMA/CA} 
+\maraja{Protocole CSMA/CA}
 La seconde s'occupe de coder l'information la plus efficacement possible pour la transmettre sur le canal. Elle définit la manière dont un élément du réseau accède au canal de communication. Le protocole utilisé est CSMA/CA. ( Vous trouverez dans le glossaire, comme pour tous les autres termes en majuscule de ce document, un lien Internet vers une explication détaillée.)
 
-La troisième (couche de réseau), détermine de quelle manière les paquets sont routés de la source vers les destinataires. Le concept du NEURON ID intervient ici.  C'est un identifiant codé sur 48 bits qui est unique pour chacun des appareils LON. 
+La troisième (couche de réseau), détermine de quelle manière les paquets sont routés de la source vers les destinataires. Le concept du \textsf{NEURON ID} intervient ici.  C'est un identifiant codé sur $48$ bits qui est unique pour chacun des appareils \textsf{LON}. 
 
-La quatrième, (couche de transport) est gérée dans notre application par ORION et n'est pas visible par le programmeur. C'est une librairie logicielle pour les systèmes Microsoft Windows ou Linux, permettant une gestion puissante d'un périphérique LON. C'est à ce niveau que les accusés de réception sont gérés.    
+\maraja{Orion}
+La quatrième, (couche de transport) est gérée dans notre application par \textsf{ORION} et n'est pas visible par le programmeur. C'est une librairie logicielle pour les systèmes \emph{Microsoft Windows} ou \emph{Linux}, permettant une gestion puissante d'un périphérique \textsf{LON}. C'est à ce niveau que les accusés de réception sont gérés.    
 
-La cinquième, (couche de session) est également gérée par ORION.  Son rôle est de déterminer le type de message reçu ou envoyé : ``Avons-nous reçu une réponse à une demande ou une mise à jour d'une valeur ?'' La librairie Orion transmet à l'utilisateur les informations décodées. Il y a 20 types de messages différents. 
+La cinquième, (couche de session) est également gérée par \textsf{ORION}.  Son rôle est de déterminer le type de message reçu ou envoyé : ``Avons-nous reçu une réponse à une demande ou une mise à jour d'une valeur ?'' La librairie Orion transmet à l'utilisateur les informations décodées. Il y a 20 types de messages différents. 
 
 \begin{itemize}
    \item	ORION\_PACKET\_MSG\_OUT
@@ -67,11 +88,13 @@ La cinquième, (couche de session) est également gérée par ORION.  Son rôle est d
    \item	ORION\_PACKET\_UPDATE\_NV\_INFO		
 \end{itemize}
 
-La liste ci-dessus n'est citée qu'à titre d'information. La description du code source du démon disponible à l'annexe [refannexe] explique plus en détail chacun de ces messages. 
+La liste ci-dessus n'est citée qu'à titre d'information. Des explications plus complètes sont disponible dans le code source du démon.
 
-La sixième  (couche est très intéressante pour ce projet),  décrit une structure élégante pour coder les messages.  Un ensemble d'environ 200 types différents sont définis. Ces structures de données permettent une meilleure interopérabilité entre les différents constructeurs de produits LON. Ce sont les SNVT pour Standard Network Variable Type ou type standard de variable réseau. 	
+\index{SNVT}
+\maraja{Les SNVT}
+La sixième, couche est très intéressante pour ce projet. Elle décrit une structure élégante pour coder les messages. Un ensemble d'environ $200$ types différents est définis. Ces structures de données permettent une meilleure interopérabilité entre les différents constructeurs de produits \textsf{LON}. Ce sont les \textsf{SNVT} pour \emph{Standard Network Variable Type} ou type standard de variable réseau. 	
 
-Pour information, voici quelques SNVT que l'on prononce ``snivit''.
+Pour information, voici quelques \textsf{SNVT} que l'on prononce ``snivit''.
 
 \begin{itemize}
    \item	SNVT switch
@@ -82,31 +105,39 @@ Pour information, voici quelques SNVT que l'on prononce ``snivit''.
 \end{itemize}
 
 \section{Les Variables Standards}
-Prenons comme exemple de \emph{SNVT switch}. Il s'agit d'une variable utilisée principalement pour le contrôle d'éclairage. La variable contient deux paramètres. L'un appelé \emph{value} renseigne sur l'intensité lumineuse du périphérique, l'autre, \emph{state} indique l'état binaire du périphérique (i.e. : allumé ou éteint). En terme de programmation C il s'agit d'une structure présentée sous cette forme :
+\maraja{Les SNVT sont des structures de données}
+Prenons comme exemple \emph{SNVT switch}. Il s'agit d'une variable utilisée principalement pour le contrôle d'éclairage. La variable contient deux paramètres. L'un appelé \emph{value} renseigne sur l'intensité lumineuse du périphérique, l'autre, \emph{state} indique l'état binaire du périphérique (\emph{i.e.} allumé ou éteint). En terme de programmation \textsf{C} il s'agit d'une structure présentée sous cette forme :
 
-\begin{leftbar}%
-\begin{verbatim}
+\begin{lstlisting}
 typedef struct  SNVT_switch 
 {
 	unsigned char state
 	unsigned char value
 }
-\end{verbatim}
-\end{leftbar}
+\end{lstlisting}
 
-Pour une meilleure compréhension de cette description C, l'auteur recommande "L'introduction au langage C" de Bernard Cassagne  [refbib]
+Pour une meilleure compréhension de cette description \textsf{C}, l'auteur recommande ``L'introduction au langage C'' de Bernard Cassagne disponible sur Internet
 
-Sur LonWorks, l'ensemble des organes du réseau utilise les SNVT. Un périphérique dispose d'un certains nombre de ces variables configurées soit en entrée, soit en sortie. Lors de l'installation du périphérique sur le réseau à l'aide d'un outil de configuration comme NL220 de la société Newron Systems  ce qui permet d'établir ces interconnexions. 
+\maraja{Elle peuvent être interconnectées entres elles}
+Sur LonWorks, l'ensemble des organes du réseau utilise les \textsf{SNVT}. Un périphérique dispose d'un certains nombre de ces variables configurées soit en entrée, soit en sortie. Lors de l'installation du périphérique sur le réseau à l'aide d'un outil de configuration comme \textsf{NL220} de la société \emph{Newron Systems}, il est possible d'établir entre ces différentes variables des interconnexions. 
 
-La figure [reffigure] est un exemple d'une installation présentant quelques interconnexions de SNVT. 
+La figure \ref{connexions} est un exemple d'une installation présentant quelques interconnexions de SNVT. 
 
-Dans le cas de ce projet. Les variables mises à disposition sur le réseau dépendent des interfaces graphiques. Une GI peut présenter cinq contrôles d'éclairage. Ainsi, le SERVEUR devra disposer de cinq SNVT configurées en sortie. La figure [reffigure] illustre mieux ces propos. 
+\fig{connexions}{Exemple d'interconnexions par SNVT} 
 
-Le fait de devoir disposer d'un nombre de SNVT variable pose un problème avec LonMark. L'organisation établi des standards tels que les SNVT pour assurer une interopérabilité parfaite entre les différents composants de LON.  La représentation [reffigure] démontre, on ne peut mieux, l'importance de l'interopérabilité. 
+Dans le cas de ce projet. Les variables mises à disposition sur le réseau dépendent des interfaces graphiques. Une \textsf{GI} peut présenter cinq contrôles d'éclairage. Ainsi, le \textsf{SERVEUR} devra disposer de cinq \textsf{SNVT} configurées en sortie. La figure \ref{connexionserv} illustre plus simplement cela. 
+
+\fig{connexionserv}{Exemple d'interconnexion avec le SERVEUR}
+
+Le fait de devoir disposer d'un nombre de \textsf{SNVT} variable pose un problème avec LonMark. L'organisation a établi des standards tels que les \textsf{SNVT} pour assurer une interopérabilité parfaite entre les différents composants de \textsf{LON}.  La représentation \ref{interop} démontre, on ne peut mieux, l'importance de l'interopérabilité. 
+
+\fig{interop}{Importance de l'Interopérabilité} 
 
 \section{Le problème des variables dynamiques}
-Dans son document ``LonMark Application-Layer Interoperability Guielines'' [bibref], LonMark établi la possibilité de création de SNVT dynamiquement à condition que celle-ci soient crées par un outil de configuration. 
+\maraja{Un problème avec LonMark}
+Dans son document ``LonMark Application-Layer Interoperability Guielines'', LonMark établi la possibilité de création de \textsf{SNVT} dynamiquement à condition que celle-ci soient crées par un outil de configuration. 
 
-\emph{\small A dynamic network variable is a network variable that is added to a device by a network tool after the device is installed.  A dynamic functional block is a functional block that is added to a device by a network tool after the device is installed}
+\emph{\tiny A dynamic network variable is a network variable that is added to a device by a network tool after the device is installed.  A dynamic functional block is a functional block that is added to a device by a network tool after the device is installed}
 
-Cette restriction ne permet pas une totale indépendance du WEBGUI pour la configuration du système. Il est nécessaire de faire appel à un outil de configuration pour gérer les interconnexions entre les variables. 
+\maraja{Le WEBGUI ne peut pas tout faire}
+Cette restriction ne permet pas une totale indépendance du \textsf{WEBGUI} pour la configuration du système. Il est nécessaire de faire appel à un outil de configuration pour gérer les interconnexions entre les variables. 

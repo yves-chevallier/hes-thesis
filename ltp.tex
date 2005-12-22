@@ -16,11 +16,16 @@
 %// @svn      $Id$                     
 %///////////////////////////////////////////////////////////////////////////////
 \chapter{Protocole de communication}
+\label{chpltp}
 \maraja{Décisions arbitraires}
+\index{protocole}
+\index{LTP}
+\index{LTP/HTTP}
+\index{LTP/UDP}
 Le protocole de communication est un élément de taille du projet LonTouch. Le terme \textsf{LTP} à été choisis pour \emph{LonTouch Protocol} il fait référence au protocole \textsf{LTP/HTTP} et \textsf{LTP/UDP}. Le premier à été entre-aperçu lors du chapitre \ref{chpjs}. Les décisions aboutissant au protocole final ont fait l'objet de longues décisions. Les possibilités quant à l'écriture d'un protocole de communication sont si vastes qu'il faut parfois prendre des mesures décisionnelles arbitraires pour éviter de rester immobile dans l'avancement du projet. 
 
 \maraja{Un protocole bas niveau}
-Lors d'un premier jet, seule la version \textsf{HTTP} du protocole à été envisagée. Cependant, en raison du trafic réseau nécessaire à la bonne marche de l'installation, il à été convenu de pourvoir les \textsf{TP} d'un démon local. A partir de ce moment l'utilisation d'un protocole de communication \textsf{ASCII} n'était plus justifiée. D'une part, les démons étant écris en \textsf{C}, il est plus facile de raisonner en terme de bits plutôt qu'en terme de chaines de caractères. Et d'autre part, il est plus raisonnable d'optimiser un maximum le rapport entre la quantité d'information réellement transmise et celle effective. Par conséquent, c'est auprès d'un protocole de plus bas niveau que les idées se sont portées. 
+Lors d'un premier jet, seule la version \textsf{HTTP} du protocole à été envisagée. Cependant, en raison du trafic réseau nécessaire à la bonne marche de l'installation, il a été convenu de pourvoir les \textsf{TP} d'un démon local. A partir de ce moment l'utilisation d'un protocole de communication \textsf{ASCII} n'était plus justifiée. D'une part, les démons étant écris en \textsf{C}, il est plus facile de raisonner en terme de bits plutôt qu'en terme de chaines de caractères. Et d'autre part, il est plus raisonnable d'optimiser un maximum le rapport entre la quantité d'information réellement transmise et celle effective. Par conséquent, c'est auprès d'un protocole de plus bas niveau que les idées se sont portées. 
 
 \maraja{LON est lent}
 Notons qu'au début du projet, il n'était pas envisagé d'utiliser le réseau LonWorks comme canal de communication entre le \textsf{SERVEUR} et ses \textsf{TP}. En raison de la vitesse de transmission limitée à $78[kbits/sec]$ sur \textsf{LON}, l'argument en faveur d'une transmission la plus réduite possible est pleinement justifiable.
@@ -33,9 +38,10 @@ Sur LonWorks, le transfert d'informations par message explicites peut être mis a
 Au niveau \textsf{OSI}, la couche $4$ décrit deux protocoles de transports fondamentaux, mais très différents l'un de l'autre. \textsf{TCP} est un protocole considéré comme sûr. L'ordre des paquets émis puis reçu est contrôlé. L'intégrité des données est assurée. Malheureusement en termes de rendement il s'agit d'un ``boulet'' lorsque l'on considère des messages de faible taille. 
 
 \maraja{Pas de contrôle d'erreur pour UDP}
-\textsf{UDP} est utilisé principalement dans la vidéoconférence ou le streaming. Il ne possède qu'un contrôle d'intégrité partiel des données, l'ordre des messages n'est pas contrôlé et rien ne peut assurer qu'une information transmise arrive à son destinataire. A ce titre on qualifie ce protocole de non sûr. Cependant il est très simple dans son fonctionnement. 
+\index{streaming}
+\textsf{UDP} est utilisé principalement dans la vidéoconférence ou le \emph{streaming}. Il ne possède qu'un contrôle d'intégrité partiel des données, l'ordre des messages n'est pas contrôlé et rien ne peut assurer qu'une information transmise arrive à son destinataire. A ce titre on qualifie ce protocole de non sûr. Cependant il est très simple dans son fonctionnement. 
 
-Alors que \maraja{TCP} nécessite l'échange d'au minimum 16 paquets contenant au minimum 12 octets chacun pour transmettre l'information \textsf{ASCII} ``bonjour'' \textsf{UDP} n'en nécessite qu'un seul. A titre de comparaison voici sur la figure \ref{dtgudp} les datagrammes de ces deux protocoles en (a) pour \textsf{TCP} et en (b) pour \textsf{UDP}. 
+Alors que \emph{TCP} nécessite l'échange d'au minimum 16 paquets contenant au minimum 12 octets chacun pour transmettre l'information \textsf{ASCII} ``bonjour'' \textsf{UDP} n'en nécessite qu'un seul. A titre de comparaison voici sur la figure \ref{dtgudp} les datagrammes de ces deux protocoles en (a) pour \textsf{TCP} et en (b) pour \textsf{UDP}. 
 
 \fig{dtgudp}{Comparaison entre les datagrammes TCP(a) et UDP(b)}
 
@@ -49,13 +55,14 @@ Pour établir un ordre de grandeur des paquets à transférer, il suffit d'énumérer
 \item	En-tête LTP ($16[bits]$)		
 \end{itemize}
 
-\maraja{UDP est le vainqueur}
+\maraja{UDP est le vainqueur, bravo UDP}
 On arrive à un total d'un peu plus de $6$ octets. L'utilisation de \textsf{TCP} requiert l'échange de près de $577$ octets pour transmettre ce paquet minimal. \textsf{UDP} en requiert moins de $15$. Inutile maintenant, d'effectuer un calcul du rapport des performances. \textsf{UDP} l'emporte largement.  
 
 \section{Structure des messages}
 Après quelques jours d'études il a été défini que l'on peut avoir recours à $7$ types de transaction différentes. A chacune est associée un mnémonique.  
 
 \subsection{SNVT}
+\maraja{SNVT est une brute mais gare à endianness}
 Type de message permettant d'échanger l'état de variables réseau LonWorks. Ce sont les structures \textsf{SNVT} issue du code \textsf{C} qui seront transmise dans leur format brut.  Le message inclus une information de direction, de type de structure transférée et surtout d'un identifiant de la variable.
 
 \subsection{CONFIG}
@@ -78,13 +85,13 @@ Chacun des ces types de messages feront l'objet d'accusés de réception. \textsf{
 
 \section{En-tête LTP/UDP}
 \maraja{Longueur des paquets limités}
-La plus petite unité évaluable par le démon est le bit. Cependant, il est plus facile de raisonner en matière d'octet. C'est pour cette raison que le protocole définit des blocs de 1 octet éventuellement subdivisés en bits. Le premier octet de l'en-tête \textsf{LTP/UDP} est le type de service. Il peut prendre les valeurs de 1 à 7. Il s'agit des messages vus à la section précédente. Le second octet définit un motif spécifique, permettant d'accroître un peu la sécurité du système. Il peut permettre par exemple de travailler dans un même réseau avec plusieurs systèmes LonTouch , chacun composé de son \textsf{SERVEUR} et de ses \textsf{TP}.  Viennent ensuite 4 drapeaux. Le premier spécifie s'il s'agit d'un message nécessitant un accusé de réception ou non. Le second indique si le contenu du message est chiffré. Le troisième indique si le message est de priorité haute ou basse. Enfin, le quatrième définit si il s'agit d'une requête ou d'une simple transmission. Dans le cas d'un message avec accusé, un troisième octet d'en-tête spécifie un numéro d'accusé. Sinon l'en-tête ne fait que $2$ octets de long. Viennent ensuite les données. Un datagramme \textsf{LTP} peut avoir au maximum $228$ octets de long pour assurer la compatibilité avec le réseau LonWorks. Ainsi les données auront une longueur maximum de $226$ octets pour un service non accusé et $225$ octets pour un service accusé. 
+La plus petite unité évaluable par le démon est le bit. Cependant, il est plus facile de raisonner en matière d'octet. C'est pour cette raison que le protocole définit des blocs de 1 octet éventuellement subdivisés en 8 bits. Le premier octet de l'en-tête \textsf{LTP/UDP} est le type de service. Il peut prendre les valeurs de 1 à 7. Il s'agit des messages vus à la section précédente. Le second octet définit un motif spécifique, permettant d'accroître un peu la sécurité du système. Il peut permettre par exemple de travailler dans un même réseau avec plusieurs systèmes LonTouch, chacun composé de son \textsf{SERVEUR} et de ses \textsf{TP}.  Viennent ensuite 4 drapeaux. Le premier spécifie s'il s'agit d'un message nécessitant un accusé de réception ou non. Le second indique si le contenu du message est chiffré. Le troisième indique si le message est de priorité haute ou basse. Enfin, le quatrième définit si il s'agit d'une requête ou d'une simple transmission. Dans le cas d'un message avec accusé, un troisième octet d'en-tête spécifie un numéro d'accusé. Sinon l'en-tête ne fait que $2$ octets de long. Viennent ensuite les données. Un datagramme \textsf{LTP} peut avoir au maximum $228$ octets de long pour assurer la compatibilité avec le réseau LonWorks. Ainsi les données auront une longueur maximum de $226$ octets pour un service non accusé et $225$ octets pour un service accusé. 
 
 La figure \ref{datagramme} présente l'en-tête \textsf{LTP} de façons certainement plus clair. 
 
 \fig{datagramme}{Datagramme LonTouch dans ses deux modes}
 
-\section{Tables de correspondances de l'en-tête LTP/UDP}
+\section{Tables de correspondances de l'en-tête}
 Voici les tables de correspondances entre les différents types de service et leurs valeurs numériques ainsi qu'une définition plus simple du deuxième octet de l'en-tête
 
 \begin{tabularx}{\textwidth}{|c|X|p{8cm}|}
@@ -120,7 +127,10 @@ Les flags:\par
 	\hline	
 \end{tabularx}
 
+\index{accusés}
+\index{ping}
 \section{Mécanisme d'accusés de réception}
+\maraja{Les accusés sont numérotés}
 Le système d'accusé de réception est relativement simple dans son fonctionnement. Chaque paquet envoyé avec une demande d'accusé est pourvu d'un numéro. Ce dernier est incrémenté à chaque envoi d'un message nécessitant un accusé. Etant codé sur $8$ bits, le numéro de référence effectuera un saut en passant de la valeur $255$ à $0$. 
 
 Un temps d'attente correspondant à la durée du plus long \textsf{PING} multiplié par un facteur $2$ est défini. Lorsque l'attente est écoulée, le message est envoyé à nouveau. Au bout de $3$ essais, l'envoi est annulé, est une erreur est signalée. 
@@ -132,167 +142,130 @@ La figure \ref{ack} illustre le procédé d'acquittement de \textsf{LTP/UDP}.
 \section{Le protocole en détails}
 
 \subsection{Service SNVT}
-Ce type de service se compose d'un en-tête de 2 octets correspondant à l'identification d'une variable. Il s'agit d'un octet définissant le numéro de \textsf{GI} et d'un octet pour le numéro de la variable. Le premier bit de l'en-tête est réservé pour indiquer la direction de la variable. Un troisième octet défini le type de \textsf{SNVT} de la variable concernée. Bien que ce dernier argument ne soit pas indispensable puisque cette information peut être retrouvée à l'aide de l'identifiant de variable, elle facilite la tâche de décodage par le démon. La figure \ref{dtgsnvt} présente graphiquement l'allure du datagramme et la table \ref{tblsnvt} la découpe binaire de l'en-tête. 
+Ce type de service se compose d'un en-tête de 2 octets correspondant à l'identification d'une variable. Il s'agit d'un octet définissant le numéro de \textsf{GI} et d'un octet pour le numéro de la variable. Le premier bit de l'en-tête est réservé pour indiquer la direction de la variable. Un troisième octet défini le type de \textsf{SNVT} de la variable concernée. Bien que ce dernier argument ne soit pas indispensable puisque cette information peut être retrouvée à l'aide de l'identifiant de variable, elle facilite la tâche de décodage par le démon. La figure \ref{dtgsnvt} présente graphiquement l'allure du datagramme et la table ci-dessous la découpe binaire de l'en-tête. 
+
+\begin{tabularx}{\textwidth}{|c|X|p{6cm}|}
+	\hline
+	0 & D (direction) & 0 = Input, 1 = Output \\
+	\hline	                                                  	
+	1-7 & VAR\_ID & Identifiant de variable de 0 à 127 \\
+	\hline	                                                  	
+	8-15 & GI\_ID & Identifiant d'interface graphique de 0 à 255 \\
+	\hline	                                                  	
+	16-23 & TYPE\_SNVT & Identifiant du type SNVT de 0 à 255 \\
+	\hline	
+\end{tabularx} 
 
 \fig{dtgsnvt}{En-tête SNVT} 
 
-\begin{table}
-\begin{tabularx}{\textwidth}{|c|X|}
-\hline
-1 & \textsf{server\_address} \\
-\hline
-2 & \textsf{screen\_size} \\
-\hline
-3 & \textsf{active\_interface} \\
-\hline
-4 & \textsf{list\_interfaces} \\
-\hline
-5 & \textsf{upload\_interface} \\
-\hline
-6 & \textsf{energy\_mode} \\
-\hline
-\end{tabularx}
-\caption{\label{tblsnvt}Configuration}
-\end{table}
-
 \subsection{Service CONFIG}
-Le type config ne contient qu'un seul octet d'en-tête. La table de correspondance [reftable] fait référence aux différentes commandes de configuration.  La figure \ref{dtgsnvt} présente l'allure du datagramme. 
+Le type config ne contient qu'un seul octet d'en-tête. La figure \ref{dtgcfg} présente l'allure du datagramme. 
 
+\fig{dtgcfg}{Datagramme du service CONFIG}
 
 \begin{description}
 
-\item[\textsf{server\_address}]\mbox{}\linebreak
+\item[\textsf{server\_address}(0)]\mbox{}\linebreak
 Cette commande est envoyée par le serveur à tous les TP lorsqu'il change d'adresse IP. L'adresse est codée sur 4 octets. Le système n'est pas prévu pour IPv6. 
 
-\item[\textsf{screen\_size }]\mbox{}\linebreak
+\item[\textsf{screen\_size }(1)]\mbox{}\linebreak
 Permet de déterminer quelle est la taille de l'écran d'un TP. Elle reçoit 4 octets de données. Les deux premiers indiquent la composante horizontale et les deux derniers la composante verticale. 
 
-\item[\textsf{active\_interface}]\mbox{}\linebreak
+\item[\textsf{active\_interface}(2)]\mbox{}\linebreak
 Lorsqu'un GI est activé sur un TP depuis le WEBGUI. Une commande active\_interface est envoyé avec l'identifiant du GI codé sur 1 octet. LTP ne supporte pas plus de 255 interfaces graphiques. 
 
-\item[\textsf{list\_interface}]\mbox{}\linebreak
+\item[\textsf{list\_interface}(3)]\mbox{}\linebreak
 Permet au SERVEUR de recevoir une liste des interfaces déjà téléchargée dans un TP. Le détail de la commande n'a pas encore été établi.
 
-\item[\textsf{upload\_interface}]\mbox{}\linebreak
+\item[\textsf{upload\_interface}(4)]\mbox{}\linebreak
 La commande est envoyée par le serveur pour indiquer à un TP qu'il va prochainement recevoir une interface graphique par le biais du protocole VTFTP. Le détail de la commande n'a pas encore été établi.
 
-\item[\textsf{energy\_mode}]\mbox{}\linebreak
+\item[\textsf{energy\_mode}(5)]\mbox{}\linebreak
 Le rétro-éclairage des TP peut-être configuré pour s'éteindre au bout d'un certain temps. Ce temps est indiqué en minute codé sur 1 octet. 
-
 \end{description}
 
-\begin{tabular}{|c|l|}
-\hline
-1 & \textsf{server\_address} \\
-\hline
-2 & \textsf{screen\_size} \\
-\hline
-3 & \textsf{active\_interface} \\
-\hline
-4 & \textsf{list\_interfaces} \\
-\hline
-5 & \textsf{upload\_interface} \\
-\hline
-6 & \textsf{energy\_mode} \\
-\hline
-\end{tabular}
+\subsection{Service VTFTP}
+\textsf{VTFTP} est un protocole élaboré durant ce travail de diplôme. L'en-tête de ce protocole ne se compose que d'un octet correspondant à l'une des commandes définies ci-dessous. Un transfert de données par \textsf{VTFTP} utilise \textsf{LTP/UDP} en mode non acquitté. 
 
-\subsection{VTFTP}
-VTFTP est un protocole élaboré durant ce travail de diplôme. L'en-tête de ce protocole ne se compose que d'un octet correspondant à l'une des commandes définies ci-dessous et par la table [reftable]. Un transfert de données par VTFTP utilise LTP/UDP en mode non acquitté. 
-
+\fig{dtgftp}{Datagramme VTFTP}
 \begin{description}
 
-\item[\textsf{NULL}]\mbox{}\linebreak
+\item[\textsf{NULL}(0)]\mbox{}\linebreak
 	Il s'agit là d'une commande vide. Elle n'est pas utilisée autrement que pour du débogage.
 
-\item[\textsf{INIT}]\mbox{}\linebreak	
+\item[\textsf{INIT}(1)]\mbox{}\linebreak	
 	Est envoyé lors de l'initialisation d'un transfert. 
 	
-\item[\textsf{ACK}]\mbox{}\linebreak
+\item[\textsf{ACK}(2)]\mbox{}\linebreak
 	Permet d'accuser une commande VTFTP. Le type de service VTFTP n'est jamais acquitté par LTP. 
 
-\item[\textsf{DATA}]\mbox{}\linebreak
+\item[\textsf{DATA}(3)]\mbox{}\linebreak
 	Cette commande permet l'envoi d'un fragment de fichier.
 
-\item[\textsf{FIN}]\mbox{}\linebreak
+\item[\textsf{FIN}(4)]\mbox{}\linebreak
 Utilisée après avoir envoyé un bloc de paquets DATA. La commande marque la fin d'un bloc de données. Elle informe le receveur de la somme de contrôle du bloc de donnée. 
 
-\item[\textsf{FILE}]\mbox{}\linebreak
+\item[\textsf{FILE}(5)]\mbox{}\linebreak
 	Envoyée juste après la commande SIZE. Ce paquet renseigne sur le nom du fichier transféré.
 
-\item[\textsf{SIZE}]\mbox{}\linebreak
+\item[\textsf{SIZE}(6)]\mbox{}\linebreak
 	Est envoyée juste après la commande INIT. Ce paquet renseigne la taille du fichier transféré.
 
-\item[\textsf{LOST}]\mbox{}\linebreak
+\item[\textsf{LOST}(7)]\mbox{}\linebreak
 	Ce paquet est envoyé par le receveur pour indiquer qu'il n'a pas reçu tous les paquets DATA d'un bloc de donnée
 
-\item[\textsf{ERR}]\mbox{}\linebreak
+\item[\textsf{ERR}(8)]\mbox{}\linebreak
 Est envoyée par le receveur pour indiquer que la somme de contrôle calculée ne correspond pas à celle reçu avec le paquet FIN.
 
-\item[\textsf{END}]\mbox{}\linebreak
+\item[\textsf{END}(9)]\mbox{}\linebreak
 	Est envoyée par le serveur pour signaler la fin d'un envoi (réussite ou non).
  
 \end{description}
 
-\begin{tabular}{|c|l|}
-\hline
-0 & \textsf{NULL} \\
-\hline
-1 & \textsf{INIT } \\
-\hline
-2 & \textsf{ACK } \\
-\hline
-3 & \textsf{DATA} \\
-\hline
-4 & \textsf{FIN} \\
-\hline
-5 & \textsf{FILE} \\
-\hline
-6 & \textsf{SIZE} \\
-\hline
-7 & \textsf{LOST} \\
-\hline
-8 & \textsf{ERR} \\
-\hline
-9 & \textsf{END} \\
-\hline
-\end{tabular}
+La figure \ref{diagftp} présente un diagramme d'échange utilisé par VTFTP. 
 
-La figure [reffigure] présente un diagramme d'échange utilisé par VTFTP. 
+\fig{diagftp}{Echanges de paquets pour un fichier de 2400 octets}
 
-\subsection{IDENTIFY}
+\subsection{Service IDENTIFY}
 Ce service ne se compose d'aucun en-tête. Le fonctionnement exact n'a pas encore été ni testé, ni défini. 
 
-\subsection{ACK}
-La structure des messages ACK est donnée par la figure [reffigure] et la table [reftable]. 
+\subsection{Service ACK}
+La structure des messages ACK est donnée par la figure \ref{dtgack}. 
 
-\subsection{RSA}
+\fig{dtgack}{Datagramme du message ACK} 
+
+\subsection{Service RSA}
+\index{rsa}
+\maraja{Pas de temps mais pourtant c'est important}
 Faute de temps, ce type de service n'a pas pu être étudié lors de ce travail de diplôme.  
 
 \subsection{Le problème de l'endianness}
-En informatique lorsqu'une donnée est représentée sur plusieurs octets, il y a plusieurs manières de les ordonner en mémoire ou dans le canal de communication. Cet ordre fait l'objet de conventions arbitraires. Alors que certaines langues s'écrivent de gauches à droite d'autres s'écrivent de droite à gauche. En informatique il existe principalement 2 types de conventions: 
+\index{endianness}
+En informatique lorsqu'une donnée est représentée sur plusieurs octets, il y a plusieurs manières de les ordonner en mémoire ou dans un canal de communication. Cet ordre fait l'objet de conventions arbitraires. Alors que certaines langues s'écrivent de gauches à droite d'autres s'écrivent de droite à gauche. En informatique il existe principalement 2 types de conventions: 
 
 \begin{itemize}
 	\item	\emph{big-endian}
 	\item	\emph{little-endian}
 \end{itemize}
 
-Dans un format \emph{big-endian} ce sont d'abord les octets de poids fort qui sont représentés en mémoire ou dans le canal de communication alors que dans le format \emph{little-endian} c'est l'inverse. La figure [reffigure] montre la représentation mémoire pour un INTEGER de 16[bits] en (a) pour le \emph{big-endian} et en (b) pour le \emph{little-endian}. 
+Dans un format \emph{big-endian} ce sont d'abord les octets de poids fort qui sont représentés en mémoire ou dans le canal de communication alors que dans le format \emph{little-endian} c'est l'inverse. La figure \ref{endian} montre la représentation mémoire pour un \textsf{INTEGER} de $16[bits]$ pour le \emph{big-endian} à droite et à gauche pour le \emph{little-endian}. 
 
-De toute évidence, ce problème de codage peut être une impasse sérieuse pour LTP/UDP puisque le format des paquets est dépendant de l'architecture qui les construits. Une architecture INTEL ou ARM construira des datagrammes selon la convention \emph{little-endian} alors qu'une architecture MOTOROLA utilisera la convention \emph{big-endian}. Le problème c'est que des datagrammes issus de ces différentes architectures ne se comprendront pas entre eux ou pire, elles croiraient se comprendre mais les données interprétées seraient fausses. 
+\fig{endian}{Représentation des nombres en fonction de l'endianness}
 
-Notons, pour compliquer encore le problème que LonWorks travaille exclusivement en \emph{big-endian} et que la majorité des périphériques LonTouch étant des PC basés sur des architectures i386 travaillent en \emph{little-endian}.  
+De toute évidence, ce problème de codage peut être une impasse sérieuse pour \textsf{LTP/UDP} puisque le format des paquets est dépendant de l'architecture qui les construits. Une architecture \textsf{INTEL} ou \textsf{ARM} construira des datagrammes selon la convention \emph{little-endian} alors qu'une architecture \textsf{MOTOROLA} utilisera la convention \emph{big-endian}. Le problème c'est que des datagrammes issus de ces différentes architectures ne se comprendront pas entre eux ou pire, elles croiraient se comprendre mais les données interprétées seraient fausses. 
+
+Notons, pour compliquer encore le problème que LonWorks travaille exclusivement en \emph{big-endian} et que la majorité des périphériques LonTouch étant des \textsf{PC} basés sur des architectures i386 travaillent en \emph{little-endian}.  
 
 Le problème avec LonWorks peut, néanmoins, être résolu par des opérations de conversion. Cependant ces opérations ne fonctionnent que si le système source utilise la convention \emph{little-endian}. 
  
 \section{Protocole LTP/HTTP}
-Entre-aperçu au chapitre [refchapter], ce protocole est utilisé pour des échanges de donnée entre le SERVEUR et les CLIENTS et dans les TP entre le démon et le navigateur. 
+Entre-aperçu au chapitre \ref{chpjs}, ce protocole est utilisé pour des échanges de donnée entre le \textsf{SERVEUR} et les \textsf{CLIENTS} et dans les \textsf{TP} entre le démon et le navigateur. 
 
 \subsection{Format des requêtes}
-Une requête se compose d'une URL source par exemple http://www.lontouch.ch/ puis d'un nom de script suivi d'un point d'interrogation après lequel viennent les différents paramètres séparés les uns des autres par un et commercial. Le protocole LTP/HTTP nécessite un minimum d'un paramètre et la quantité totale de paramètres et limitée par la taille d'une requête GET définie par HTTP. 
+Une requête se compose d'une URL source par exemple \url{http://www.lontouch.ch/} puis d'un nom de script suivi d'un point d'interrogation après lequel viennent les différents paramètres séparés les uns des autres par un caractère ``et commercial''. Le protocole \textsf{LTP/HTTP} nécessite un minimum d'un paramètre et la quantité totale de paramètres et limitée par la taille d'une requête \textsf{GET} définie par \textsf{HTTP}. 
 
 \subsection{Envoi de variable(s)}
-L'envoi des données du navigateur au démon utilise ce type de requête. 
+L'envoi des données du navigateur au démon utilise ce type de requête:
 
 \textbf{Nom de script:} \\
 \begin{itemize}
@@ -304,7 +277,7 @@ L'envoi des données du navigateur au démon utilise ce type de requête.
 
 Répond "SUCCESS" en cas de réussite et "FAILED" en cas d'échec.
 
-\textbf{Premier paramètre obligatoire:} \\
+\textbf{Premier paramètre obligatoire:} 
 
 \begin{itemize}
 	\item \textsf{gi}
@@ -312,7 +285,7 @@ Répond "SUCCESS" en cas de réussite et "FAILED" en cas d'échec.
 
 Correspond au numéro de l'interface graphique qui effectue la soumission de variables
 
-\textbf{Paramètres suivants:} \\
+\textbf{Paramètres suivants:} 
 
 \begin{itemize}
 	\item \textsf{var.prop}
@@ -322,8 +295,10 @@ Correspond au numéro de l'interface graphique qui effectue la soumission de vari
 
 \textbf{Exemples:} \\
 
-\url{http://www.lontouch.ch/snvt.js?gi=4&lamp1.state=1&lamp1.value=45&lamp2.state=0&lamp2.value=109} \\
-\url{http://www.lontouch.ch/snvt.js?gi=4&lamp1.state=true&lamp1.value=118&lamp2.state=false&lamp2.value=112}
+\texttt{http://www.lontouch.ch/snvt.js?gi=4\&lamp1.state=1 \\
+\&lamp1.value=45\&lamp2.state=0\&lamp2.value=109} \\
+\texttt{http://www.lontouch.ch/snvt.js?gi=4\&lamp1.state=true\\
+\&lamp1.value=118\&lamp2.state=false\&lamp2.value=112}
 
 \textbf{Restrictions:} \\
 
@@ -421,7 +396,7 @@ variable2: {
 Le nombre de variables transmises dépend de la quantité de variables définies pour le GI concerné. 
 
 \subsubsection{Formatage PHP}
-Le formatage PHP utilise le format de sérialisation de tableau PHP disponible par la commande serialize. Le format des tableaux PHP transmis est le suivant: 
+Le formatage PHP utilise le format de sérialisation de tableau PHP disponible par la commande \emph{serialize}. Le format des tableaux PHP transmis est le suivant: 
 
 \begin{lstlisting}
 array( 
@@ -431,7 +406,8 @@ array(
 
 Pour cette structure un résultat de la forme suivante sera reçu: 
 
-\begin{lstlisting}a:1;a1;s9:variable1;a:2:s:5:prop1;s:6:valeur1;s:5:prop2;s:6:valeur2;
+\begin{lstlisting}
+a:1;a1;s9:variable1;a:2:s:5:prop1;s:6:valeur1;s:5:prop2;s:6:valeur2;
 \end{lstlisting}
 
 \subsubsection{Formatage XML}
@@ -440,17 +416,18 @@ Pour l'instant encore aucun type de formatage XML n'a été défini.
 \subsubsection{Formatage TEXT}
 Le format TEXT suit toujours le modèle suivant: 
 
-\begin{leftbar}variable1:
-~~~prop1 = valeur1
-~~~prop2 = valeur2
-~~~...
+\begin{lstlisting}
+   prop1 = valeur1
+   prop2 = valeur2
+   ...
 variable2: 
-~~~prop1 = valeur1
-~~~prop2 = valeur2
-~~~...
+   prop1 = valeur1
+   prop2 = valeur2
+   ...
 ...
-\end{leftbar}
+\end{lstlisting}
 
 
 \subsection{La sécurité et LTP/HTTP}
-Ainsi décrit, le protocole LTP/HTTP ne comprend aucun dispositif de chiffrage ou d'authentification. Cependant un mécanisme peut être envisagé en utilisant un numéro de session. Il s'agit d'un paramètre véhiculé par la méthode POST de HTTP correspondant à un identifiant retransmis automatiquement par le navigateur lors des différentes requêtes. Cette identifiant est perdu lorsque l'utilisateur quitte le navigateur ou lorsqu'un timeout est dépassé. Cette alternative peut permettre de reconnaître un utilisateur d'un autre. Les accès CLIENTS devraient par la suite fonctionner sur ce procédé. 
+\maraja{Un identifiant unique et invisible}
+Ainsi décrit, le protocole \textsf{LTP/HTTP} ne comprend aucun dispositif de chiffrage ou d'authentification. Cependant un mécanisme peut être envisagé en utilisant un numéro de session. Il s'agit d'un paramètre véhiculé par la méthode \textsf{POST} de \textsf{HTTP} correspondant à un identifiant retransmis automatiquement par le navigateur lors des différentes requêtes. Cette identifiant est perdu lorsque l'utilisateur quitte le navigateur ou lorsqu'un \emph{timeout} est dépassé. Cette alternative peut permettre de reconnaître un utilisateur d'un autre. Les accès \textsf{CLIENTS} devraient par la suite fonctionner sur ce procédé. 

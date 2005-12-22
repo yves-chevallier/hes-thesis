@@ -37,20 +37,17 @@
 \usepackage{lastpage} 						% Permet de connaître le numéro de la dernière page
 \usepackage{fix-cm}                    % ??
 \usepackage{titletoc}                  % Modification de la table des matières
-%\usepackage{lmodern}
-%\usepackage{utopia}                    % Fonte Utopia
 \usepackage{helvet}                    % Fonte Helvetica
 \usepackage{courier}                   % Fonte Courier
 \usepackage{framed}                    % permet le \begin{leftbar}
 \usepackage{tipa}                      % phonétique internationale
 \usepackage{dirtree}                   % Arborescence de repertoires (J.C.Charpentier)
 \usepackage{listings}
+\usepackage{float}
 \usepackage{tabularx}
 \usepackage{color}
 \usepackage{multicol}                  % Disposition de texte sur plusieurs colonnes
-%\usepackage[leftbars]{changebar}       % ??
 \usepackage[ps2pdf,pagebackref=true,colorlinks=false,linkcolor=blue,plainpages=true]{hyperref}
-%\usepackage{palatino} 						% Groupes de fontes Palatino
 
 %///////////////////////////////////////////////////////////////////////////////
 % Mise à jour des longueurs                                                     
@@ -227,6 +224,11 @@
                                      {-2.25ex\@plus -1ex \@minus -.2ex}%
                                      {1.0ex \@plus .2ex}%
                                      {\normalfont\normalsize\bfseries\itshape}}
+
+\renewcommand\paragraph{\@startsection{paragraph}{4}{\z@}%
+					{1.25ex \@plus1ex \@minus.2ex}%
+					{1.0ex}%
+					{\normalfont\normalsize\itshape}}
 %\renewcommand\paragraph{\@startsection{paragraph}{4}{\z@}%
 %                                    {3.25ex \@plus1ex \@minus.2ex}%
 %                                    {2.5ex \@plus .2ex}%
@@ -262,8 +264,7 @@
 	 \reset@font
 	 \null\vfil
 	 \begin{center}
-%		 {\fontsize{40pt}{30pt}\usefont{T1}{cmss}{bx}{n}\@title}
-		 {\fontsize{40pt}{280pt}\usefont{T1}{cmr}{bx}{n}\@title}
+		 {\usefont{T1}{cmr}{bx}{n}\fontsize{32pt}{32pt}\selectfont\@title}
 	 \end{center}
 	 \vfil~\null
 	\end{titlepage}%
@@ -277,9 +278,7 @@
 	 \null	 
 	 \Huge{\textsc{\@author}}
 	 \vfil
-%		 {\fontsize{40pt}{30pt}\usefont{T1}{cmss}{bx}{n}\@title}
-		 {\fontsize{40pt}{30pt}\@title}
-	 
+		 {\usefont{T1}{cmr}{bx}{n}\fontsize{32pt}{32pt}\selectfont\@title}	 
 	 \vfil
 	 \huge{\emph{\ksubTitle}}
 	 \vfil
@@ -299,17 +298,25 @@
 \kliminairetext\\[1cm]
 \copyright \kAuthors, \kcopyrightYear
 \vfil 
-Couverture \emph{conçue par} \textsc{\kcouverture}
-\vfil 
+%Couverture \emph{conçue par} \textsc{\kcouverture}
+%\vfil 
 \begin{tabbing}
 \emph{Imprimerie}:~~\= \kimprimerie\\
 \emph{Relecture}:\> \textsc{\krelecture}
 \end{tabbing}
 \vfil
+\small
 Les programmes figurant dans ce document ont pour but d'illustrer les sujets traités. Il n'est donné aucune garantie quant à leur fonctionnement une fois compilés, assemblés ou interprêtés dans le cadre d'une utilisation professionnelle ou commerciale.
 \vfil
-\small
-Toute représentation ou reproduction, intégrale ou partielle, fait sans le consentement de l'auteur, de ses ayants droit, ou ayants cause, est illicite (loi du 11 mars 1957, alinéa 1er de l'article 40). Cette représentation ou reproduction, par quelque procédé que ce soit, constituerai une contrefaçon sanctionnée par les articles 425 et suivants du Code pénal. La loi du 11 mars 1967 autorise uniquement, aux termes des alinéas 2 et 3 de l'article 41, les copies ou reproductions strictemnt réservées à l'usage privé du copiste et non destinées à une utilisation collective d'une part et, d'autre part, les analyses et les courtes citations dans un but d'exemple et d'illustration. 
+\begin{tabularx}{\textwidth}{Xr}
+\includegraphics[height=1.5cm]{figures/heig-vd.eps} &
+\includegraphics[height=1.5cm]{figures/hes-so.eps} \\
+\end{tabularx}
+\vfil
+%\footnotesize
+%Ce document est libre, vous pouvez le redistribuer et/ou le modifier selon les termes de la Licence Publique Générale GNU publiée par la Free Software Foundation. 
+
+%Toute représentation ou reproduction, intégrale ou partielle, fait sans le consentement de l'auteur, de ses ayants droit, ou ayants cause, est illicite (loi du 11 mars 1957, alinéa 1er de l'article 40). Cette représentation ou reproduction, par quelque procédé que ce soit, constituerai une contrefaçon sanctionnée par les articles 425 et suivants du Code pénal. La loi du 11 mars 1967 autorise uniquement, aux termes des alinéas 2 et 3 de l'article 41, les copies ou reproductions strictemnt réservées à l'usage privé du copiste et non destinées à une utilisation collective d'une part et, d'autre part, les analyses et les courtes citations dans un but d'exemple et d'illustration. 
 \normalfont
 }   
 
@@ -353,7 +360,15 @@ Toute représentation ou reproduction, intégrale ou partielle, fait sans le conse
    \end{center}
    \caption{\label{#1}#2}
    \end{figure}   
-}                    
+}
+\newcommand{\figh}[2]{
+   \begin{figure}[H]
+   \begin{center}
+   \includegraphics[width=\textwidth]{figures/#1.\graphicsExt}
+   \end{center}
+   \caption{\label{#1}#2}
+   \end{figure}   
+}        
 
 
 \AtBeginDocument{\renewcommand{\labelitemi}{\textbullet}}

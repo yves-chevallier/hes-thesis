@@ -13,30 +13,42 @@
 %// @author   Y. Chevallier <nowox@kalios.ch>                                   
 %// @file     nom.tex                                                           
 %// @language ASCII/C                                                           
-%// @svn      $Id: nom.tex 82 2005-12-14 05:41:51Z Canard $                     
+%// @svn      $Id$                     
 %///////////////////////////////////////////////////////////////////////////////
 \chapter{Problématique du nom}
 \section{Motivations}
-Arrivé à un certain stade du projet, on se rend compte de la nécessité à trouver un nom au projet. Un nom pour le programme, un nom pour intégrer à la charte graphique du WEBGUI, enfin, un nom pour faire référence au projet. Par conséquent, il a été jugé nécessaire de consacrer quelques heures à la recherche d'un nom.
+\index{nom}
+
+\maraja{Le nom du projet}
+Arrivé à un certain stade du projet, on se rend compte de la nécessité à trouver un nom. Un nom pour le programme, un nom pour intégrer à la charte graphique du \textsf{WEBGUI}, enfin, un nom pour faire référence au projet. Par conséquent, il a été jugé nécessaire de consacrer quelques heures cette recherche.
 
 \section{La recherche d'un nom}
+\index{logo}
+\index{marketing}
 Trouver un nom de produit ou de société implique souvent une étude longue et couteuse. Il faut dans un premier temps dresser une liste de propositions lesquelles sont soumises à un groupe de décideurs, puis des démarches doivent être effectuées pour vérifier la disponibilité du nom. 
 
-Considérant que ce n'était pas un point essentiel du projet et n'étant pas astreint à des obligations marketing ou commerciale, la procédure de recherche à été relativement simplifiée. Dans un premier temps quelques associations d'idées ont été consignées par écrit et pour chacune des propositions, une recherche à été faite à l'aide de différents moteurs de recherche Internet. A l'issue de cette procédure, un nom à été retenu. Celui pour lequel, parmi les huit milliards de pages indexées par Google, aucun résultat n'apparaissait. On pouvait en conclure que le nom est libre sous réserve de vérification ultérieure auprès de l'OMPI 
+\maraja{Sur 8 milliards nous sommes les seuls}
+Considérant que ce n'était pas un point essentiel du projet et n'étant pas astreint à des obligations marketing ou commerciale, la procédure de recherche à été relativement simplifiée. Dans un premier temps quelques associations d'idées ont été consignées par écrit et pour chacune des propositions, une recherche à été faite à l'aide de différents moteurs de recherche Internet. A l'issue de cette procédure, un nom à été retenu. Celui pour lequel, parmi les huit milliards de pages indexées par Google, aucun résultat n'apparaissait. On peut ainsi conclure que le nom est libre sous réserve de vérification ultérieure auprès de l'\textsf{OMPI} \index{OMPI} \index{marketing}
 
-Le projet s'appelle dorénavant LonTouch. Il s'agit d'une contraction de LonWorks suivie de « Touch » signifiant toucher en anglais. On constate que le nom correspond parfaitement au concept du projet. En touchant un écran tactile à un endroit défini, on commande des périphériques LonWorks. 
+\maraja{LonTouch}
+Le projet s'appelle dorénavant LonTouch. Il s'agit d'une contraction de LonWorks suivie de \emph{Touch} signifiant toucher en anglais. On constate que le nom correspond parfaitement au concept du projet. En touchant un écran tactile à un endroit défini, on commande des périphériques LonWorks. 
 
 \section{Réalisation d'un logo}
- Le nom du système défini, il fallait encore trouver un logo. Cette étape parfaitement facultative à l'avantage de faciliter la conception de la charte graphique de la console d'administration web qui sera étudiée au chapitre [refchapter]. 
+Le nom du système défini, il fallait encore trouver un logo. Cette étape parfaitement facultative à l'avantage de faciliter la conception de la charte graphique de la console d'administration Web qui sera étudiée au chapitre \ref{chpwebgui}. 
 
-Le temps consacré à la recherche du logo doit être minimisé car il ne relève pas du travail d'ingénierie technique. Au final le résultat obtenu est le suivant: 
+Le temps consacré à la recherche du logo doit être minimisé car il ne relève pas d'un travail d'ingénierie technique. Au final le résultat obtenu est visible sur la figure \ref{logo} 
 
-[figure]LonTouchLogo[/figure]
+\fig{logo}{Fiche descriptive du logo LonTouch}
 
-Le design a été effectué avec le logiciel Adobe Illustrator. Il s'agit d'un progiciel de dessin vectoriel utilisé à l'heure actuelle par une très large majorité de graphistes. 
+\index{pantone}
+Le logo est disponible en plusieurs format: couleur et n\&b. La version couleur fait appel à la référence \textsf{PANTONE} 8421-C. 
+
+\index{Illustrator}
+Le logo à été réalisé avec le logiciel \emph{Adobe Illustrator}. Il s'agit d'un progiciel de dessin vectoriel utilisé à l'heure actuelle par une très large majorité de graphistes. 
 
 \section{Abréviation}
-Il est de coutume lorsque l'on réalise une librairie informatique de préfixer le nom des fonctions ou procédures par une abréviation correspondant, le plus souvent, au nom du projet. Aussi, nous utiliserons un terme à quatre lettre pour abréger LonTouch. Après quelques essais, on retient LTCH.
+\maraja{L'abréviation LTCH}
+Il est de coutume lorsque l'on réalise une librairie informatique de préfixer le nom des fonctions ou procédures par une abréviation correspondant, le plus souvent, au nom du projet. Aussi, nous utiliserons un terme à quatre lettres pour abréger LonTouch. Après quelques essais, on retient \textsf{LTCH}.
 
-On constatera en parcourant les sources du démon qu'une certaines quantités de fonctions C utilisent ce préfixe comme par exemple LtchGetNvh() permettant d'aller chercher la valeur d'une variable réseau.
+On constatera en parcourant les sources du démon qu'une certaines quantités de fonctions \textsf{C} utilisent ce préfixe comme par exemple \texttt{LtchGetNvh()} permettant d'aller chercher la valeur d'une variable réseau.
 

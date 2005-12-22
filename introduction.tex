@@ -32,10 +32,17 @@ L'impératif étant de trouver un système permettant la conception d'interfaces gr
 
 \index{bâtiment}
 \label{pcembarque}
+\index{concept}
+\index{écran tactile}
 \maraja{Un ``hardware'' sur mesure}
-Malheureusement, cette technologie Webnécessite l'emploi d'un navigateur Webrequérant un micro-ordinateur. Il est pour l'heure difficile d'imaginer d'implanter des machines de ce type dans les murs d'un bâtiment pour remplacer des actuateurs mécaniques primitifs. D'une part les coûts seraient multipliés par un facteur non négligeable et d'autre part, la consommation électrique de ces appareils serait en totale opposition avec la politique actuelle de préservation de l'énergie. En outre, les prouesses technologiques de ces dernières années permettent aujourd'hui de réaliser, à des coûts très modiques, des dispositifs électroniques munis d'écrans tactiles et suffisamment puissants pour faire fonctionner un navigateur web. 
+Malheureusement, cette technologie Web nécessite l'emploi d'un navigateur Web requérant un micro-ordinateur. Il est pour l'heure difficile d'imaginer d'implanter des machines de ce type dans les murs d'un bâtiment pour remplacer des actuateurs mécaniques primitifs. D'une part les coûts seraient multipliés par un facteur non négligeable et d'autre part, la consommation électrique de ces appareils serait en totale opposition avec la politique actuelle de préservation de l'énergie. En outre, les prouesses technologiques de ces dernières années permettent aujourd'hui de réaliser, à des coûts très modiques, des dispositifs électroniques munis d'écrans tactiles et suffisamment puissants pour faire fonctionner un navigateur web. 
 
 \section{Conventions de lecture}
+\index{termes techniques}
+\index{computer modern}
+\index{courier}
+\index{helvetica}
+\index{myriad}
 \subsection{Termes techniques}
 Dans le but de simplifier votre lecture et de ne pas charger le texte inutilement, un glossaire placé en fin de document reprend l'ensemble des termes techniques et des acronymes utilisés.  Chacun d'eux fait référence à une petite explication suivie d'un lien Internet vers une description détaillée. 
 
@@ -53,8 +60,12 @@ Police de reférence \= bla \kill \\
 \end{tabbing}
 
 \section{Cahier des charges initial}
+\index{cahier des charges}
+\index{journée technique}
+\index{IBT}
 Le cahier des charges de ce travail de diplôme consiste en la réalisation d'un prototype de démonstration qui sera présenté durant la journée technique du 20 janvier 2006. Il devra permettre la commande de quelques éclairages au moyen d'une interface LonWorks/Dali fournie par le partenaire industriel \textsf{IBT}. Un ou plusieurs écrans tactiles permettront de télécommander les éclairages, voir de visualiser des images issues de webcams Ethernet. 
 
+\maraja{Objectifs principaux}
 Les objectifs qui devront être impérativement atteints sont:
 
 \begin{itemize}
@@ -67,25 +78,25 @@ Les objectifs qui devront être impérativement atteints sont:
 \item	Rédaction du mémoire de diplôme		
 \end{itemize}
 
+\maraja{Objectifs secondaires}
 Des objectifs secondaires seront abordé dans la mesure du temps disponible et en accord avec le professeur responsable:
 
 \begin{itemize}
 \item	Implémentation du logiciel client
 \item	Implémentation du protocole de communication basé sur \textsf{UDP} sur le client
 \item	Développement du démon \textsf{UDP} sur le serveur
-\item	Perfectionnement de l'interface Webd'administration
+\item	Perfectionnement de l'interface Web d'administration
 \end{itemize}
 
 \section{Etablissement des besoins généraux}
-\maraja{Système constitué de trois organes}
-Conformément à l'étude effectuée lors du travail de semestre, le système est basé sur trois organes principaux. D'une part les différents écrans tactiles implantés de part et d'autre du bâtiment. D'une autre les utilisateurs qui souhaiteraient accéder aux interfaces tactiles depuis leurs micro-ordinateur personnel et enfin, d'un serveur central qui aurait la charge de dialoguer avec les dispositifs du bâtiment: éclairage,  ventilation, etc\ldots
+Conformément à l'étude effectuée lors du travail de semestre, le système est basé sur trois organes principaux. D'une part les différents écrans tactiles implantés de part et d'autre du bâtiment. D'une autre, les utilisateurs qui souhaiteraient accéder aux interfaces tactiles depuis leurs micro-ordinateur personnel et enfin, d'un serveur central qui aurait la charge de dialoguer avec les dispositifs du bâtiment: éclairage,  ventilation, etc.
 
 \subsection{Serveur}
 \maraja{Organe mère}
-Le serveur est l'organe mère du système, il comprend un accès Webpermettant la configuration, l'installation des interfaces graphiques, la configuration de l'interaction des interfaces avec le réseau LonWorks et l'éventuelle possibilité protéger certaines interfaces par mot de passe moyennant un compte utilisateur. 
+Le serveur est l'organe mère du système, il comprend un accès Web permettant la configuration, l'installation des interfaces graphiques, la configuration de l'interaction des interfaces avec le réseau LonWorks et l'éventuelle possibilité protéger certaines interfaces par mot de passe moyennant un compte utilisateur. 
 
 \maraja{Base PC}
-Il s'agit également d'un micro-ordinateur sur lequel tourne linux. L'argumentaire en faveur se ce système d'exploitation est clairement explicité dans le travail de semestre intitulé ``Interface LonWorks, Panneaux de commande tactile''
+Il s'agit également d'un micro-ordinateur sur lequel tourne linux. L'argumentaire en faveur de ce système d'exploitation est clairement explicité dans le travail de semestre intitulé ``Interface LonWorks, Panneaux de commande tactile''
 
 \subsection{Ecrans tactiles}
 \maraja{Ecran de chez B\&R}
@@ -98,7 +109,7 @@ Comme stipulé en page \ref{pcembarque}, l'utilisation d'un \textsf{PC} comme int
 Les clients peuvent être n'importe quel utilisateur possédant un micro-ordinateur muni d'un navigateur Web et relié au réseau local. 
 
 \maraja{Indépendance du navigateur}
-Il est important de préciser que l'interface graphique affichée devra se comporter de manière totalement indépendante du type de navigateur web. Il à été contenu de réaliser pour ce travail des interfaces graphiques répondant au standard du \textsf{W3C}. 
+Il est important de préciser que l'interface graphique affichée devra se comporter de manière totalement indépendante du type de navigateur web. Il à été convenu de réaliser pour ce travail des interfaces graphiques répondant au standard du \textsf{W3C}. 
 
 \subsection{Architecture des différentes parties}
 Chacun des organes cités précédemment sont constitués de divers composants logiciels spécifiques. Cette section aborde une description sommaire de chacun de ces composants. 
@@ -107,67 +118,88 @@ Chacun des organes cités précédemment sont constitués de divers composants logic
 Il faut considérer que chaque bloc logiciel consomme des ressources système. Aussi, dans le cas des écrans tactiles, il faut veiller à économiser un maximum sur les ressources mémoire et processeur. En revanche, dans le cas du serveur aucune restriction n'est nécessaire. 
 
 \subsubsection{Le serveur}
-
+\index{serveur}
+\index{serveur Web}
 \paragraph{Serveur web}
 \maraja{Le serveur et l'interpréteur}
 Ce composant logiciel est en réalité constitué de deux parties. La première est le serveur à proprement parlé et la seconde est l'interpréteur qui va traiter les demandes utilisateur. 
 
-Le serveur Webse chargera d'héberger et de diffuser les interfaces graphiques accessibles par les clients et de mettre à disposition de l'administrateur une console d'administration permettant la configuration pleine et entière du système.
+Le serveur Web se chargera d'héberger et de diffuser les interfaces graphiques accessibles par les clients et de mettre à disposition de l'administrateur une console d'administration permettant la configuration pleine et entière du système.
 
 \paragraph{Démon}
+\index{démon}
 \maraja{Organe principal}
-Il s'agit là du composant le plus important. Le démon \footnote{Un démon est le nom donné à un programme qui tourne en tâche de fond. L'utilisation de ce terme ainsi que sa traduction anglaise daemon est courante dans le monde linux}. Il a la charge de traiter avec le bus de terrain LonWorks, ainsi qu'avec les écrans tactiles. 
+Il s'agit là du composant le plus important. Le démon \footnote{Un démon est le nom donné à un programme qui tourne en tâche de fond. L'utilisation de ce terme ainsi que sa traduction anglaise \emph{daemon} est courante dans le monde linux} a la charge de traiter avec le bus de terrain LonWorks, ainsi qu'avec les écrans tactiles. 
 
 \paragraph{Base de données}
-
+\index{base de données}
+\index{écran tactile} 
+\index{navigateur web}
 \maraja{Un confort plus qu'une nécessité}
 Bien qu'elle ne paraisse pas indispensable du point de vue de la quantité d'information à traiter. Elle constitue une solution confortable pour stocker et rechercher les données relatives à la configuration du système. D'autre part, nous verrons plus tard que son utilisation simplifie grandement le développement de la console d'administration. 
 
 \subsubsection{Ecrans tactiles}
-
-\paragraph{Navigateur web}
-Ce composant est l'un des grands dilemmes de tout le système. Pour être capable d'interpréter une page web, il faut parcourir des dizaines de milliers de lignes de programme. La complexité et les normes en vigueur concernant les standards Webimposent l'utilisation d'un navigateur respectant ces standards et sans faille dans son fonctionnement. Les protagonistes en matière de navigateurs Webse comptent sur les doigts d'une main. 
+\index{Microsoft Internet Explorer}
+\index{Internet Explorer}
+\index{Mozilla Firefox}
+\index{Firefox}
+\index{Gecko}
+\index{open-source}
+\paragraph{Navigateur Web}
+Ce composant est l'un des grands dilemmes de tout le système. Pour être capable d'interpréter une page Web, il faut parcourir des dizaines de milliers de lignes de programme. La complexité et les normes en vigueur concernant les standards Web imposent l'utilisation d'un navigateur respectant ces standards et sans faille dans son fonctionnement. Les protagonistes en matière de navigateurs Web se comptent sur les doigts d'une main. 
 
 \maraja{Microsoft Internet Explorer}
 En tête de liste, on trouve \emph{Microsoft Internet Explorer} qui à l'inconvénient de ne pas respecter le standard du \textsf{W3C}. De plus, ne tournant que sur les systèmes d'exploitation Windows, et, n'étant pas libre de sources, il est impossible de l'utiliser pour notre application. 
 
 \maraja{Gecko, de mozilla}
-Arrive au second rang, le navigateur Firefox de la fondation mozilla. Firefox en plus d'être \emph{open source}, est basé sur un moteur de rendu appelé Gecko. C'est ce moteur logiciel qui s'occupe de tout le travail d'analyse sur les pages web. Etant portable, il est possible d'intégrer Gecko à une interface utilisateur simpliste permettant alors de s'affranchir de toutes les possibilités offertes par Firefox. Or, si Gecko est très puissant et \emph{open-source}, il est aussi très difficile à maîtriser. Les connaissances en informatique nécessaire à la réalisation d'un navigateur Web allégé basé sur Gecko dépassent de beaucoup celles qu'il est possible d'acquérir sur un projet de douze  semaines. 
+Arrive au second rang, le navigateur Firefox de la fondation mozilla. \emph{Firefox} en plus d'être \emph{open source}, est basé sur un moteur de rendu appelé \emph{Gecko}. C'est ce moteur logiciel qui s'occupe de tout le travail d'analyse sur les pages web. Etant portable, il est possible d'intégrer Gecko à une interface utilisateur simpliste permettant alors de s'affranchir de toutes les possibilités offertes par Firefox. Or, si Gecko est très puissant et \emph{open-source}, il est aussi très difficile à maîtriser. Les connaissances en informatique nécessaire à la réalisation d'un navigateur Web allégé basé sur Gecko dépassent de beaucoup celles qu'il est possible d'acquérir sur un projet de douze  semaines. 
 
-En conséquence, dans notre réalisation, on se contentera d'utiliser Mozilla Firefox sans simplification aucunes. Bien entendu, cette solution n'est pas optimale puisqu'elle nécessite des ressources processeur plus grandes que nécessaire. 
+En conséquence, dans notre réalisation, on se contentera d'utiliser \emph{Mozilla Firefox} sans simplification aucunes. Bien entendu, cette solution n'est pas optimale puisqu'elle nécessite des ressources processeur plus grandes que nécessaire. 
 
 \paragraph{Démon}
-Le navigateur Webdialoguera avec un petit ``démon'' qui aura la charge de communiquer directement avec le serveur et de répondre aux messages de configurations reçues. 
+\maraja{Un démon local}
+Le navigateur Web dialoguera avec un petit ``démon'' qui aura la charge de communiquer directement avec le serveur et de répondre aux messages de configurations reçues. 
 
 \subsubsection{Clients}
 \paragraph{Navigateurs web}
 
 \maraja{Le w3c n'est pas respecté}
-Comme il n'est pas possible d'imposer à quiconque l'utilisation d'un navigateur Web spécifique, il faudra assurer une compatibilité maximale entre les différents logiciels de navigations. Etant donné que chaque navigateur à ses propres spécificités et qu'aucun ne respecte fidèlement les normes émises par le \emph{W3C}, il sera impossible d'obtenir une compatibilité absolue. 
+Comme il n'est pas possible d'imposer à quiconque l'utilisation d'un navigateur Web spécifique, il faudra assurer une compatibilité maximale entre les différents logiciels de navigations. Etant donné que chaque navigateur à ses propres spécificités et qu'aucun ne respecte fidèlement les normes émises par le \textsf{W3C}, il sera impossible d'obtenir une compatibilité absolue. 
+\index{interface graphique}
+\index{GI}
 
 \section{Interfaces graphiques}
 \maraja{Les Interfaces graphiques sont des GI}
 Les Interfaces graphiques abrégées dans la suite du document \textsf{GI} pour \emph{Graphic Interface}, sont un des points les plus important du projet bien que ce ne soit pas la partie la plus complexe techniquement. Lorsque le système sera mis en place, se sont les ``designer'' qui auront la tâche de réaliser les différentes \textsf{GI}. Aussi, il est important de détailler le mieux possible cette partie.  Le chapitre \ref{chpgi} est consacré à la réalisation complète d'une interface de démonstration , la suite de cette section d'introduction tente d'introduire les bases de la programmation Web. 
 
+\index{W3C}
+\index{HTML}
 \maraja{Le W3C}
-L'organisation \textsf{W3C} ou \emph{World Wide WebConsortium} est responsable de normaliser les technologies intervenant, notamment, dans la réalisation de site Internet. Le \textsf{W3C} recommande fermement, l'utilisation du langage \textsf{HTML} pour décrire la structure d'un document et le langage \textsf{CSS} pour tous les aspects de mise en page tel que la taille ou la couleur des paragraphes, des titres ou encore des hyperliens. 
+L'organisation \textsf{W3C} ou \emph{World Wide Web Consortium} est responsable de normaliser les technologies intervenant, notamment, dans la réalisation de site Internet. Le \textsf{W3C} recommande fermement, l'utilisation du langage \textsf{HTML} pour décrire la structure d'un document et le langage \textsf{CSS} pour tous les aspects de mise en page tel que la taille ou la couleur des paragraphes, des titres ou encore des hyperliens. 
 
 Dans le but de se familiariser avec ces deux langages, quelques exemples seront donnés dans les paragraphes suivants.
 
 \subsection{Le HTML}
-Le langage \textsf{HTML} ou \emph{Hypertext Markup Language} est utilisé dans toutes les pages web. Lorsque vous vous rendez sur une adresse web. Le résultat visuel que vous obtenez, résulte d'une interprétation d'un fichier source, écrit en \textsf{HTML}, par votre navigateur. Il s'agit d'un langage relativement facile à apprendre. Il se compose de marqueurs plus généralement appelés ``balises'' utilisés pour structurer un document. Au travers du mot structure, il faut comprendre les mots: titres, paragraphes, listes à puces, mise en évidence de texte ou encore alignement. Par exemple pour mettre un texte en gras, embrasser le texte par des balises \emph{strong}. L'une est dite ouvrante, l'autre fermante. 
+\label{xhtmlprout}
+\maraja{HTML est un langage de balisage}
+Le langage \textsf{HTML} ou \emph{Hypertext Markup Language} est utilisé dans toutes les pages Web. Lorsque vous vous rendez sur une adresse Web. Le résultat visuel que vous obtenez, résulte d'une interprétation d'un fichier source, écrit en \textsf{HTML}, par votre navigateur. Il s'agit d'un langage relativement facile à apprendre. Il se compose de marqueurs plus généralement appelés ``balises'' utilisés pour structurer un document. Au travers du mot structure, il faut comprendre les mots: titres, paragraphes, listes à puces, mise en évidence de texte ou encore alignement. Par exemple pour mettre un texte en gras, il faut embrasser le texte par des balises \texttt{strong}. L'une est dite ouvrante, l'autre fermante. 
 
 \begin{lstlisting}[language=HTML]
 <strong>texte en gras</strong>
 \end{lstlisting}
 
-Le \textsf{HTML} a connu plusieurs évolutions. Débutant par \emph{HTML 1.0} pour aboutir à \emph{XHTML 1.0 STRICT}. Cette dernière évolution présentant l'avantage d'être compatible avec la norme \textsf{XML} est largement recommandée par le \textsf{W3C} couplée au langage \textsf{CSS}.
+\maraja{XHTML 1.0 STRICT}
+Le \textsf{HTML} a connu plusieurs évolutions. Débutant par \emph{HTML 1.0} pour aboutir à \emph{XHTML 1.0 STRICT}. Cette dernière évolution présente l'avantage d'être compatible avec la norme \textsf{XML} est largement recommandée par le \textsf{W3C} couplée au langage \textsf{CSS}.
 
 \emph{\tiny XHTML 1.0 Strict - Use this when you want really clean structural mark-up, free of any markup associated with layout. Use this together with W3C's Cascading Style Sheet language (CSS) to get the font, color, and layout effects you want --- http://www.w3.org/MarkUp/\#recommendations}
 
 \subsection{Le CSS}
-Le \textsf{CSS} étant l'acronyme de \emph{Cascading Style Sheet} est, utilisé pour mettre en page un document \textsf{HTML}. C'est un langage de description puissant qui peut aller jusqu'à définir l'emplacement et la taille d'un bloc de texte sur une page web. Le \textsf{CSS} est actuellement utilisé dans sa seconde version. Bien qu'il existe une troisième version, celle-ci n'est pas encore implémentée dans les navigateurs Web. 
+\index{CSS}
+\index{XML}
+\maraja{Langage de mise en page}
+Le \textsf{CSS} étant l'acronyme de \emph{Cascading Style Sheet} est, utilisé pour mettre en page un document \textsf{HTML}. C'est un langage de description puissant qui peut aller jusqu'à définir l'emplacement et la taille d'un bloc de texte sur une page Web. Le \textsf{CSS} est actuellement utilisé dans sa seconde version. Bien qu'il existe une troisième version, celle-ci n'est pas encore implémentée dans les navigateurs Web. 
 
+\index{strong}
 Supposons que nous souhaitons appliquer à notre \texttt{<strong>texte en gras</strong>} une taille de caractère de $15[pt]$ (15 POINT), une couleur bleue et l'utilisation d'une forme de caractère sans empattement, nous procéderions ainsi: 
 
 \begin{lstlisting}
@@ -180,15 +212,20 @@ strong
 }
 \end{lstlisting}
 
-La structure est simple. On débute par le nom de la balise \textsf{HTML} concernée, puis, entres accolades, viennent les différents paramètres que l'on veut définir pour le bloc. A noter que les deux points séparant le nom du paramètre de sa valeur et le point virgule sont en fin de commande. 
+La structure est simple. On débute par le nom de la balise \textsf{HTML} concernée, puis, entres accolades, viennent les différents paramètres que l'on veut définir pour le bloc. A noter que les deux points séparant le nom du paramètre de sa valeur et un point virgule est placé en fin de commande. 
 
 \subsection{Du dynamisme dans les pages}
-Nous sommes maintenant  à même de décrire une page Web, voire un site tout entier. Cependant, il manque à cela un point indispensable dans l'utilisation d'interfaces graphiques Webpour contrôler un bâtiment: l'interactivité.
+\label{dynapage}
+\maraja{HTML ne suffit plus}
+Nous sommes maintenant  à même de décrire une page Web, voire un site tout entier. Cependant, il manque à cela un point indispensable dans l'utilisation d'interfaces graphiques Web pour contrôler un bâtiment: l'interactivité.
 
 Lorsqu'un utilisateur clique  sur un élément de la page considéré comme un bouton, l'interface doit réagir d'une part en envoyant un message au serveur, et d'autre part en mettant à jour l'apparence de certains composants de la page. 
 
-Prenons l'exemple d'un bouton de forme carrée et d'une taille de cinquante pixels d'arrête Par l'intermédiaire de ce contrôle, nous souhaitons commander un luminaire. Il est intéressant pour l'utilisateur d'avoir un retour visuel de son action. Nous pourrions entres autres, changer la couleur du bouton en fonction de l'état der la lampe. Rouge lorsque le luminaire est éteint et Vert lorsqu'il est allumé.  Bien malencontreusement , ceci est impossible. Du moins en \textsf{HTML} ou en \textsf{CSS}. Il faut faire appel à une technologie additionnelle symbolisée par la lettre \textsf{D} en préfixe de l'abréviation  \textsf{HTML}. Nous parlerons alors de \textsf{DHTML}, \emph{Dynamic Hyper Text Markup Language}. Pour introduire cette interactivité le langage \textsf{JavaScript} sera utilisé notamment dans l'\textsf{AJAX}, nouvelle technologie venue dans le monde du Web.  
+Prenons l'exemple d'un bouton de forme carrée et d'une taille de cinquante pixels d'arrête Par l'intermédiaire de ce contrôle, nous souhaitons commander un luminaire. Il est intéressant pour l'utilisateur d'avoir un retour visuel de son action. Nous pourrions entres autres, changer la couleur du bouton en fonction de l'état de la lampe. Rouge lorsque le luminaire est éteint et Vert lorsqu'il est allumé.  Bien malencontreusement, ceci est impossible. Du moins en \textsf{HTML} ou en \textsf{CSS}. Il faut faire appel à une technologie additionnelle symbolisée par la lettre \textsf{D} en préfixe de l'abréviation  \textsf{HTML}. Nous parlerons alors de \textsf{DHTML}, \emph{Dynamic Hyper Text Markup Language}. Pour introduire cette interactivité le langage \textsf{JavaScript} sera utilisé notamment dans l'\textsf{AJAX}, une nouvelle technologie venue dans le monde du Web.  
 
+\maraja{JavaScript, critiqué mais puissant}
+\index{JavaScript}
+\index{DOM}
 \textsf{JavaScript} est un langage très controversé par les puristes de la programmation. Toutefois, bien utilisé, il peut permettre des résultats surprenants. Il s'agit d'un langage pseudo objet permettant d'interagir avec des éléments du code \textsf{HTML}. Ces éléments sont pour la majorité décrit dans le \textsf{DOM} \emph{Document Object Model}. 
 
 Reprenons notre exemple du bouton de cinquante pixels d'arrête, nous pouvons obtenir le résultat souhaité avec le code JavaScript suivant: 
@@ -216,13 +253,13 @@ Il ne faut pas penser qu'il s'agisse là de lignes parfaitement incompréhensibles
 
 Lorsqu'un clic se produit sur l'élément. Un test est effectué pour savoir si la lampe est allumée ou éteinte. Dans un cas comme dans l'autre, on envoie un message au serveur en utilisant la fonction \texttt{EnvoiMessage()} qui est décrite ci-dessous. Ensuite, on modifie le style CSS du bouton pour le faire prendre la couleur verte ou rouge et enfin, on met à jour l'état de la variable \emph{state} entrant en jeu lors du clic de souris suivant.  
 
-Pour le bon  fonctionnement , le code \textsf{HTML} décrivant le bouton doit donc correspondre à ceci: 
+Pour le bon fonctionnement, le code \textsf{HTML} décrivant le bouton doit donc correspondre à ceci: 
 
 \begin{lstlisting}
 <div id="elem">Un bouton</div>
 \end{lstlisting}
 
-Finalement, les styles CSS décrivant les états \emph{on} ou \emph{off} sont:
+Finalement, les styles CSS décrivant les états \emph{on} ou \emph{off} sont les suivants:
 
 \begin{lstlisting}
 .on 
@@ -238,47 +275,70 @@ Finalement, les styles CSS décrivant les états \emph{on} ou \emph{off} sont:
    width: 50px;
 }
 \end{lstlisting}
-
-Cet exemple simple démontre que le bagage nécessaire pour ajouter du dynamisme à une page Webn'est pas négligeable. Aussi, l'un des objectifs de ce travail est de constituer une librairie JavaScript qui s'occupera de façon la plus automatique possible, de gérer ce dynamisme. L'utilisateur se contentera de définir le type de contrôle à assigner à un élément HTML. Il peut s'agir d'un bouton, d'un rhéostat,  d'un indicateur de température, etc. Le chapitre \ref{chpjs} est consacré à la réalisation de cette librairie. Il précède le chapitre concernant la réalisation d'un Interface graphique utilisant les contrôles interactifs définis dans la librairie. 
+\maraja{C'est trop compliqué pour les concepteurs d'interfaces}
+Cet exemple simple démontre que le bagage nécessaire pour ajouter du dynamisme à une page Web n'est pas négligeable. Aussi, l'un des objectifs de ce travail est de constituer une librairie JavaScript qui s'occupera de façon la plus automatique possible, de gérer ce dynamisme. L'utilisateur se contentera de définir le type de contrôle à assigner à un élément HTML. Il peut s'agir d'un bouton, d'un rhéostat,  d'un indicateur de température, etc. Le chapitre \ref{chpjs} est consacré à la réalisation de cette librairie. Il précède le chapitre concernant la réalisation d'une Interface graphique utilisant les contrôles interactifs définis dans la librairie. 
 
 \section{Travail sous Linux}
+\index{linux}
 Sans vouloir tergiverser en argumentant sur les avantages de tel ou tel \textsf{OS}, nous décrirons ici, les principaux arguments ayants permis d'aboutir à Linux. 
 
-Tout d'abord, linux est un système dit \emph{open-source}. Il est d'une part gratuit, mais en plus de son code source, ses lignes de programme, sont accessibles à l'utilisateur. Ceci permet par exemple de choisir les constituants du \textsf{NOYAU}. Ce dernier étant le super programme chargé de faire fonctionner le système d'exploitation. En choisissant les constituants du noyau, on peu réduire la taille du système au strict minimum nécessaire. L'avantage est de permettre une utilisation de mémoire optimisée à son maximum et d'envisager alors de faire tourner l'\textsf{OS} sur une plate-forme matérielle construite sur mesure
+\maraja{Le noyau et le coeur de Linux}
+Tout d'abord, Linux est un système dit \emph{open-source}. Il est d'une part gratuit, mais en plus de son code source, ses lignes de programme, sont accessibles à l'utilisateur. Ceci permet par exemple de choisir les constituants du \textsf{NOYAU}. Ce dernier étant le super programme chargé de faire fonctionner le système d'exploitation. En choisissant les constituants du noyau, on peu réduire la taille du système au plus strict minimum. L'avantage est de permettre une utilisation de mémoire optimisée à son maximum et d'envisager alors de faire tourner l'\textsf{OS} sur une plate-forme matérielle construite sur mesure
 
-Construire une plate-forme matérielle nécessite avant toute chose de choisir un micro-processeur. Le jeu d'instructions assembleur, l'organisation de la mémoire interne étant spécifique à chaque type de circuit, il faut être à même de construire le noyau linux pour qu'il fonctionne avec le micro-processeur choisi. En parlant de jeu d'instructions assembleur ou d'organisation mémoire, on sous-entend le terme \textsf{ARCHITECTURE}. En termes techniques il s'agit de configuration et compilation du kernel pour une architecture processeur donnée.   
+\maraja{La notion d'architecture}
+\index{architecture}
+\index{kernel}
+\index{noyau}
+\index{micro-processeur}
 
-L'ensemble des arguments évoqués ici, traitent des avantage liés à une utilisation de \textsf{LINUX} dans un dispositif embarqué: Les écrans tactiles abrégé \textsf{TP} comme \emph{TouchPanels}. Cependant, les avantages de ce système ne s'arrêtent pas ici. En se concentrant le sur le \textsf{SERVEUR}, on s'aperçoit des besoins de communication avec les réseaux LonWorks ou Ethernet. Linux permet l'écriture ou la lecture de données sur un canal de communication comme Ethernet avec une facilité dérisoire en rapport à un système de type Microsoft Windows. 
+Construire une plate-forme matérielle nécessite avant toute chose de choisir un micro-processeur. Le jeu d'instructions assembleur, l'organisation de la mémoire interne étant spécifique à chaque type de circuit, il faut être à même de construire le noyau linux pour qu'il fonctionne avec le bon micro-processeur choisi. En parlant de jeu d'instructions assembleur ou d'organisation mémoire, on sous-entend le terme \textsf{ARCHITECTURE}. En termes techniques il s'agit de configuration et compilation du kernel pour une architecture processeur donnée.   
+
+\maraja{Avec Linux c'est facile de communiquer}
+L'ensemble des arguments évoqués ici, traitent des avantage liés à une utilisation de \textsf{LINUX} dans un dispositif embarqué: Les écrans tactiles abrégé \textsf{TP} comme \emph{TouchPanels}. Cependant, les avantages de ce système ne s'arrêtent pas ici. En se concentrant le sur le \textsf{SERVEUR}, on s'aperçoit des besoins de communication avec les réseaux LonWorks ou Ethernet. Linux permet l'écriture ou la lecture de données sur un canal de communication comme Ethernet avec une facilité dérisoire en rapport à un système de type \emph{Microsoft Windows}. 
 
 \section{Architecture réseau}
-Idéalement les \textsf{TP} devraient pouvoir être installés sans avoir à tirer des câbles supplémentaires. Un enchâssement dans le mur d'un bâtiment nécessite impérativement une ligne d'alimentation, bien qu'il existe des technologies, \emph{Wireless} ou \emph{PowerLine} permettant une communication sans fil ou au travers de la ligne d'alimentation électrique.. Ces solutions sont encore trop peu répandues et par conséquent trop coûteuses. Dans ces conditions il sera nécessaire d'adjoindre une connexion supplémentaire pour communiquer avec le serveur. 
+\index{powerline}
+\index{PLT}
+\maraja{Trop de cablage}
+Idéalement les \textsf{TP} devraient pouvoir être installés sans avoir à tirer des câbles supplémentaires. Un enchâssement dans le mur d'un bâtiment nécessite impérativement une ligne d'alimentation, bien qu'il existe des technologies, \emph{Wireless} ou \emph{PowerLine} permettant une communication sans fil ou au travers de la ligne d'alimentation électrique. Ces solutions sont encore trop peu répandues et par conséquent trop coûteuses. Dans ces conditions il sera nécessaire d'adjoindre une connexion supplémentaire pour communiquer avec le serveur. 
 
 Concernant le \textsf{PLT}  \emph{PowerLine technology},  l'idée n'est pas à écarter complètement. Les inconvénients liés au coût de la technologie peuvent selon la quantité de câbles à mettre en place, s'avérer avantageuse. 
 
-On peut imaginer qu'un \textsf{TP} vienne prendre la place d'anciens interrupteurs LonWorks dans une installation existante.  Dans ce cas, on aurait à disposition un connexion LonWorks. Cependant, la vitesse de transmission des données sur ce réseau serait limitée à $78[Kbits/sec]$. Or, le transfert des \textsf{GI} sur les \textsf{TP} doit rester possible en temps acceptables. L'utilisation d'un canal de communication avec le serveur via \textsf{LON} implique de limiter la taille des Interfaces graphiques à quelques centaines d'octets. 
+\maraja{Des TP sur une ancienne installation}
+On peut imaginer qu'un \textsf{TP} vienne prendre la place d'anciens interrupteurs LonWorks dans une installation existante.  Dans ce cas, on aurait à disposition un connexion LonWorks. Cependant, la vitesse de transmission des données sur ce réseau serait limitée à $78[Kbits/sec]$. Or, le transfert des \textsf{GI} sur les \textsf{TP} doit rester possible dans des délais acceptables. L'utilisation d'un canal de communication avec le serveur via \textsf{LON} implique de limiter la taille des Interfaces graphiques à quelques centaines d'octets. 
 
-Alternativement, l'utilisation d'Ethernet peu s'avérer avantageuse. Les point d'accès étant de plus en plus nombreux les bâtiments depuis la révolution de la téléphonie sur \textsf{IP}. La pose d'une connexion Ethernet devrait être facile. 
+\maraja{Points d'accès Ethernet nombreux}
+Alternativement, l'utilisation d'Ethernet peu s'avérer avantageuse. Les point d'accès étant de plus en plus nombreux dans les bâtiments depuis la révolution de la téléphonie sur \textsf{IP}. La pose d'une connexion Ethernet devrait être facile. 
 
+\maraja{L'écran de B\&R convient}
+\index{B\&R}
 L'avantage notoire quant à l'utilisation d'Ethernet est de permettre l'emploi d'interfaces tactiles exemptes d'un contrôleur LonWorks. L'ordinateur mis à disposition par la firme \textsf{B\&R} peut alors convenir.
 
+\maraja{Ethernet est rapide}
 La vitesse d'Ethernet étant plus de mille fois supérieur à celle de \textsf{LON}. La limitation de la taille des \textsf{GI} ne serait plus nécessaire. 
 
 Considérant les avantages lié à l'utilisation d'une connexion LonWorks ou Ethernet on peut envisager la possibilité de pouvoir offrir les deux solutions. Ceci implique qu' il faut établir un protocole de communication indépendant du réseau. Un protocole indépendant des couches $1$ à $4$ du modèle \textsf{OSI}.  
 
 Ultérieurement, dans le chapitre consacré à LonWorks nous verrons que le protocole \textsf{UDP} sur Ethernet et la fonctionnalité de messages explicites sur \textsf{LON} on de grandes similitudes.  
 
-La figure [reffigure] présente les quatre architectures évoquées ci-dessus. En (a), on observe un câblage des TP sur LonWorks et la présence des CLIENTS sur Ethernet. En (b) les TP ont été placés au même niveau que les clients. Ceci permettant une vitesse de transfert maximum mais aussi une plus grande difficulté de câblage. En (c) l'utilisation de la technologie PowerLine (PLT-22) de LonWorks est utilisée. Les TP n'ont alors besoin que d'une liaison unique apportant l'énergie et le canal de communication avec le SERVER. Enfin en (d), on observe l'utilisation d'une technologie PowerLine cette fois-ci sur Ethernet. Il s'agit là du cas idéal. Malheureusement, les contrôleurs supportant cette technologie ne se sont pas encore bien démocratisés. 
+La figure \ref{topolog} présente les quatre architectures évoquées ci-dessus. En (a), on observe un câblage des \textsf{TP} sur LonWorks et la présence des \textsf{CLIENTS} sur Ethernet. En (b) les \textsf{TP} ont été placés au même niveau que les clients. Ceci permettant une vitesse de transfert maximum mais aussi une plus grande difficulté de câblage. En (c) l'utilisation de la technologie \emph{PowerLine} (PLT-22) de LonWorks est utilisée. Les \textsf{TP} n'ont alors besoin que d'une liaison unique apportant l'énergie et le canal de communication avec le \textsf{SERVER}. Enfin en (d), on observe l'utilisation d'une technologie \emph{PowerLine} cette fois-ci sur Ethernet. Il s'agit là du cas idéal. Malheureusement, les contrôleurs supportant cette technologie ne se sont pas encore bien démocratisés. 
+
+\fig{topolog}{Les différentes architectures réseau envisagées} 
 
 \section{Les écrans tactiles}
-Il a été expliqué précédemment que  le système d'exploitation linux permet de garder une indépendance totale du matériel utilisé. Le démonstrateur sera construit à l'aide du "Pc Panel" de chez B\&R mais dans l'avenir il s'agira d'un hardware conçu sur mesure ou les ressources mémoires et processeur seront limitées. La raison première concerne le coût du matériel et la seconde,  les besoins en électricité. Il est important de consommer un minimum pour que le projet soit rentable au niveau énergétique.  
+\maraja{Un hardware sur mesure}
+Il a été expliqué précédemment que  le système d'exploitation linux permet de garder une indépendance totale du matériel utilisé. Le démonstrateur sera construit à l'aide du \emph{Pc Panel} de chez \textsf{B\&R} mais dans l'avenir il s'agira d'un hardware conçu sur mesure ou les ressources mémoires et processeur seront limitées. La raison première concerne le coût du matériel et la seconde,  les besoins en électricité. Il est important de consommer un minimum pour que le projet soit rentable au niveau énergétique.  
 
-En choisissant Gecko comme moteur d'interprétation web, nous plaçons déjà la barre très haut. Gecko est un projet de plusieurs centaines de milliers de lignes de code, il demande des ressources système importantes. Aussi, il faudra s'intéresser à l'avenir au projet MINIMO qui vise à concevoir une version allégée de Gecko. 
+\maraja{Le projet MINIMO}
+\index{minimo}
+En choisissant Gecko comme moteur d'interprétation Web, nous plaçons déjà la barre très haut. Gecko est un projet de plusieurs centaines de milliers de lignes de code, il demande des ressources système importantes. Aussi, il faudra s'intéresser à l'avenir au projet \textsf{MINIMO} qui vise à concevoir une version allégée de Gecko. 
 
-Un navigateur Webpossède des règles de sécurité très poussées afin d'éviter toute intrusion sur l'ordinateur par les pirates. Aussi, la fonction \textsf{EnvoiMessage()} vue au paragraphe [refsection] ne pourra communiquer directement avec le serveur. Les informations issues de l'interface graphique devront transiter par un démon local au TP. Une seconde raison à cela est que le protocole de communication utilisé pour dialoguer avec le serveur sera basé sur UDP pour Ethernet et sur les messages explicites pour LON. Un navigateur Webn'est en mesure de dialoguer que par l'intermédiaire d'un protocole nommé TCP. 
+Un navigateur Web possède des règles de sécurité très poussées afin d'éviter toute intrusion sur l'ordinateur par les pirates. Aussi, la fonction \texttt{EnvoiMessage()} vue au paragraphe \ref{dynapage} ne pourra communiquer directement avec le serveur. Les informations issues de l'interface graphique devront transiter par un démon local au \textsf{TP}. Une seconde raison à cela est que le protocole de communication utilisé pour dialoguer avec le serveur sera basé sur \textsf{UDP} pour Ethernet et sur les messages explicites pour \textsf{LON}. Un navigateur Web n'est en mesure de dialoguer que par l'intermédiaire d'un protocole nommé \textsf{TCP}. 
 
-La figure <reffigure> représente l'architecture interne d'un TP. Il s'agit ici d'une représentation d'un TP hybride capable de communiquer à la fois sur Ethernet ou sur LON. 
+La figure \ref{archclient} représente l'architecture interne d'un \textsf{TP}. Il s'agit ici d'une représentation d'un \textsf{TP} hybride capable de communiquer à la fois sur Ethernet ou sur \textsf{LON}. 
 
-Le client Websera dans l'idéal non pas Mozilla Firefox mais une application indépendante intégrant Gecko, voire Minimo. Cette application devra rendre possible : 
+\fig{archclient}{Architecture Interne d'un TP}
+Le client Web sera dans l'idéal non pas Mozilla Firefox mais une application indépendante intégrant Gecko, voire Minimo. Cette application devra rendre possible : 
 
 \begin{itemize}
 	\item	Un mode plein écran par défaut.
@@ -291,10 +351,11 @@ Le client Websera dans l'idéal non pas Mozilla Firefox mais une application indé
 Le démon assurant la communication avec le SERVEUR doit pouvoir :
 
 \begin{itemize}
-	\item	Renseigner le SERVEUR sur l'état du TP
-	\item	Recevoir les nouvelles GI et interagir avec le client Webpour les afficher.
-	\item	Assurer le transfert des commandes entre le client Webet le SERVER ( i.e.) lire ou écrire sur un périphérique LON .		
+	\item	Renseigner le \textsf{SERVEUR} sur l'état du \textsf{TP}
+	\item	Recevoir les nouvelles \textsf{GI} et interagir avec le client Web pour les afficher.
+	\item	Assurer le transfert des commandes entre le client Web et le \textsf{SERVEUR} \emph{i.e.} lire ou écrire sur un périphérique \textsf{LON}.		
 \end{itemize}
 
 \section{Le Serveur}
-Comme évoqué précédemment, le rôle du SERVEUR est de configurer les interfaces graphiques actives sur chacun des écrans tactiles. Il doit permettre via l'interface de configuration Webappelé WEBGUI ,l'administration des autorisations d'accès aux GI par les CLIENTS. Enfin il lui faut également être à même d'effectuer des interconnexion entres les périphériques LON et les contrôles des GI. En d'autres termes, définir que le luminaire de l'étage 24 bureau 3 est contrôlé par le second bouton de l'interface graphique numéro 2. 
+\maraja{Le rôle du serveur est d'administrer}
+Comme évoqué précédemment, le rôle du \textsf{SERVEUR} est de configurer les interfaces graphiques actives sur chacun des écrans tactiles. Il doit permettre via l'interface de configuration Web appelé \textsf{WEBGUI}, l'administration des autorisations d'accès aux \textsf{GI} par les \textsf{CLIENTS}. Enfin il lui faut également être à même d'effectuer des interconnexion entres les périphériques \textsf{LON} et les contrôles des \textsf{GI}. En d'autres termes, définir que le luminaire de l'étage 24 bureau 3 est contrôlé par le second bouton de l'interface graphique numéro 2. 

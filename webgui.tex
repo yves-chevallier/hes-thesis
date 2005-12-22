@@ -16,15 +16,16 @@
 %// @svn      $Id$                  
 %///////////////////////////////////////////////////////////////////////////////
 \chapter{L'interface web de configuration}
+\label{chpwebgui}
 \index{PHP}
 \maraja{PHP un langage de script}
-L'intégralité de l'interface web de configuration appelé tout au long de cet ouvrage \textsf{WEBGUI} à été programmé en \textsf{PHP}. Il s'agit d'un langage de script très répandu pour le développement de ce type d'application. 
+L'intégralité de l'interface Web de configuration appelé tout au long de cet ouvrage \textsf{WEBGUI} à été programmé en \textsf{PHP}. Il s'agit d'un langage de script très répandu pour le développement de ce type d'application. 
 
 \maraja{Préférence pour Lighttpd}
 \index{Lighttpd}
 \index{Apache}
 \index{fastcgi}
-Le serveur web nécessaire à l'hébergement de la plateforme est \emph{Lighttpd 1.4}. Il est bien plus rapide qu'\emph{Apache} lorsqu'il s'agit d'héberger une petite plateforme Web. D'autre part, comme homologue, il est open-source. L'installation est facile et l'interconnexion avec \textsf{PHP} est réalisée au moyen de la méthode \textsf{FASTCGI}. 
+Le serveur Web nécessaire à l'hébergement de la plateforme est \emph{Lighttpd 1.4}. Il est bien plus rapide qu'\emph{Apache} lorsqu'il s'agit d'héberger une petite plateforme Web. D'autre part, comme son homologue, il est \emph{open-source}. L'installation est facile et l'interconnexion avec \textsf{PHP} est réalisée au moyen de la méthode \textsf{FASTCGI}. 
 
 \index{WEBGUI}
 Le \textsf{WEBGUI} doit permettre la gestion complète du système. Les différentes fonctionnalités que doit permettre la plateforme sont énumérées ci-dessous:
@@ -71,7 +72,7 @@ La figure \ref{schblocwebgui} présente la cartographie du \textsf{WEBGUI}. On re
 \section{Constitution de la charte graphique}
 \index{WEBGUI!charte graphique}
 \maraja{Une charte graphique élégante}
-Il à été jugé important de réaliser une charte graphique ayant un design sobre mais élégant. En règle générales les gens ont une tendance particulière à juger l'apparence des choses. C'est pour cette raison qu'un laps de temps conséquent à été consacré à la réalisation d'une charte graphique pour le \textsf{WEBGUI}.
+Il à été jugé important de réaliser une charte graphique ayant un design sobre mais élégant. En règle générales les gens ont une tendance particulière à juger l'apparence des choses. C'est pour cette raison qu'un laps de temps à été consacré à la réalisation d'une charte graphique pour le \textsf{WEBGUI}.
 
 \index{Adobe Illustrator}
 \index{Adobe Photoshop}
@@ -96,6 +97,7 @@ Pour résoudre certain de ces problèmes, des librairies ont été écrites dans le b
 Ecrite en partie pour le site Internet du \textsf{FORUMHES-SO}, cette librairie à été perfectionnée durant ce travail de diplôme. Elle permet de programmer une interface Web sans se soucier de son apparence. Bien qu'il existe des dizaines de librairies similaires sur le Web, elles ont toutes l'inconvénient d'être complexes et d'ajouter un \textsf{OVERHEAD} non négligeable lors de leur utilisation. 
 
 \subsection{Une librairie pour l'internationalisation}
+\maraja{Un programmeur c'est fait pour programmer et un traducteur pour traduire}
 Un point souvent négligé lors de l'élaboration d'une plateforme Web, c'est l'adaptation d'un mode programmation permettant une traduction facile de l'interface dans d'autres langues. Le traducteur ne doit pas avoir à connaître le \textsf{PHP} pour effectuer son travail. De plus, il faut éviter d'avoir recours au programmeur pour mettre à jour les textes contenus dans le code source du programme. C'est pourquoi une librairie à été établie pour faciliter l'internationalisation du système. 
 
 \index{gettext}
@@ -112,10 +114,10 @@ Afin d'offrir un maximum d'indépendance entre la plateforme web et le serveur de
 
 \subsection{Une librairie pour discuter avec le démon}
 \index{démon}
-La communication avec le démon par le biais de \textsf{LTP/HTTP} en mode administration est facilité par l'écriture d'une librairie supplémentaire. 
+La communication avec le démon par le biais de \textsf{LTP/HTTP} en mode administration est facilitée par l'écriture d'une librairie supplémentaire. 
 
 \clearpage
-\section{Organisation au niveau du système de fichiers}
+\section{Système de fichiers}
 L'arborescence présentée ci-dessous montre le WEBGUI du point de vue de ses fichiers sources. On observe par exemple que les \textsf{GI} sont installées dans le répertoire \textsf{gi/} et que les images sont placées dans le répertoire \textsf{images/}. 
 
 Les différentes librairies JavaScript prennent place dans le répertoire \textsf{js/} et les librairies \textsf{PHP} dans le répertoire \textsf{php/}. Le répertoire \textsf{locales/} est prévu pour contenir les informations relatives à l'internationalisation de la plateforme. Enfin, le répertoire \textsf{skins/} contient les différentes chartes graphiques de la plateforme Web. Les images relatives à une charte graphique sont placées au même niveau que cette dernière, dans le répertoire \textsf{skins/}. 

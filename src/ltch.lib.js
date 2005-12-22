@@ -12,7 +12,7 @@
 /// @context  Travail de diplôme                                                
 /// @author   Y. Chevallier <nowox@kalios.ch>                                   
 /// @file     ltch.lib.js                                                       
-/// @language ASCII/PHP4.x                                                      
+/// @language ASCII/JavaScript 1.5                                              
 /// @svn      $Id: ltch.lib.js 82 2005-12-14 05:41:51Z Canard $                 
 ////////////////////////////////////////////////////////////////////////////////  
 

@@ -31,11 +31,11 @@ La liste des utilisateurs ayant accès aux \textsf{GI} en tant que \textsf{CLIENT
 
 \subsection{Table tp (Ecrans tactiles)}
 \index{tp (table)}
-Cette table contient la liste des TouchPanels de l'installation LonTouch. Elle renseigne la taille de l'écran du \textsf{TP}, son adresse réseau, son type de connexion (Ethernet ou LonWorks) ainsi que l'interface graphique active. Une relation de type $n:m$ avec la table des interfaces graphiques définit quelles interfaces on été téléchargée dans le \textsf{TP}.
+Cette table contient la liste des \emph{TouchPanels} de l'installation LonTouch. Elle renseigne la taille de l'écran du \textsf{TP}, son adresse réseau, son type de connexion (Ethernet ou LonWorks) ainsi que l'interface graphique active. Une relation de type $n:m$ avec la table des interfaces graphiques définit quelles interfaces on été téléchargée dans le \textsf{TP}.
                                                          
 \subsection{Table gi (Interfaces graphiques)}
 \index{gi (table)}
-Les Interfaces graphiques installées dans le système sont listées dans cette table. Elles fournissent des renseignements quant à la taille d'écran minimum le nom de l'interface, pour faire tourner l'interface graphique, le nom de l'interface, une brève description ainsi que la version du \textsf{GI}. Une relation de type $1:n$ est liée à la table \emph{gi} avec la table  \emph{gi\_var} définissant les variables réseau de l'interface en question. 
+Les Interfaces graphiques installées dans le système sont listées dans cette table. Elles fournissent des renseignements quant à la taille d'écran minimum pour faire tourner l'interface graphique, le nom de l'interface, une brève description ainsi que la version du \textsf{GI}. Une relation de type $1:n$ est liée à la table \emph{gi} avec la table  \emph{gi\_var} définissant les variables réseau de l'interface en question. 
 
 \subsection{Table nv (Variables réseau)}
 \index{nv (table)}
@@ -61,4 +61,5 @@ La modélisation de la base de données à été effectuée à l'aide de l'outil logici
 \section{Choix du serveur de données }
 \index{MySql Server}
 \index{MySql}
+\maraja{MySql c'est facile !}
 Le serveur de donnée choisi est \emph{MySql Server 4.0}. La gratuité, la facilité d'installation et de configuration on été les principaux critères de décision en faveur de \textsf{MySql}. D'autre part, la documentation sur Internet est abondante facilitant considérablement la mise en place de la base de données et son interconnexion avec les langages de programmation \textsf{C} et \textsf{PHP}. 

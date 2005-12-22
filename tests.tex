@@ -1,0 +1,94 @@
+%///////////////////////////////////////////////////////////////////////////////
+%//  _   _        _                            _                                
+%// | | | |      |_|                          | |                               
+%// | |_| |_____  _ _____           _     _ __| |                               
+%// | |_  | ___ || |  _  \  _____  \ \  / // _  |                               
+%// | | | | ____|| | |_| | (_____)  \ \/ /( (_| |                               
+%// |_| |_|_____)|_|___  |           \__/  \____|                               
+%//                  __| | Haute Ecole d'Ingenieurs                             
+%//                 |___/  et de Gestion - Vaud                                 
+%//                                                                             
+%// @title    Mémoire de diplôme: Mise en place et tests                        
+%// @context  Travail de diplôme                                                
+%// @author   Y. Chevallier <nowox@kalios.ch>                                   
+%// @file     tests.tex                                                         
+%// @language ASCII/C                                                           
+%// @svn      $Id$                  
+%///////////////////////////////////////////////////////////////////////////////
+\chapter{Mise en place du système et tests}
+Dans le but de valider le cahier des charges présenté en début de document, les fonctionnalités fondamentales au système LonTouch ont été testées. La durée du travail de diplôme étant trop courte, il n'a pas été possible de rendre fonctionnel un \textsf{TP} intégrant un démon local et un navigateur sur mesure. En outre, l'utilisation du concept des \textsf{CLIENT} bâti autour du protocole \textsf{LTP/HTTP} à permit la commande d'un éclairage \textsf{LON} depuis une interface Web.
+
+Le présent chapitre traite des différentes étapes qui ont été nécessaire pour valider le cahier des charges initial
+
+\section{Câblage LonWorks}
+Pour procéder aux tests, il faut tout d'abord établir un réseau LonWorks. La topologie du câblage n'étant pas imposée, aucune difficulté n'apparaît pour relier entres eux les différents éléments de l'installation de test. Le réseau est constitué d'un démonstrateur \textsf{DALI} basé sur l'\emph{infraDALI1000} de la société \textsf{IBT} et du \textsf{SERVEUR}. 
+
+Une connexion supplémentaire est réalisée sur un ordinateur équipé de \emph{Microsoft Windows} par l'intermédiaire d'une interface \textsf{NIC-USB} de la firme Loytec. Cette connexion permet par la suite de configurer le réseau. 
+
+Le câblage est réalisé au moyen d'une paire de fils de cuivre rigides de $0.6mm$. isolés par une couche plastique. Les fils ont été torsadés entres eux pour annuler au maximum l'effet des perturbations \textsf{CEM}.  
+
+La figure \ref{install} illustre le câblage final de l'installation de démonstration. 
+
+\fig{install}{Schéma de l'installation LonWorks de démonstration}
+
+\section{Démarrage du démon}
+Le câblage réalisé, le \textsf{SERVEUR}  a été démarré. Faute de temps,  le lancement automatique du démon n'a pas été possible et  a donc nécessité l'installation manuelle du driver \textsf{LDI}. Les commandes à utiliser sont les suivantes: 
+
+\begin{lstlisting}
+insmod -f Linux/Driver/ldipci.o
+./server
+\end{lstlisting} 
+
+\section{Installation du réseau LonWorks}
+Une fois le réseau LonWorks câblé, il doit être installé à l'aide d'un outil de configuration. C'est le logiciel \textsf{NL220} de la société Newron System qui est utilisé. Une clé matérielle à été mise gracieusement à disposition par \emph{Newron System} pour permettre d'utiliser le logiciel sans restrictions. 
+
+Au lancement de \textsf{NL2220}, un nouveau projet doit être créé, il sera intitulé LonTouch. Une fois le projet chargé, il est nécessaire d'installer les différents noeuds du réseau. L'installation est rendue possible via la commande du menu contextuel ``ajouter un nouveau noeud''. A cet instant, \textsf{NL220} est en attente d'un message de service en provenance du noeud à installer. Faisant usage d'une pointe de stylo, on presse alors sur le bouton de service dissimulé sur le boîtier de l'\emph{infraDALI}. Au bout d'un certain temps, le noeud est installé.
+
+La procédure décrite ci-dessus est à répéter pour installer le \textsf{SERVEUR} , sauf que la commande d'envoi du message de service sera accessible depuis le \emph{WEBadmin}. La figure \ref{webadminpref} montre l'emplacement de ce contrôle sur la console d'administration Web. Cette dernière est accessible depuis un navigateur Web en entrant dans la barre d'adresse, l'adresse \textsf{IP} du serveur. L'authentification est effectuée avec le login ``root'' et un mot de passe vide. 
+
+\fig{webadminpref}{Page des préférences système du \emph{WEBadmin}} 
+
+Une fois le noeud LonTouch installé, l'étape suivante peut  être abordée.
+
+\section{Installation des variables réseau}
+Pour permettre au système LonTouch de piloter des interfaces \textsf{LON} il faut créer des variables dynamiques. Conformément aux directives de LonMark, la procédure de création se fera au moyen de l'outil de configuration \textsf{NL220}. Elle consiste à faire glisser les variables des périphériques à piloter sur le noeud LonTouch. La seule variable du noeud de l'\emph{infraDALI} qui est fonctionnelle sur le démonstrateur d'\textsf{IBT} est nommée \emph{nviLampValue(12)}. Elle se trouve dans le groupe \emph{LampActuatorSa(12)}. 
+La figure \ref{nl220nodelt} montre le noeud LonTouch installé avec à présent une nouvelle variable dynamique. 
+
+
+
+\fig{nl220nodelt}{Aperçu du noeud LonTouch dans NL220} 
+
+En se rendant dans le \emph{WEBadmin} dans la section Variables réseau on peut observer qu'une nouvelle variable est maintenant disponible. La figure \ref{webadminnv} le démontre. 
+
+\fig{webadminnv}{Nouvelle variable réseau dans le \emph{WEBadmin}}
+
+\section{Installation d'un GI}
+L'installation d'une nouvelle interface graphique est possible depuis le \emph{WEBadmin} dans la section Système/Interfaces Graphiques. Il faut donc maintenant cliquer sur le bouton ajouter, puis sélectionner une archive d'interface compressée au format \textsf{ZIP}. La figure \ref{webadminnewgi} montre le WEBadmin après l'installation du GI. 
+
+\fig{webadminnewgi}{Capture d'écran du \emph{WEBadmin} après installation d'un GI} 
+
+Le bouton symbolisé par la lettre ``e'' pour edit permet l'édition des liens permettent ainsi interconnecter les variables de l'interface graphique avec les variables LonWorks. Sur la figure \ref{webadminconnexion} on peut observer l'interconnexion de la variable \emph{lamp1} avec la variable réseau \emph{nvoLampValue12}. 
+
+\figh{webadminconnexion}{Connexion d'une variable LonTouch avec une variable LonWorks} 
+
+Dès lors, il est possible de tester l'interface en utilisant le bouton symbolisé par la lettre ``v'' pour view accessible depuis la page Interfaces Graphiques. On observe qu'en cliquant sur le bouton ``Allumer'' de l'interface graphique la lampe s'allume et le bouton porte désormais la dénomination ``Eteindre'' 
+
+\section{Visualisation directe d'une NV}
+La visualisation et l'édition directe des valeurs d'une variable réseau à été rendue possibles depuis la page Variables réseau. En cliquant sur le bouton "Edit" on est également à même d'allumer ou d'éteindre la lampe. La figure \ref{webadmineditnv} présente une capture d'écran de cette page. 
+
+\fig{webadmineditnv}{Edition directe d'une variable réseau}
+
+\section{Création d'un utilisateur}
+
+En se rendant dans la section WebClient/Utilisateur nous allons créer un nouvel utilisateur ayant accès au GI récemment  installé. En cliquant sur le bouton ``Ajouter'' un nouvel utilisateur peut être défini dans la base de données de LonTouch. La capture d'écran de la figure \ref{webadminuser} montre qu'un utilisateur est à présent ajouté et disponible. 
+
+\fig{webadminuser}{Aperçu de la page concernant l'administration des utilisateurs}
+
+Par l'intermédiaire du bouton d'édition symbolisé par la lettre ``e'', il est possible de donner à l'utilisateur l'autorisation d'accéder  au nouveau \textsf{GI}. Pour cela, il suffit de cocher la case située à côté du nom de l'interface concernée. 
+
+Dès lors, il est possible à l'utilisateur par le biais de la page d'authentification, d'accéder à la liste des interfaces auquel il a accès. Il lui suffit ensuite de cliquer sur celle de son choix pour la rendre disponible en plein écran. 
+
+\fig{webadminuserpriv}{Privièges d'accès aux interfaces}
+
+\section{Accès à l'interface depuis un TP}
+Étant donné que le démon du \textsf{TP} n'est pas encore fonctionnel, il n'est pas possible d'utiliser et de tester le fonctionnement du protocole \textsf{LTP/UDP}. Toutefois, il est possible, pour la démonstration, de lancer Mozilla Firefox en mode plein écran permettant ainsi de piloter un périphérique LonWorks sur un écran tactile. 

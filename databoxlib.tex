@@ -8,19 +8,23 @@
 %//                  __| | Haute Ecole d'Ingenieurs                             
 %//                 |___/  et de Gestion - Vaud                                 
 %//                                                                             
-%// @title    Mémoire de diplôme: Colophon                                      
+%// @title    Mémoire de diplôme: Avant propos                                  
 %// @context  Travail de diplôme                                                
 %// @author   Y. Chevallier <nowox@kalios.ch>                                   
-%// @file     colophon.tex                                                      
+%// @file     avantpropos.tex                                                   
 %// @language ASCII/C                                                           
-%// @svn      $Id$                
+%// @svn      $Id: avantpropos.tex 110 2005-12-19 23:55:45Z Canard $             
 %///////////////////////////////////////////////////////////////////////////////
-\Large\textbf{Colophon:}\par\normalsize
-\thispagestyle{empty}
-La qualité du document est le fruit d'un long travail d'apprentissage du célèbre logiciel de composition \LaTeX~prononcé ``latèk''. La mise en page et le style du texte sont vivement inspiré de l'ouvrage: \emph{Gestion de projet avec Subversion} des éditions \textsf{O'REILLY}. Le format \textsf{B5} (176x250mm) normalisé \textsf{ISO 216} a été choisi pour ses dimensions plus réduites permettant toutefois de conserver des marges latérales plus grandes offrant au texte plus d'espace donc un aspect plus aéré. 
+\chapter{Code source, librairie databox}
 
-Le lion en fin de document à été dessiné par \emph{Duane Bibby} 
+\lstset{
+	language=C,
+	basicstyle=\sffamily\tiny, 
+	breaklines=true, 
+	tabsize=3, 
+	backgroundcolor=\color{shadecolor},
+	numbers=left
+}
 
-L'entier du document à été re-lu par René Asper  
-
-La fonte du texte fait partie de la famille computer modern roman créée par Donald Knuth en même temps que \TeX.
+En guise d'exemple de programme C, voici la librairie \textsf{databox.c}. Il s'agit d'une des librairie les plus petites permettant ainsi de faire partie des annexes de ce document.  
+\lstinputlisting{src/databox.c}

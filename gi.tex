@@ -18,9 +18,12 @@
 \chapter{Interfaces graphiques}
 \label{chpgi} 
 
-Abordées au chapitre [refchapter], nous savons à présent que les interfaces graphiques seront composées d'un contenu en XHTML, d'une  présentation graphique en CSS et d'une librairie d'interactivité écrite en ECMAScript plus communément appelé JavaScript. Afin de mieux comprendre l'architecture d'une interface, ce chapitre est consacré à la réalisation d'une interface graphique la plus simple possible permettant le contrôle d'une seule lampe. 
+Abordées \maraja{JavaScript est une norme d'ECMA} au chapitre \ref{xhtmlprout}, nous savons à présent que les interfaces graphiques seront composées d'un contenu en \textsf{XHTML}, d'une  présentation graphique en \textsf{CSS} et d'une librairie d'interactivité écrite en \textsf{ECMAScript} plus communément appelé JavaScript. Afin de mieux comprendre l'architecture d'une interface, ce chapitre est consacré à la réalisation d'une interface graphique la plus simple possible permettant le contrôle d'une seule lampe. 
 
-Le GI aura pour dimensions 1024x768 pixels et disposera d'un contrôle de type SNVT\_switch pour la commande d'un éclairage LonWorks. Dans un premier temps, il faut concevoir la page dite statique. Imaginons un design avec une lampe dans le coin supérieur gauche, élégante manière pour indiquer qu'il s'agit d'une interface graphique de commande d'éclairage, d'un slogan amusant suivi d'une invitation à cliquez sur un bouton portant la mention "allumer" lorsque la lumière est éteinte et "éteindre" lorsque la lumière est allumée. La figure [reffigure] montre en (a) l'image utilisée lorsque la lampe est allumée et en (b) lorsqu'elle est éteinte.
+\maraja{\ldots un slogan amusant\ldots}
+Le \textsf{GI} aura pour dimensions $1024$x$768$ pixels et disposera d'un contrôle de type \emph{SNVT\_switch} pour la commande d'un éclairage LonWorks. Dans un premier temps, il faut concevoir la page dite statique. Imaginons un design avec une lampe dans le coin supérieur gauche, élégante manière pour indiquer qu'il s'agit d'une interface graphique de commande d'éclairage, d'un slogan amusant suivi d'une invitation à cliquez sur un bouton portant la mention ``allumer'' lorsque la lumière est éteinte et ``éteindre'' lorsque la lumière est allumée. La figure \ref{gi2} montre en (b) l'image utilisée lorsque la lampe est allumée et en (a) lorsqu'elle est éteinte.
+
+\fig{gi2}{Charte graphique de l'interface} 
 
 \section{Comportement statique} 
 Le code HTML nécessaire se résume, à peu près, à ceci: 
@@ -37,7 +40,8 @@ Le code HTML nécessaire se résume, à peu près, à ceci:
 </html>
 \end{lstlisting}
 
-On y voit que le document est embrassé de balises <html> et qu'il se compose de deux parties. L'une étant le préambule du document contenant certaines spécifications tels qu'ici, la balise <link/> étant un lien vers le fichier CSS utilisé. L'autre, le body, est le corps du document. Il contient un élément <div> qui deviendra par la suite le bouton. Il faut remarquer que le code HTML présenté ne répond pas aux spécifications XHTML1.0 STRICT. Pour satisfaire les exigences du w3c, il faut ajouter quelques lignes supplémentaires. Par la même occasion, un lien vers la librairie JavaScript décrite au chapitre [refchapter] est ajouté dans l'en-tête du code HTML:
+\maraja{Les normes c'est les normes, on ne peut pas passer outre !}
+On y voit que le document est embrassé de balises \texttt{<html>} et qu'il se compose de deux parties. L'une étant le préambule du document contenant certaines spécifications tels qu'ici, la balise \texttt{<link/>} étant un lien vers le fichier \textsf{CSS} utilisé. L'autre, le body, est le corps du document. Il contient un élément \texttt{<div>} qui deviendra par la suite le bouton. Il faut remarquer que le code \textsf{HTML} présenté ne répond pas aux spécifications \textsf{XHTML1.0 STRICT}. Pour satisfaire les exigences du \textsf{W3C}, il faut ajouter quelques lignes supplémentaires. Par la même occasion, un lien vers la librairie JavaScript décrite au chapitre \ref{chpjs} est ajouté dans l'en-tête du code \textsf{HTML}:
 
 \begin{lstlisting}
 <?xml version="1.0" encoding="UTF-8"?>
@@ -55,7 +59,7 @@ On y voit que le document est embrassé de balises <html> et qu'il se compose de 
 </html>
 \end{lstlisting}
 
-A présent, il faut s'intéresser au  fichier CSS. Voici son contenu: 
+A présent, il faut s'intéresser au  fichier \textsf{CSS}. Voici son contenu: 
 
 \begin{lstlisting}
 .backimg_on 
@@ -83,22 +87,26 @@ A présent, il faut s'intéresser au  fichier CSS. Voici son contenu:
 }
 \end{lstlisting}
 
-Le premier style déclaré correspond à celui appliqué au corps de la page lorsque la lampe est allumée. La commande margin force l'image à ne pas avoir de marges. La propriété background-image défini le lien vers l'image présentée sur la figure [reffigure]. Enfin, la propriété background-repeat permet d'indiquer au navigateur de ne pas considérer l'image comme un motif ainsi, de ne pas la répéter suivant l'axe horizontal et vertical. Le second style défini est identique au premier au détail près que le lien fait référence à l'image off.jpg. le dernier style défini les dimensions ainsi que la position du bouton. Le curseur de la souris prendra l'aspect d'une main lorsque celui-ci sera positionné dans l'espace du bouton. 
+Le premier style déclaré correspond à celui appliqué au corps de la page lorsque la lampe est allumée. La commande \texttt{margin} force l'image à ne pas avoir de marges. La propriété \texttt{background-image} défini le lien vers l'image présentée sur la figure \ref{gi2}. Enfin, la propriété \texttt{background-repeat} permet d'indiquer au navigateur de ne pas considérer l'image comme un motif ainsi, de ne pas la répéter suivant l'axe horizontal et vertical. Le second style défini est identique au premier au détail près que le lien fait référence à l'image \textsf{off.jpg}. le dernier style défini les dimensions ainsi que la position du bouton. Le curseur de la souris prendra l'aspect d'une main lorsque celui-ci sera positionné dans l'espace du bouton. 
 
-La figure [reffigure] présente l'aspect de la zone bouton en ayant ajouté la propriété background-color:red au style .button (b). En (a) on peut observer l'aspect de l'interface dans un navigateur web. 
+\maraja{Mise en évidence du bouton}
+La figure \ref{gi22} présente l'aspect de la zone bouton en ayant ajouté la propriété \texttt{background-color:red} au style \texttt{.button} (a). En (b) on peut observer l'aspect de l'interface dans un navigateur web. 
+
+\fig{gi22}{Aperçu de l'interface avec le bouton en rouge}
 
 \section{Comportement dynamique}
-Le comportement dynamique sera décrit dans un fichier nommé touch.js il contiendra les lignes suivantes: 
+\maraja{Seulement 2 lignes de JavaScript}
+Le comportement dynamique sera décrit dans un fichier nommé \textsf{touch.js} il contiendra les lignes suivantes: 
 
 \begin{lstlisting}
 controle1 = new SNVT_switch('bouton', 'lamp1')
 controle1.Event('onstate', "document.body.className=(controle1.snvt.State())?'backimg_on':'backimg_off'")
 \end{lstlisting}
 
-La première ligne peut s'expliquer facilement après la lecture du chapitre [refchapter]. La seconde relevant plus de l'utilisateur initié permet de modifier le style CSS appliqué à la balise <body> en fonction de l'état state du bouton. L'évènement onstate survient lorsque la valeur state est modifiée, soit après une mise à jour depuis le serveur, soit lors d'un clic de souris sur le bouton. 
+La première ligne peut s'expliquer facilement après la lecture du chapitre \ref{chpjs}. La seconde relevant plus de l'utilisateur initié permet de modifier le style \textsf{CSS} appliqué à la balise \texttt{<body>} en fonction de l'état \emph{state} du bouton. L'évènement \emph{onstate} survient lorsque la valeur \emph{state} est modifiée, soit après une mise à jour depuis le \textsf{SERVEUR}, soit lors d'un clic de souris sur le bouton. 
 
 \section{Fichier de description}
-Dans sa version actuelle, le système requiert un fichier supplémentaire nommé touch.desc permettant de décrire l'interface lors d'une installation à l'aide du WEBGUI. Ce fichier de description se compose de trois parties. La première définit quelques paramètres de l'interface à savoir sa taille, son nom et une courte description. La seconde établit la liste des variables utilisées, leur type et leur direction. Enfin, la troisième partie est une liste des fichiers utilisés nécessaire pour que le GI soit opérationnel. 
+Dans sa version actuelle, le système requiert un fichier supplémentaire nommé touch.desc permettant de décrire l'interface lors d'une installation à l'aide du \textsf{WEBGUI}. Ce fichier de description se compose de trois parties. La première définit quelques paramètres de l'interface à savoir sa taille, son nom et une courte description. La seconde établit la liste des variables utilisées, leur type et leur direction. Enfin, la troisième partie est une liste des fichiers utilisés nécessaire pour que le \textsf{GI} soit opérationnel. 
 
 \begin{lstlisting}
 # ./touch.desc: Description des variables d'interface
@@ -123,7 +131,11 @@ DESC	touch.desc
 \end{lstlisting} 
 
 \section{Arborescence des fichiers}
-L'objet de cette section consiste en une simple énumération des fichiers nécessaires à la création d'une interface graphique. La version actuelle du WEBGUI et du démon ne supportent que le nom de touch pour les fichiers obligatoires.
+\index{touch.desc}
+\index{touch.css}
+\index{touch.js}
+\index{touch.html}
+L'objet de cette section consiste en une simple énumération des fichiers nécessaires à la création d'une interface graphique. La version actuelle du \textsf{WEBGUI} et du démon ne supportent que le nom de \emph{touch} pour les fichiers obligatoires.
 
 \subsection{Fichiers obligatoires}
 \begin{itemize}

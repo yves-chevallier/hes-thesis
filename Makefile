@@ -20,7 +20,7 @@ PDF = gswin32c -sOutputFile=$(SRC).pdf
 #PDF = ps2pdf
 BIBTEX = bibtex
 PS_OPTIONS = 
-PDF_OPTIONS = -dBATCH -g2480x3508 -r300 -sNOPAUSE -sDEVICE=pdfwrite
+PDF_OPTIONS = -dBATCH -sPAPERSIZE=b5 -r600 -sNOPAUSE -sDEVICE=pdfwrite
 LATEX_OPTIONS = --src-specials
 PSFLAGS = 
 SRC = memoire
