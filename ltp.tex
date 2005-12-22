@@ -62,7 +62,7 @@ On arrive à un total d'un peu plus de $6$ octets. L'utilisation de \textsf{TCP} 
 Après quelques jours d'études il a été défini que l'on peut avoir recours à $7$ types de transaction différentes. A chacune est associée un mnémonique.  
 
 \subsection{SNVT}
-\maraja{SNVT est une brute mais gare à endianness}
+%\maraja{SNVT est une brute mais gare à endianness}
 Type de message permettant d'échanger l'état de variables réseau LonWorks. Ce sont les structures \textsf{SNVT} issue du code \textsf{C} qui seront transmise dans leur format brut.  Le message inclus une information de direction, de type de structure transférée et surtout d'un identifiant de la variable.
 
 \subsection{CONFIG}
@@ -84,7 +84,7 @@ Afin de faciliter l'installation d'un nouveau \textsf{TP}, le procédé d'identifi
 Chacun des ces types de messages feront l'objet d'accusés de réception. \textsf{UDP} étant un protocole non fiable, il est nécessaire de s'assurer qu'un message à correctement abouti. 
 
 \section{En-tête LTP/UDP}
-\maraja{Longueur des paquets limités}
+%\maraja{Longueur des paquets limités}
 La plus petite unité évaluable par le démon est le bit. Cependant, il est plus facile de raisonner en matière d'octet. C'est pour cette raison que le protocole définit des blocs de 1 octet éventuellement subdivisés en 8 bits. Le premier octet de l'en-tête \textsf{LTP/UDP} est le type de service. Il peut prendre les valeurs de 1 à 7. Il s'agit des messages vus à la section précédente. Le second octet définit un motif spécifique, permettant d'accroître un peu la sécurité du système. Il peut permettre par exemple de travailler dans un même réseau avec plusieurs systèmes LonTouch, chacun composé de son \textsf{SERVEUR} et de ses \textsf{TP}.  Viennent ensuite 4 drapeaux. Le premier spécifie s'il s'agit d'un message nécessitant un accusé de réception ou non. Le second indique si le contenu du message est chiffré. Le troisième indique si le message est de priorité haute ou basse. Enfin, le quatrième définit si il s'agit d'une requête ou d'une simple transmission. Dans le cas d'un message avec accusé, un troisième octet d'en-tête spécifie un numéro d'accusé. Sinon l'en-tête ne fait que $2$ octets de long. Viennent ensuite les données. Un datagramme \textsf{LTP} peut avoir au maximum $228$ octets de long pour assurer la compatibilité avec le réseau LonWorks. Ainsi les données auront une longueur maximum de $226$ octets pour un service non accusé et $225$ octets pour un service accusé. 
 
 La figure \ref{datagramme} présente l'en-tête \textsf{LTP} de façons certainement plus clair. 
@@ -262,7 +262,7 @@ Le problème avec LonWorks peut, néanmoins, être résolu par des opérations de con
 Entre-aperçu au chapitre \ref{chpjs}, ce protocole est utilisé pour des échanges de donnée entre le \textsf{SERVEUR} et les \textsf{CLIENTS} et dans les \textsf{TP} entre le démon et le navigateur. 
 
 \subsection{Format des requêtes}
-Une requête se compose d'une URL source par exemple \url{http://www.lontouch.ch/} puis d'un nom de script suivi d'un point d'interrogation après lequel viennent les différents paramètres séparés les uns des autres par un caractère ``et commercial''. Le protocole \textsf{LTP/HTTP} nécessite un minimum d'un paramètre et la quantité totale de paramètres et limitée par la taille d'une requête \textsf{GET} définie par \textsf{HTTP}. 
+Une requête se compose d'une URL source par exemple \\ \url{http://www.lontouch.ch/} puis d'un nom de script suivi d'un point d'interrogation après lequel viennent les différents paramètres séparés les uns des autres par un caractère ``et commercial''. Le protocole \textsf{LTP/HTTP} nécessite un minimum d'un paramètre et la quantité totale de paramètres et limitée par la taille d'une requête \textsf{GET} définie par \textsf{HTTP}. 
 
 \subsection{Envoi de variable(s)}
 L'envoi des données du navigateur au démon utilise ce type de requête:
